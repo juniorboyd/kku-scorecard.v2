@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+backend/dist/
+frontend/.next/
+frontend/out/
+*.tsbuildinfo
+
+# Environment files — NEVER commit these (contain secrets)
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+
+# Runtime data
+backend/data/
+
+# Prisma generated client
+backend/node_modules/.prisma/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# SSL certificates (generated at build time by nginx Dockerfile)
+nginx/ssl/
+*.key
+*.crt
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+python/venv/
+python/.venv/
+
+# Docker volumes (local)
+postgres_data/
+
+*.md
+!README.md
+!readme.md
+
+# Upload files (SSC CSV data — may contain sensitive findings)
+backend/data/uploads/
+backend/data/raw/

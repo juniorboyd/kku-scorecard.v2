@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KKU WiFi & EDR Security Scorecard Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Sarabun', 'sans-serif'],
+            display: ['Outfit', 'Sarabun', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              950: '#0b0f19',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex font-sans">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside id="sidebar" class="no-print w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-shrink-0 flex flex-col justify-between transition-all duration-300 hidden md:flex z-30">
+    <div class="p-6">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 mb-8">
+        <div class="bg-blue-600 text-white p-2.5 rounded-xl shadow-lg shadow-blue-500/20">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-lg leading-none tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">Security</h1>
+          <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">SCORECARD SYSTEM</span>
+        </div>
+      </div>
+
+      <!-- Active Domain Widget -->
+      <div class="mb-6 bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800/80 p-3.5 rounded-xl flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="globe" class="w-4 h-4 text-blue-500"></i>
+          <div>
+            <div class="text-xs font-semibold text-slate-400 dark:text-slate-500">สแกนโดเมนหลัก</div>
+            <div class="text-sm font-bold text-slate-700 dark:text-slate-200" id="current-domain-label">kku.ac.th</div>
+          </div>
+        </div>
+        <span class="text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold px-2 py-0.5 rounded-full">EDU</span>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="space-y-1.5">
+        <a href="#overview" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/35 border-l-4 border-blue-600 dark:border-blue-400">
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          <span>ภาพรวมความปลอดภัย</span>
+        </a>
+        <a href="#faculties-section" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent">
+          <i data-lucide="building-2" class="w-5 h-5"></i>
+          <span>คะแนนแยกตามคณะ</span>
+        </a>
+        <a href="#metrics-section" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent">
+          <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+          <span>ตัวชี้วัด & แนวโน้ม</span>
+        </a>
+        <a href="#recommendations-section" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border-l-4 border-transparent">
+          <i data-lucide="file-check-2" class="w-5 h-5"></i>
+          <span>รายการข้อเสนอแนะ</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Scanner Status Card in Sidebar -->
+    <div class="p-6">
+      <div class="bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/80 dark:to-slate-800/30 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400">สถานะระบบการสแกน</span>
+        </div>
+        <p class="text-xs text-slate-400 dark:text-slate-500 mb-3" id="last-scanned-sidebar">สแกนล่าสุด: 2026-06-24 08:30</p>
+        <button id="btn-scan" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-xl text-xs font-semibold shadow-md shadow-blue-500/10 transition-all">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5" id="scan-icon"></i>
+          <span id="scan-btn-text">สแกนระบบอีกครั้ง</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile Overlay Sidebar -->
+  <div id="mobile-sidebar" class="no-print fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm hidden transition-opacity duration-300 md:hidden">
+    <div class="w-72 bg-white dark:bg-slate-900 h-full p-6 flex flex-col justify-between transform -translate-x-full transition-transform duration-300" id="mobile-sidebar-content">
+      <div>
+        <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center gap-3">
+            <div class="bg-blue-600 text-white p-2.5 rounded-xl">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h1 class="font-extrabold text-lg leading-none tracking-tight dark:text-white">Security</h1>
+              <span class="text-xs font-semibold text-slate-400">SCORECARD SYSTEM</span>
+            </div>
+          </div>
+          <button id="btn-close-sidebar" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <nav class="space-y-1.5" id="mobile-nav">
+          <!-- Items populated via JS or matches Desktop -->
+        </nav>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800/80 p-4 rounded-2xl" id="mobile-scan-widget">
+        <!-- Will be synced with desktop via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <main class="flex-grow flex flex-col min-w-0 min-h-screen">
+    
+    <!-- ================= NAVBAR ================= -->
+    <header class="no-print bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <!-- Mobile Menu Trigger -->
+        <button id="btn-toggle-sidebar" class="md:hidden text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-xl">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-800 dark:text-slate-100 leading-none">Security Dashboard</h2>
+          <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 hidden sm:block">ประเมินระดับความมั่นคงปลอดภัยสำหรับระบบเทคโนโลยีสารสนเทศมหาวิทยาลัย</p>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Dark Mode Switcher -->
+        <button id="btn-theme-toggle" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="สลับธีม">
+          <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+          <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+        </button>
+
+        <!-- Notifications Dropdown -->
+        <div class="relative">
+          <button id="btn-notif" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors relative">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-rose-500 rounded-full border border-white dark:border-slate-900" id="notif-badge"></span>
+          </button>
+          
+          <!-- Notif Box -->
+          <div id="notif-dropdown" class="hidden absolute right-0 mt-3 w-80 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl z-30 py-2">
+            <div class="px-4 py-2 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+              <span class="font-bold text-xs text-slate-800 dark:text-slate-200">รายการความเสี่ยงวิกฤตล่าสุด</span>
+              <span class="text-[10px] font-bold text-rose-500 bg-rose-100 dark:bg-rose-950/40 px-2 py-0.5 rounded-full" id="notif-count">4 เหตุการณ์</span>
+            </div>
+            <div class="max-h-72 overflow-y-auto" id="notif-list-container">
+              <!-- Filled via app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Export PDF/Print Button -->
+        <button id="btn-export" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow-lg shadow-slate-950/10 dark:shadow-none transition-all">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">พิมพ์รายงาน</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= MAIN CONTENT WRAPPER ================= -->
+    <div class="flex-grow p-6 space-y-8 overflow-y-auto max-w-7xl w-full mx-auto print-full-width">
+      
+      <!-- Scan Status Toast / Notification Banner (Mock) -->
+      <div id="toast-scan" class="hidden bg-blue-500 text-white px-5 py-4 rounded-2xl shadow-xl flex items-center justify-between transition-all duration-300 animate-pulse-gentle">
+        <div class="flex items-center gap-3">
+          <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+          <div>
+            <span class="font-bold text-sm">กำลังสแกนวิเคราะห์ความปลอดภัยเครือข่าย WiFi & EDR kku.ac.th...</span>
+            <p class="text-xs opacity-80">ระบบกำลังสแกนวิเคราะห์พอร์ตควบคุม สัญญาณ และการอัปเดต EDR ของแต่ละแผนก</p>
+          </div>
+        </div>
+        <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-bold">12%</span>
+      </div>
+
+      <!-- ================= SECTION: OVERVIEW ================= -->
+      <section id="overview" class="space-y-6">
+        
+        <!-- Welcome banner or summary info -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Card 1: Main Overall Security Rating -->
+          <div class="lg:col-span-2 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden shadow-sm">
+            <!-- Background glow decoration -->
+            <div class="absolute -right-16 -top-16 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="space-y-4 text-center md:text-left z-10">
+              <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold tracking-wider uppercase">สรุปผลภาพรวม มข.</span>
+              <h3 class="text-2xl font-extrabold tracking-tight dark:text-white">สถานะความปลอดภัย WiFi & EDR</h3>
+              <p class="text-slate-500 dark:text-slate-400 text-sm max-w-md">
+                จากการประเมินระบบป้องกันและติดตั้ง EDR และระบบเครือข่าย WiFi มหาวิทยาลัยอยู่ในเกณฑ์ <strong class="text-slate-800 dark:text-slate-200">ดีพอใช้ (Good)</strong> แต่พบข้อบกพร่องสำคัญด้าน EDR และความเสี่ยงสูงที่ คณะบริหารธุรกิจและการบัญชี และคณะมนุษยศาสตร์และสังคมศาสตร์
+              </p>
+              
+              <div class="grid grid-cols-2 gap-4 pt-2">
+                <div class="bg-slate-100 dark:bg-slate-800/50 p-3 rounded-2xl">
+                  <span class="text-xs text-slate-400 dark:text-slate-500">จำนวนอุปกรณ์ประเมิน</span>
+                  <div class="text-lg font-extrabold text-slate-700 dark:text-slate-200" id="stat-total-devices">1,930 เครื่อง</div>
+                </div>
+                <div class="bg-slate-100 dark:bg-slate-800/50 p-3 rounded-2xl">
+                  <span class="text-xs text-slate-400 dark:text-slate-500">จำนวนแจ้งเตือนที่พบ</span>
+                  <div class="text-lg font-extrabold text-rose-500" id="stat-active-alerts">27 รายการ</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Big Circular Gauge Score Chart -->
+            <div class="flex flex-col items-center justify-center bg-white dark:bg-slate-900/80 p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-inner z-10">
+              <div class="relative w-36 h-36 flex items-center justify-center">
+                <!-- SVG gauge ring -->
+                <svg class="w-full h-full transform -rotate-90">
+                  <circle cx="72" cy="72" r="60" stroke="currentColor" stroke-width="8" class="text-slate-200 dark:text-slate-800" fill="transparent"/>
+                  <circle id="gauge-progress" cx="72" cy="72" r="60" stroke="url(#gradientScore)" stroke-width="10" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round" class="score-circle" fill="transparent"/>
+                  <defs>
+                    <linearGradient id="gradientScore" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#10b981" />
+                      <stop offset="100%" stop-color="#059669" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <!-- Central Score display -->
+                <div class="absolute text-center">
+                  <span id="grade-display" class="block text-4xl font-extrabold bg-gradient-to-br from-emerald-400 to-teal-500 bg-clip-text text-transparent leading-none">B</span>
+                  <span id="score-display" class="text-sm font-semibold text-slate-400 dark:text-slate-500">82 / 100</span>
+                </div>
+              </div>
+              <span class="mt-2 text-xs font-extrabold text-emerald-500 flex items-center gap-1.5 uppercase" id="grade-label">
+                <i data-lucide="check-circle" class="w-4 h-4"></i> ความเสี่ยงต่ำ (Low Risk)
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Card 2: Quick Status Details (Domain info + Scanning Widget) -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between shadow-sm">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase">สแกนล่าสุด</span>
+                <span class="flex h-2.5 w-2.5 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+              </div>
+              <div class="text-sm font-bold text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                <i data-lucide="clock" class="w-4 h-4 text-blue-500"></i>
+                <span id="last-scanned-main">2026-06-24 08:30:00</span>
+              </div>
+              <hr class="border-slate-100 dark:border-slate-800">
+              <div class="space-y-2">
+                <div class="text-xs text-slate-400 dark:text-slate-500 font-bold">ข้อมูล DNS การสแกน</div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    <span>SPF Record</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    <span>DKIM Signature</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    <span>DMARC Policy</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    <span>DNSSEC</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                *ข้อมูลนี้เป็นข้อมูลจำลองเพื่อประเมินและป้องกันภัยไซเบอร์ภายในองค์กรเท่านั้น ระบบไม่ได้มีการดึงข้อมูลภายนอกที่ละเมิดลิขสิทธิ์หรือการสแกนภายนอกที่เป็นอันตราย
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ================= FOUR CORE CATEGORIES GRID ================= -->
+        <div id="categories-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION: SECURITY METRICS & CHARTS ================= -->
+      <section id="metrics-section" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Chart 1: Historical Score Trend -->
+        <div class="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h3 class="text-lg font-extrabold dark:text-white">แนวโน้มคะแนนความปลอดภัยย้อนหลัง</h3>
+              <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">แสดงประวัติคะแนนเฉลี่ยของมหาวิทยาลัยในช่วง 6 เดือนที่ผ่านมา</p>
+            </div>
+            <div class="text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-500"></i> แนวโน้มดีขึ้น
+            </div>
+          </div>
+          <!-- Chart element -->
+          <div class="h-80 w-full relative">
+            <canvas id="chart-trend"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Category Radar Chart -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+          <div class="mb-6">
+            <h3 class="text-lg font-extrabold dark:text-white">เปรียบเทียบคะแนน 4 ด้านหลัก</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">สัดส่วนคะแนนความมั่นคงปลอดภัยตามเกณฑ์มาตรฐาน</p>
+          </div>
+          <!-- Chart element -->
+          <div class="h-80 w-full relative flex items-center justify-center">
+            <canvas id="chart-radar"></canvas>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= SECTION: CAMPUS SECURITY MAP ================= -->
+      <section id="map-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-extrabold dark:text-white">แผนที่สถานะความมั่นคงปลอดภัย EDR & WiFi วิทยาเขต มข. (KKU Security Map)</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">พิกัดทางภูมิศาสตร์ของระบบควบคุมความปลอดภัย (คลิกหมุดเพื่อตรวจสอบข้อมูลจุดอ่อนของคณะ)</p>
+          </div>
+          <div class="flex items-center gap-4 text-xs font-bold flex-wrap">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> ปลอดภัย (A)</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span> ดี (B)</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> ปานกลาง (C/D)</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> วิกฤต (F)</span>
+          </div>
+        </div>
+        <div id="map" class="h-96 w-full rounded-2xl border border-slate-100 dark:border-slate-800/80 shadow-inner z-10"></div>
+      </section>
+
+      <!-- ================= SECTION: FACULTY BREAKDOWN ================= -->
+      <section id="faculties-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-extrabold dark:text-white">คะแนนความปลอดภัยแยกตามส่วนงาน/คณะ</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">วิเคราะห์คะแนน รายการแจ้งเตือนความเสี่ยง และพอร์ตที่เปิดใช้งาน แยกตามรายคณะ</p>
+          </div>
+
+          <!-- Table Controls (Filter & Search) -->
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <!-- Search bar -->
+            <div class="relative w-full sm:w-60">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+              </span>
+              <input type="text" id="faculty-search" class="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all dark:text-slate-200 placeholder-slate-400" placeholder="ค้นหาตามชื่อคณะ...">
+            </div>
+
+            <!-- Grade Filters -->
+            <div class="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200/50 dark:border-slate-700/50 w-full sm:w-auto overflow-x-auto">
+              <button class="filter-btn active px-3 py-1.5 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 shadow-sm" data-grade="all">ทั้งหมด</button>
+              <button class="filter-btn px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-all" data-grade="A">A</button>
+              <button class="filter-btn px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-all" data-grade="B">B</button>
+              <button class="filter-btn px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-all" data-grade="C">C</button>
+              <button class="filter-btn px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-all" data-grade="D">D</button>
+              <button class="filter-btn px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-all" data-grade="F">F</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Faculty Responsive Table -->
+        <div class="overflow-x-auto border border-slate-100 dark:border-slate-800/80 rounded-2xl">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 dark:bg-slate-800/40 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase border-b border-slate-100 dark:border-slate-800">
+              <tr>
+                <th class="px-6 py-4">ส่วนงาน / คณะ</th>
+                <th class="px-6 py-4 text-center">การติดตั้ง EDR</th>
+                <th class="px-6 py-4 text-center">อุปกรณ์ในระบบ WiFi</th>
+                <th class="px-6 py-4 text-center">พอร์ตควบคุมที่เปิด</th>
+                <th class="px-6 py-4 text-center">ความเสี่ยงวิกฤต</th>
+                <th class="px-6 py-4 text-right">คะแนนความปลอดภัย</th>
+                <th class="px-6 py-4 text-center">เกรด</th>
+                <th class="px-6 py-4 text-right">การจัดการ</th>
+              </tr>
+            </thead>
+            <tbody id="faculty-table-body" class="divide-y divide-slate-100 dark:divide-slate-800/80 dark:text-slate-300">
+              <!-- Populated dynamically via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: RECOMMENDATIONS ================= -->
+      <section id="recommendations-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-6">
+        <div>
+          <h3 class="text-lg font-extrabold dark:text-white">คำแนะนำการแก้ไขเร่งด่วนตามความสำคัญ</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">ระบบวิเคราะห์ปัญหาและจัดลำดับความจำเป็นในการจัดการความปลอดภัยเพื่อให้คะแนนภาพรวมของมหาวิทยาลัยสูงขึ้น</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="overall-recommendations-list">
+          <!-- Dynamic recommendations list -->
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="no-print border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 py-6 px-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 dark:text-slate-500 gap-4 mt-auto">
+      <div>
+        <span>ระบบวิเคราะห์แดชบอร์ดความมั่นคงปลอดภัยไซเบอร์ © 2026. ทุกลิขสิทธิ์ถูกต้อง.</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:underline">นโยบายความเป็นส่วนตัว</a>
+        <span>•</span>
+        <a href="#" class="hover:underline">เงื่อนไขการใช้งาน</a>
+        <span>•</span>
+        <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-500"></i> เครือข่ายการศึกษาไทย</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ================= DETAILED DRILL-DOWN MODAL ================= -->
+  <div id="detail-modal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-slate-200 dark:border-slate-800 transform scale-95 opacity-0 transition-all duration-300" id="modal-box">
+      <!-- Modal Header -->
+      <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/20">
+        <div class="flex items-center gap-3">
+          <div id="modal-icon-container" class="p-2.5 rounded-xl text-white">
+            <!-- Icon will be set dynamically -->
+          </div>
+          <div>
+            <h4 id="modal-title" class="font-extrabold text-lg leading-none dark:text-white">คณะวิศวกรรมศาสตร์</h4>
+            <span id="modal-subtitle" class="text-xs text-slate-400 dark:text-slate-500 font-semibold mt-1 block">Faculty of Engineering</span>
+          </div>
+        </div>
+        <button id="btn-close-modal" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-6 flex-grow">
+        
+        <!-- Score Overview block inside modal -->
+        <div class="grid grid-cols-3 gap-4 bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl border border-slate-100 dark:border-slate-800/60">
+          <div class="text-center">
+            <span class="text-xs text-slate-400 dark:text-slate-500 block mb-1">คะแนนปัจจุบัน</span>
+            <span id="modal-score" class="text-2xl font-extrabold text-slate-800 dark:text-slate-100">91/100</span>
+          </div>
+          <div class="text-center border-x border-slate-100 dark:border-slate-800">
+            <span class="text-xs text-slate-400 dark:text-slate-500 block mb-1">ระดับเกรด</span>
+            <span id="modal-grade" class="text-2xl font-extrabold text-emerald-500">A</span>
+          </div>
+          <div class="text-center">
+            <span class="text-xs text-slate-400 dark:text-slate-500 block mb-1">พอร์ตเปิด/แจ้งเตือน</span>
+            <span id="modal-alerts-summary" class="text-sm font-extrabold text-rose-500 leading-8">1 ความเสี่ยง (9 พอร์ต)</span>
+          </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div id="modal-tabs-nav" class="flex border-b border-slate-100 dark:border-slate-800">
+          <button id="tab-issues-btn" class="flex-grow text-center pb-2.5 text-xs font-extrabold border-b-2 border-blue-500 text-blue-500 focus:outline-none transition-all">
+            <span class="flex items-center justify-center gap-1.5"><i data-lucide="shield-alert" class="w-4 h-4"></i> จุดอ่อนที่ตรวจพบ</span>
+          </button>
+          <button id="tab-assets-btn" class="flex-grow text-center pb-2.5 text-xs font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none transition-all">
+            <span class="flex items-center justify-center gap-1.5"><i data-lucide="link" class="w-4 h-4"></i> สินทรัพย์โดเมนไอที</span>
+          </button>
+        </div>
+
+        <!-- Issue List (Tab 1 content) -->
+        <div id="modal-tab-issues" class="space-y-4">
+          <div id="modal-issue-list" class="space-y-4">
+            <!-- Dynamic issue rows filled via app.js -->
+          </div>
+        </div>
+
+        <!-- Assets List (Tab 2 content) -->
+        <div id="modal-tab-assets" class="space-y-4 hidden">
+          <div class="text-xs text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800/20 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800/60 flex items-start gap-2">
+            <i data-lucide="info" class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"></i>
+            <span>นี่คือรายการเว็บไซต์และโดเมนย่อยภายใต้การดูแลของแผนกนี้ ระบบสแกนจะเข้าตรวจสอบสถานะความปลอดภัย SSL และการตั้งค่าหน้าเว็บหลัก</span>
+          </div>
+          <div id="modal-asset-list" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+            <!-- Dynamic assets list filled via app.js -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/20">
+        <button id="btn-modal-close-footer" class="px-5 py-2.5 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-sm font-semibold transition-all dark:text-slate-300">
+          ปิดหน้าต่าง
+        </button>
+        <button id="btn-modal-resolve" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-blue-500/10 transition-all">
+          <i data-lucide="check-square" class="w-4 h-4"></i>
+          <span>ส่งใบงานแจ้งเตือนถึงผู้ดูแลคณะ</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div id="toast-notification" class="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-slate-800 text-white px-5 py-4 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-800 dark:border-slate-700 transform translate-y-20 opacity-0 transition-all duration-300">
+    <div class="bg-emerald-500 text-white p-1.5 rounded-lg" id="toast-icon-bg">
+      <i data-lucide="check" class="w-4 h-4" id="toast-icon"></i>
+    </div>
+    <div>
+      <span id="toast-title" class="font-bold text-sm block">ดำเนินการเสร็จสิ้น</span>
+      <p id="toast-desc" class="text-xs text-slate-400">ระบบประเมินคะแนนได้ทำการสแกนเสร็จสิ้นแล้ว</p>
+    </div>
+  </div>
+
+  <!-- Link Leaflet Map Library JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Link Mock Data -->
+  <script src="mock-data.js"></script>
+  <!-- Link Logic Script -->
+  <script src="app.js"></script>
+</body>
+</html>

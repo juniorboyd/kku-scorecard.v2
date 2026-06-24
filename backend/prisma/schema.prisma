@@ -1,0 +1,139 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  ANALYST
+  VIEWER
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+  PENDING
+}
+
+enum AuditStatus {
+  SUCCESS
+  FAILED
+  WARNING
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  employeeId  String?  @unique
+  firstName   String?
+  lastName    String?
+  role        UserRole   @default(VIEWER)
+  status      UserStatus @default(PENDING)
+  facultyName String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  logs        AuditLog[]
+  imports     Import[]
+}
+
+model Organization {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  domains   Domain[]
+  issues    Issue[]
+}
+
+model Domain {
+  id             Int          @id @default(autoincrement())
+  organizationId Int
+  domain         String       @unique
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id])
+}
+
+model Import {
+  id               Int       @id @default(autoincrement())
+  importDate       DateTime
+  snapshotDate     DateTime?
+  uploadedAt       DateTime  @default(now())
+  uploadedById     Int?
+  uploadedBy       User?     @relation(fields: [uploadedById], references: [id])
+  fileName         String?
+  source           String
+  importMode       String    @default("create")
+  note             String?
+  replacedImportId Int?
+  status           String    @default("pending")
+  errorMessage     String?
+  totalIssues      Int       @default(0)
+  rawPath          String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  issues           Issue[]
+}
+
+model Issue {
+  id                         Int           @id @default(autoincrement())
+  importId                   Int
+  organizationId             Int?
+  organizationName           String?
+  factorName                 String
+  issueTypeTitle             String
+  severity                   String
+  finalUrl                   String
+  headers                    String?
+  scoreImpact                Float
+  matchedDomain              String?
+  host                       String?
+  assetType                  String?
+  organizationNameNormalized String?
+  createdAt                  DateTime      @default(now())
+  import                     Import        @relation(fields: [importId], references: [id])
+  organization               Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([importId])
+  @@index([organizationId])
+  @@index([severity])
+  @@index([importId, severity])
+  @@index([host])
+  @@index([matchedDomain])
+}
+
+model DailyStat {
+  id                 Int      @id @default(autoincrement())
+  date               DateTime @unique
+  totalIssues        Int
+  highCount          Int
+  mediumCount        Int
+  lowCount           Int
+  infoCount          Int
+  unknownDomainCount Int
+  unusedMasterCount  Int
+  averageScore       Float
+  riskByHost         Json?
+  createdAt          DateTime @default(now())
+}
+
+model AuditLog {
+  id        Int         @id @default(autoincrement())
+  userId    Int?
+  user      User?       @relation(fields: [userId], references: [id])
+  action    String
+  status    AuditStatus @default(SUCCESS)
+  createdAt DateTime    @default(now())
+}
+
+// Generic key/value app settings. Sensitive values (e.g. the SecurityScorecard
+// API key) are stored AES-256-GCM encrypted — never in plaintext.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+  updatedBy Int?
+}

@@ -1,0 +1,17 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: "standalone",
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.BACKEND_URL || "http://localhost:4000"}/api/:path*`,
+      },
+      {
+        source: "/auth/:path*",
+        destination: `${process.env.BACKEND_URL || "http://localhost:4000"}/auth/:path*`,
+      },
+    ];
+  },
+};
+export default nextConfig;
