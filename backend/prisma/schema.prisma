@@ -42,11 +42,12 @@ model User {
 }
 
 model Organization {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  domains   Domain[]
-  issues    Issue[]
+  id         Int                @id @default(autoincrement())
+  name       String             @unique
+  createdAt  DateTime           @default(now())
+  domains    Domain[]
+  issues     Issue[]
+  dailyStats FacultyDailyStat[]
 }
 
 model Domain {
@@ -136,4 +137,22 @@ model Setting {
   value     String
   updatedAt DateTime @updatedAt
   updatedBy Int?
+}
+
+model FacultyDailyStat {
+  id             Int          @id @default(autoincrement())
+  date           DateTime
+  organizationId Int
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  totalIssues    Int
+  highCount      Int
+  mediumCount    Int
+  lowCount       Int
+  infoCount      Int
+  securityScore  Float
+  createdAt      DateTime     @default(now())
+
+  @@unique([date, organizationId])
+  @@index([organizationId])
+  @@index([date])
 }

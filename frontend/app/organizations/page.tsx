@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Trash2, Edit2, Upload, Search, Building2, AlertTriangle, Filter, X, Download, ChevronDown } from "lucide-react";
+import { Plus, Trash2, Edit2, Upload, Search, Building2, AlertTriangle, Filter, X, Download, ChevronDown, TrendingUp } from "lucide-react";
 import KpiCard from "@/components/ui/KpiCard";
 import Modal from "@/components/ui/Modal";
 import Pagination from "@/components/ui/Pagination";
@@ -10,6 +10,7 @@ import OrgCombobox from "@/components/ui/OrgCombobox";
 import { orgsApi, domainsApi } from "@/lib/api";
 import { useCanEdit } from "@/lib/me";
 import { useToast } from "@/lib/toast";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 function triggerCsvDownload(data: ArrayBuffer, filename: string) {
   const blob = new Blob([data], { type: "text/csv;charset=utf-8" });
@@ -70,6 +71,10 @@ export default function OrganizationsPage() {
   const [bulkOpen, setBulkOpen] = useState(false);
   const [editDomainOpen, setEditDomainOpen] = useState(false);
   const [editingDomain, setEditingDomain] = useState<any>(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [historyOrg, setHistoryOrg] = useState<any>(null);
+  const [historyData, setHistoryData] = useState<any[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
 
   // Form state
   const [newOrgName, setNewOrgName] = useState("");
@@ -248,6 +253,25 @@ export default function OrganizationsPage() {
     }
   }
 
+  async function openHistory(org: any) {
+    setHistoryOrg(org);
+    setHistoryOpen(true);
+    setHistoryLoading(true);
+    try {
+      const res = await orgsApi.getHistory(org.id);
+      const formatted = res.map((d: any) => ({
+        date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
+        score: d.securityScore,
+      }));
+      setHistoryData(formatted);
+    } catch (e: any) {
+      toast.error(e.response?.data?.error ?? e.message);
+      setHistoryData([]);
+    } finally {
+      setHistoryLoading(false);
+    }
+  }
+
   async function deleteDomainItem(id: number) {
     if (!confirm("Remove this domain?")) return;
     try {
@@ -395,7 +419,7 @@ export default function OrganizationsPage() {
                     <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{org.name}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.domains}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.issues}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3 flex items-center justify-between group/row">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
                         org.securityScore >= 90 ? "bg-green-100 text-green-800" :
                         org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
@@ -403,6 +427,13 @@ export default function OrganizationsPage() {
                       }`}>
                         {org.securityScore}
                       </span>
+                      <button
+                        onClick={() => openHistory(org)}
+                        className="p-1 ml-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 rounded transition-colors"
+                        title="View Score History"
+                      >
+                        <TrendingUp className="w-4 h-4" />
+                      </button>
                     </td>
                     {canEdit && (
                       <td className="px-4 py-3 text-right">
@@ -756,6 +787,53 @@ export default function OrganizationsPage() {
             <button className="btn-primary" onClick={uploadBulk} disabled={saving || !mappingFile}>
               {saving ? "Uploading..." : "Upload"}
             </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* History Modal */}
+      <Modal open={historyOpen} title={`${historyOrg?.name || "Organization"} - 30-Day Security Score History`} onClose={() => setHistoryOpen(false)}>
+        <div className="space-y-4">
+          {historyLoading ? (
+            <div className="h-64 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+          ) : historyData.length === 0 ? (
+            <div className="h-64 flex flex-col items-center justify-center text-gray-400">
+              <TrendingUp className="w-12 h-12 mb-2" />
+              <p>No historical data available yet</p>
+              <p className="text-xs">Data will accumulate during nightly scans</p>
+            </div>
+          ) : (
+            <div className="h-72 w-full pt-4">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={historyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                  <XAxis dataKey="date" tickLine={false} style={{ fontSize: 12, fill: "#64748B" }} />
+                  <YAxis domain={[0, 100]} tickLine={false} axisLine={false} style={{ fontSize: 12, fill: "#64748B" }} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "#1E293B",
+                      border: "none",
+                      borderRadius: "0.5rem",
+                      color: "#F8FAFC",
+                    }}
+                    labelStyle={{ fontWeight: "bold" }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="score"
+                    stroke="#3B82F6"
+                    strokeWidth={3}
+                    dot={{ r: 4, strokeWidth: 2 }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+          <div className="flex justify-end pt-2">
+            <button className="btn-secondary" onClick={() => setHistoryOpen(false)}>Close</button>
           </div>
         </div>
       </Modal>

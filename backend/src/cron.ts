@@ -4,7 +4,7 @@ import { writeAuditLog } from "./services/logService.ts";
 
 export function scheduleDailyFetch() {
   cron.schedule(
-    "0 9 * * *",
+    "0 0 * * *",
     async () => {
       console.log("[cron] Starting daily SecurityScorecard fetch");
       try {
@@ -18,5 +18,5 @@ export function scheduleDailyFetch() {
     },
     { timezone: "Asia/Bangkok" }
   );
-  console.log("[cron] Scheduled daily fetch at 09:00 Asia/Bangkok");
+  console.log("[cron] Scheduled daily fetch at 00:00 Asia/Bangkok");
 }

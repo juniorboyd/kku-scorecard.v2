@@ -10,6 +10,7 @@ type FacultyData = {
   score: number;
   grade: string;
   issues: Issue[];
+  assets?: string[];
 };
 
 export default function FacultyDetailModal({
@@ -100,9 +101,6 @@ export default function FacultyDetailModal({
                       <div>
                         <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100">{issue.title || issue.name}</h4>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{issue.desc || issue.detail}</p>
-                        {issue.recommendation && (
-                          <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-2">ข้อเสนอแนะ: {issue.recommendation}</p>
-                        )}
                       </div>
                     </div>
                   )) : (
@@ -113,9 +111,42 @@ export default function FacultyDetailModal({
                   )}
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center h-full text-center opacity-60">
-                  <Server className="w-12 h-12 text-slate-300 mb-4" />
-                  <p className="text-sm font-medium text-slate-500">ข้อมูลสินทรัพย์จะพร้อมใช้งานเร็วๆ นี้</p>
+                <div className="space-y-3">
+                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                    รายชื่อสินทรัพย์และโดเมนระบบงาน ({faculty.assets?.length ?? 0})
+                  </div>
+                  {faculty.assets && faculty.assets.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {faculty.assets.map((asset: string, idx: number) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 hover:border-blue-300 dark:hover:border-blue-700 transition-colors"
+                        >
+                          <div className="flex items-center gap-3 overflow-hidden">
+                            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                              <Server className="w-4 h-4" />
+                            </div>
+                            <span className="text-sm font-mono font-semibold text-slate-700 dark:text-slate-200 truncate select-all">
+                              {asset}
+                            </span>
+                          </div>
+                          <a
+                            href={asset}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 hover:underline shrink-0 ml-2"
+                          >
+                            เปิดเว็บ &rarr;
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-12 text-center opacity-60">
+                      <Server className="w-12 h-12 text-slate-300 mb-4" />
+                      <p className="text-sm font-medium text-slate-500">ไม่พบข้อมูลสินทรัพย์และโดเมนในระบบ</p>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

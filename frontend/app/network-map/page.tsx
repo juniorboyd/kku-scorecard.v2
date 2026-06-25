@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Network, Server, Router, HelpCircle, Activity, ZoomIn, ZoomOut, RefreshCw, AlertTriangle, ShieldCheck, ChevronRight, X, Search } from "lucide-react";
+import { Network, Server, Router, HelpCircle, Activity, ZoomIn, ZoomOut, RefreshCw, AlertTriangle, ShieldCheck, ChevronRight, X, Search, Wifi } from "lucide-react";
 import { networkApi } from "@/lib/api";
 
-type NodeType = "core" | "distribution" | "access" | "server";
+type NodeType = "core" | "distribution" | "access" | "server" | "router" | "firewall" | "wireless";
 
 interface Node {
   id: string;
@@ -265,11 +265,13 @@ export default function NetworkMapPage() {
           <h4 className="font-extrabold text-slate-100 flex items-center gap-1.5 border-b border-slate-700 pb-1.5 mb-2">
             <Activity className="w-3.5 h-3.5 text-blue-400" /> แผนผังเครือข่ายระดับโครงสร้าง
           </h4>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex items-center gap-1.5"><Router className="w-3.5 h-3.5 text-blue-400" /> Core Router</div>
-            <div className="flex items-center gap-1.5"><Network className="w-3.5 h-3.5 text-purple-400" /> Dist Switch</div>
-            <div className="flex items-center gap-1.5"><Server className="w-3.5 h-3.5 text-teal-400" /> Access Node</div>
-            <div className="flex items-center gap-1.5"><HelpCircle className="w-3.5 h-3.5 text-gray-400" /> Server/Other</div>
+          <div className="grid grid-cols-2 gap-2 text-[10px]">
+            <div className="flex items-center gap-1.5"><Router className="w-3.5 h-3.5 text-blue-500" /> Core Router</div>
+            <div className="flex items-center gap-1.5"><Network className="w-3.5 h-3.5 text-purple-500" /> Dist Switch</div>
+            <div className="flex items-center gap-1.5"><Network className="w-3.5 h-3.5 text-sky-500" /> Access Switch</div>
+            <div className="flex items-center gap-1.5"><Server className="w-3.5 h-3.5 text-teal-500" /> Server Node</div>
+            <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-red-500" /> Firewall</div>
+            <div className="flex items-center gap-1.5"><Wifi className="w-3.5 h-3.5 text-amber-500" /> Wireless WLC</div>
           </div>
           <div className="border-t border-slate-700/80 pt-2 flex justify-between gap-4 mt-2">
             <div className="flex items-center gap-1.5">
@@ -352,12 +354,19 @@ export default function NetworkMapPage() {
                 const isExpanded = expandedNodes.has(node.id);
 
                 // Node type colors
-                let colorClass = "bg-blue-500 fill-blue-500";
-                if (node.type === "core") colorClass = "bg-blue-600 fill-blue-600";
+                let colorClass = "bg-slate-500 fill-slate-500";
+                if (isDown) colorClass = "bg-rose-600 fill-rose-600";
+                else if (node.type === "core") colorClass = "bg-blue-600 fill-blue-600";
+                else if (node.type === "router") colorClass = "bg-indigo-600 fill-indigo-600";
                 else if (node.type === "distribution") colorClass = "bg-purple-600 fill-purple-600";
-                else if (node.type === "access") colorClass = isDown ? "bg-red-500 fill-red-500" : "bg-teal-500 fill-teal-500";
+                else if (node.type === "firewall") colorClass = "bg-rose-500 fill-rose-500";
+                else if (node.type === "wireless") colorClass = "bg-amber-500 fill-amber-500";
+                else if (node.type === "server") colorClass = "bg-teal-600 fill-teal-600";
+                else colorClass = "bg-sky-500 fill-sky-500";
 
                 const radius = node.type === "core" ? 22 : node.type === "distribution" ? 18 : 12;
+                const iconSize = node.type === "core" ? 28 : node.type === "distribution" ? 24 : 18;
+                const iconOffset = -iconSize / 2;
 
                 return (
                   <g
@@ -380,6 +389,14 @@ export default function NetworkMapPage() {
                       />
                     )}
 
+                    {/* Glowing outer ring if down */}
+                    {isDown && (
+                      <circle
+                        r={radius + 6}
+                        className="fill-transparent stroke-rose-500 stroke-[1.5px] animate-pulse opacity-80"
+                      />
+                    )}
+
                     {/* Outer Ring */}
                     <circle
                       r={radius + 4}
@@ -394,14 +411,24 @@ export default function NetworkMapPage() {
                       strokeWidth={1.5}
                     />
 
-                    {/* Inner status dot for distribution and core */}
-                    {node.type !== "access" && (
-                      <circle
-                        r={4}
-                        fill={isDown ? "#f43f5e" : "#10b981"}
-                        className="animate-pulse"
-                      />
-                    )}
+                    {/* Centered Device Icon */}
+                    <foreignObject
+                      x={iconOffset}
+                      y={iconOffset}
+                      width={iconSize}
+                      height={iconSize}
+                      style={{ pointerEvents: 'none' }}
+                    >
+                      <div className="w-full h-full flex items-center justify-center text-white">
+                        {node.type === "core" && <Router className="w-4 h-4" />}
+                        {node.type === "router" && <Router className="w-3.5 h-3.5" />}
+                        {node.type === "distribution" && <Network className="w-3.5 h-3.5" />}
+                        {node.type === "firewall" && <ShieldCheck className="w-3 h-3" />}
+                        {node.type === "wireless" && <Wifi className="w-3 h-3" />}
+                        {node.type === "server" && <Server className="w-3 h-3" />}
+                        {node.type === "access" && <Network className="w-3 h-3" />}
+                      </div>
+                    </foreignObject>
 
                     {/* Expanded/Collapsed indicator for Distribution Switch */}
                     {node.type === "distribution" && (

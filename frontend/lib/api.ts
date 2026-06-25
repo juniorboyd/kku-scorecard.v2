@@ -179,6 +179,7 @@ export const orgsApi = {
   assignAsset: (body: { domain: string; organizationId: number }) =>
     api.post("/api/organizations/assets", body).then((r) => r.data),
   listWithDomains: () => api.get("/api/organizations/with-domains").then((r) => r.data),
+  getHistory: (id: number) => api.get(`/api/organizations/${id}/history`).then((r) => r.data),
   create: (name: string) => api.post("/api/organizations", { name }).then((r) => r.data),
   delete: (id: number) => api.delete(`/api/organizations/${id}`).then((r) => r.data),
   addDomain: (body: { name: string; domain: string }) => api.post("/api/domains", body).then((r) => r.data),

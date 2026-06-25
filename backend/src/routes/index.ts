@@ -6,7 +6,7 @@ import { authMiddleware, requireRole } from "../middleware/auth.ts";
 
 // Controllers
 import { uploadScoreFile, fetchNow, uploadMapping, processFile, reprocess, reprocessImportHandler, replaceImportHandler, deleteImportHandler, getImports, getImportStatus, cleanupCorruptedOrgs, downloadImportFile } from "../controllers/importController.ts";
-import { listOrganizations, listOrganizationsWithDomains, addOrganization, removeOrganization, addDomain, editDomain, removeDomain, assignAssetHandler } from "../controllers/organizationController.ts";
+import { listOrganizations, listOrganizationsWithDomains, addOrganization, removeOrganization, addDomain, editDomain, removeDomain, assignAssetHandler, getFacultyHistoryHandler } from "../controllers/organizationController.ts";
 import { getDashboard, getIssues, exportIssuesHandler, getIssueFiltersHandler, getAssetsHandler, getDomainListHandler, getOrgScoresHandler, getOrgStatsHandler, getSnapshotDates, exportAssetsHandler, exportDomainsHandler } from "../controllers/dashboardController.ts";
 import { getLogs } from "../controllers/logController.ts";
 import { getScorecardKey, updateScorecardKey } from "../controllers/settingsController.ts";
@@ -58,6 +58,7 @@ router.get("/organizations/export", authMiddleware, exportDomainsHandler);
 router.post("/organizations", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), addOrganization);
 router.post("/organizations/assets", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), assignAssetHandler);
 router.delete("/organizations/:id", authMiddleware, requireRole("ADMIN"), removeOrganization);
+router.get("/organizations/:id/history", authMiddleware, getFacultyHistoryHandler);
 
 // Domains
 router.get("/domains", authMiddleware, getDomainListHandler);

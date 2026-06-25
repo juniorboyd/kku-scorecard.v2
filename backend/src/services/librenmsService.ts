@@ -4,7 +4,7 @@ import { LIBRENMS_API_URL, LIBRENMS_API_TOKEN } from "../config.ts";
 export interface NetworkNode {
   id: string;
   label: string;
-  type: "core" | "distribution" | "access" | "server";
+  type: "core" | "distribution" | "access" | "server" | "router" | "firewall" | "wireless";
   ip?: string;
   status: "up" | "down";
   organization?: string;
@@ -185,6 +185,29 @@ function matchOrgFromHostname(hostname: string, sysName?: string): string | unde
   return undefined;
 }
 
+function inferDeviceNodeType(d: any): "core" | "distribution" | "access" | "server" | "router" | "firewall" | "wireless" {
+  const type = String(d.type ?? "").toLowerCase();
+  const desc = String(d.sysDescr ?? d.sysName ?? "").toLowerCase();
+  const name = String(d.hostname ?? d.sysName ?? "").toLowerCase();
+
+  if (name.includes("core") || name.includes("router-0") || name.includes("c7x") || name.includes("os6900")) {
+    return "core";
+  }
+  if (type === "firewall" || desc.includes("firewall") || desc.includes("fortigate") || name.includes("fw-")) {
+    return "firewall";
+  }
+  if (type === "wireless" || desc.includes("wireless") || desc.includes("wlc") || name.includes("-wlc") || name.includes("aruba-wlc")) {
+    return "wireless";
+  }
+  if (type === "server" || desc.includes("esxi") || desc.includes("linux") || desc.includes("windows")) {
+    return "server";
+  }
+  if (name.includes("dist") || name.includes("6800") || name.includes("6860")) {
+    return "distribution";
+  }
+  return "access";
+}
+
 export async function getNetworkTopology(): Promise<NetworkTopology> {
   if (!LIBRENMS_API_TOKEN) {
     console.log("[LibreNMS] No API token configured. Returning mock topology.");
@@ -218,6 +241,8 @@ export async function getNetworkTopology(): Promise<NetworkTopology> {
       const status = d.status === 1 || d.status === "1" || d.status === true ? "up" : "down";
       const ip = d.ip ?? undefined;
 
+      const deviceType = inferDeviceNodeType(d);
+
       if (org) {
         let distId = distNodes.get(org);
         if (!distId) {
@@ -239,7 +264,7 @@ export async function getNetworkTopology(): Promise<NetworkTopology> {
         nodes.push({
           id: accessId,
           label: hostname,
-          type: "access",
+          type: deviceType,
           ip,
           status,
           organization: org
@@ -253,7 +278,7 @@ export async function getNetworkTopology(): Promise<NetworkTopology> {
         nodes.push({
           id: genericId,
           label: hostname,
-          type: "access",
+          type: deviceType,
           ip,
           status,
         });

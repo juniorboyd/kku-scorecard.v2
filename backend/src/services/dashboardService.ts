@@ -569,3 +569,20 @@ export async function getAvailableSnapshotDates() {
   });
   return imports;
 }
+
+export async function getFacultyScoreHistory(organizationId: number) {
+  const stats = await prisma.facultyDailyStat.findMany({
+    where: { organizationId },
+    orderBy: { date: "asc" },
+    select: {
+      date: true,
+      securityScore: true,
+      totalIssues: true,
+      highCount: true,
+      mediumCount: true,
+      lowCount: true,
+      infoCount: true,
+    },
+  });
+  return stats;
+}

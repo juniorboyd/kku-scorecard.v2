@@ -109,3 +109,15 @@ export async function uploadMappingFile(req: Request, res: Response) {
     res.status(500).json({ error: (err as Error).message });
   }
 }
+
+import { getFacultyScoreHistory } from "../services/dashboardService.ts";
+
+export async function getFacultyHistoryHandler(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const data = await getFacultyScoreHistory(id);
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message });
+  }
+}

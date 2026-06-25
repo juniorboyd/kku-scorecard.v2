@@ -195,6 +195,51 @@ export async function processSecurityScorecardUpload(opts: {
       },
     });
 
+    // Write FacultyDailyStat for each organization
+    const orgs = await prisma.organization.findMany();
+    const issuesForImport = await prisma.issue.findMany({
+      where: { importId: importRecord.id }
+    });
+
+    for (const org of orgs) {
+      const orgIssues = issuesForImport.filter(i => i.organizationId === org.id);
+      const orgTotalIssues = orgIssues.length;
+      const orgHighCount = orgIssues.filter(i => i.severity === "HIGH").length;
+      const orgMediumCount = orgIssues.filter(i => i.severity === "MEDIUM").length;
+      const orgLowCount = orgIssues.filter(i => i.severity === "LOW").length;
+      const orgInfoCount = orgIssues.filter(i => i.severity === "INFO").length;
+      
+      const deduction = orgIssues.reduce((acc, issue) => acc + issue.scoreImpact, 0);
+      const securityScore = parseFloat((100 * Math.exp(-deduction / 150)).toFixed(1));
+
+      await prisma.facultyDailyStat.upsert({
+        where: {
+          date_organizationId: {
+            date: statDate,
+            organizationId: org.id
+          }
+        },
+        create: {
+          date: statDate,
+          organizationId: org.id,
+          totalIssues: orgTotalIssues,
+          highCount: orgHighCount,
+          mediumCount: orgMediumCount,
+          lowCount: orgLowCount,
+          infoCount: orgInfoCount,
+          securityScore
+        },
+        update: {
+          totalIssues: orgTotalIssues,
+          highCount: orgHighCount,
+          mediumCount: orgMediumCount,
+          lowCount: orgLowCount,
+          infoCount: orgInfoCount,
+          securityScore
+        }
+      });
+    }
+
     await prisma.import.update({
       where: { id: importRecord.id },
       data: { status: "success", totalIssues },
