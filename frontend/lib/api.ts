@@ -244,3 +244,9 @@ export const adminApi = {
   deleteUser: (id: number) =>
     api.delete(`/api/admin/users/${id}`).then((r) => r.data),
 };
+
+// Network Map
+export const networkApi = {
+  getTopology: () => api.get("/api/network/topology").then((r) => r.data),
+};
+

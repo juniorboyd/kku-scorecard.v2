@@ -539,44 +539,24 @@ export async function getOrgScores(options?: { snapshotDate?: string; importId?:
 
   const allIssues = await prisma.issue.findMany({
     where: { importId: latestImportId },
-    select: { issueTypeTitle: true, scoreImpact: true, organizationName: true },
+    select: { scoreImpact: true, organizationName: true },
   });
 
-  // Capture scoreImpact per issue type (same value for all issues of the same type)
-  const typeCountMap = new Map<string, { count: number; impact: number }>();
-  for (const issue of allIssues) {
-    const existing = typeCountMap.get(issue.issueTypeTitle);
-    if (existing) {
-      existing.count++;
-    } else {
-      typeCountMap.set(issue.issueTypeTitle, { count: 1, impact: issue.scoreImpact });
-    }
-  }
-
-  // SCORE_PER_ISSUE = ISSUE_TYPE_SCORE_IMPACT / TOTAL_ISSUES_OF_THAT_TYPE
-  const scorePerIssueMap = new Map<string, number>(
-    Array.from(typeCountMap.entries()).map(([type, { count, impact }]) => [
-      type,
-      count > 0 ? impact / count : 0,
-    ])
-  );
-
-  // ORG_DEDUCTION = Σ SCORE_PER_ISSUE for all issues belonging to that org.
+  // ORG_DEDUCTION = Σ scoreImpact for all issues belonging to that org.
   // "no data" is normalised to "unknown" so the frontend needs only one sentinel key.
   const orgDeductionMap = new Map<string, number>();
   for (const issue of allIssues) {
     const raw = issue.organizationName;
     if (!raw) continue;
     const org = raw === "no data" ? "unknown" : raw;
-    const spi = scorePerIssueMap.get(issue.issueTypeTitle) ?? 0;
-    orgDeductionMap.set(org, (orgDeductionMap.get(org) ?? 0) + spi);
+    orgDeductionMap.set(org, (orgDeductionMap.get(org) ?? 0) + issue.scoreImpact);
   }
 
-  // ORG_SCORE = 100 − ORG_DEDUCTION  (clamped to 0)
+  // ORG_SCORE = 100 * exp(-ORG_DEDUCTION / 150)
   return Array.from(orgDeductionMap.entries())
     .map(([organization, deduction]) => ({
       organization,
-      securityScore: parseFloat(Math.max(0, 100 - deduction).toFixed(2)),
+      securityScore: parseFloat((100 * Math.exp(-deduction / 150)).toFixed(1)),
     }))
     .sort((a, b) => a.securityScore - b.securityScore);
 }

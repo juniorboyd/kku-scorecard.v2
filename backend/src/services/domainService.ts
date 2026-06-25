@@ -15,6 +15,8 @@ export async function getOrganizationsWithDomains() {
     .sort((a, b) => a.name.localeCompare(b.name, "th"));
 }
 
+import { getOrgScores } from "./dashboardService.ts";
+
 export async function getOrganizationList(options?: {
   limit?: number; offset?: number; search?: string; importId?: number;
   sortBy?: string; sortOrder?: string;
@@ -29,24 +31,44 @@ export async function getOrganizationList(options?: {
   };
   const orderBy = orderByMap[sortBy] ?? { name: dir };
 
-  const [items, total] = await Promise.all([
-    prisma.organization.findMany({
-      where,
-      include: {
-        _count: {
-          select: {
-            domains: true,
-            issues: importId ? ({ where: { importId } } as any) : true,
-          },
+  const allItems = await prisma.organization.findMany({
+    where,
+    include: {
+      _count: {
+        select: {
+          domains: true,
+          issues: importId ? ({ where: { importId } } as any) : true,
         },
       },
-      orderBy,
-      take: limit,
-      skip: offset,
-    }),
-    prisma.organization.count({ where }),
-  ]);
-  return { items, total };
+    },
+    orderBy: sortBy === "score" ? undefined : orderBy,
+  });
+
+  const scores = await getOrgScores({ importId });
+  const scoreMap = new Map<string, number>();
+  for (const s of scores) {
+    scoreMap.set(s.organization.toLowerCase(), s.securityScore);
+  }
+
+  const itemsWithScores = allItems.map((item) => {
+    const score = scoreMap.get(item.name.toLowerCase()) ?? 100;
+    return {
+      ...item,
+      securityScore: score,
+    };
+  });
+
+  if (sortBy === "score") {
+    itemsWithScores.sort((a, b) => {
+      return dir === "asc"
+        ? a.securityScore - b.securityScore
+        : b.securityScore - a.securityScore;
+    });
+  }
+
+  const paginatedItems = itemsWithScores.slice(offset, offset + limit);
+  const total = itemsWithScores.length;
+  return { items: paginatedItems, total };
 }
 
 export async function findOrCreateOrganization(name: string) {

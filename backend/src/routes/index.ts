@@ -75,4 +75,8 @@ router.post("/settings/scorecard-key", authMiddleware, requireRole("ADMIN"), exp
 // Admin
 router.use("/admin", adminRoutes);
 
+// Network Map
+import { getTopologyHandler } from "../controllers/networkController.ts";
+router.get("/network/topology", authMiddleware, getTopologyHandler);
+
 export default router;

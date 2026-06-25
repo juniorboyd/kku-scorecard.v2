@@ -1,4 +1,4 @@
-﻿export const SECURITY_MOCK_DATA = {
+export const SECURITY_MOCK_DATA = {
   overallScore: {
     domain: "kku.ac.th",
     score: 79,
@@ -124,7 +124,7 @@
       criticalAlerts: 0,
       lastScanned: "25 นาทีที่แล้ว",
       edrInstallRate: 98,
-      coords: [16.4716, 102.8126], // Srinagarind Hospital Area
+      coords: [16.4664986, 102.8280829], // Srinagarind Hospital Area
       icon: "stethoscope",
       abbr: "MED",
       logoUrl: "https://md.kku.ac.th/wp-content/uploads/2020/09/Logo-MD-KKU-1.png",
@@ -182,7 +182,7 @@
       criticalAlerts: 1,
       lastScanned: "1 ชั่วโมงที่แล้ว",
       edrInstallRate: 94,
-      coords: [16.4746, 102.8271], // Engineering Area
+      coords: [16.4725469, 102.8229090], // Engineering Area
       icon: "settings",
       abbr: "EN",
       logoUrl: "https://www.en.kku.ac.th/web/wp-content/uploads/2021/04/EN-logo-transparent.png",
@@ -218,7 +218,7 @@
       criticalAlerts: 0,
       lastScanned: "4 ชั่วโมงที่แล้ว",
       edrInstallRate: 92,
-      coords: [16.4808, 102.8258], // Law Area
+      coords: [16.4501974, 102.8152704], // Law Area
       icon: "scale",
       abbr: "LAW",
       logoUrl: "https://law.kku.ac.th/law2021/images/logo-law-kku.png",
@@ -240,7 +240,7 @@
       criticalAlerts: 2,
       lastScanned: "3 ชั่วโมงที่แล้ว",
       edrInstallRate: 88,
-      coords: [16.4741, 102.8233], // Science Area
+      coords: [16.4756280, 102.8235807], // Science Area
       icon: "flask",
       abbr: "SC",
       logoUrl: "https://sci.kku.ac.th/sc/templates/sc_design2017/images/logo_sc.png",
@@ -282,7 +282,7 @@
       criticalAlerts: 1,
       lastScanned: "2 ชั่วโมงที่แล้ว",
       edrInstallRate: 86,
-      coords: [16.4705, 102.8130], // Dentistry Area
+      coords: [16.465134, 102.829023], // Dentistry Area
       icon: "activity",
       abbr: "DENT",
       logoUrl: "https://dentistry.kku.ac.th/dentistry2022/images/logo-dent-kku.png",
@@ -317,7 +317,7 @@
       criticalAlerts: 0,
       lastScanned: "5 ชั่วโมงที่แล้ว",
       edrInstallRate: 84,
-      coords: [16.4708, 102.8139], // Pharmacy Area
+      coords: [16.4697177, 102.8279138], // Pharmacy Area
       icon: "pill",
       abbr: "PHARM",
       logoUrl: "https://pharmacy.kku.ac.th/images/logo-pharm-kku.png",
@@ -343,7 +343,7 @@
       criticalAlerts: 2,
       lastScanned: "6 ชั่วโมงที่แล้ว",
       edrInstallRate: 79,
-      coords: [16.4715, 102.8142], // Medical Tech Area
+      coords: [16.4686570, 102.8273855], // Medical Tech Area
       icon: "microscope",
       abbr: "AMS",
       logoUrl: "https://ams.kku.ac.th/ams2021/images/logo-ams-kku.png",
@@ -385,7 +385,7 @@
       criticalAlerts: 1,
       lastScanned: "8 ชั่วโมงที่แล้ว",
       edrInstallRate: 77,
-      coords: [16.4789, 102.8220], // Econ Area
+      coords: [16.4741700, 102.8296357], // Econ Area
       icon: "trending-up",
       abbr: "ECON",
       logoUrl: "https://econ.kku.ac.th/econ2021/images/logo-econ-kku.png",
@@ -419,7 +419,7 @@
       criticalAlerts: 2,
       lastScanned: "10 ชั่วโมงที่แล้ว",
       edrInstallRate: 76,
-      coords: [16.4709, 102.8152], // Nursing Area
+      coords: [16.4696495, 102.8250225], // Nursing Area
       icon: "heart",
       abbr: "NU",
       logoUrl: "https://nu.kku.ac.th/nu2021/images/logo-nu-kku.png",
@@ -460,7 +460,7 @@
       criticalAlerts: 3,
       lastScanned: "12 ชั่วโมงที่แล้ว",
       edrInstallRate: 76,
-      coords: [16.4674, 102.8258], // Architecture Area
+      coords: [16.4717839, 102.8276400], // Architecture Area
       icon: "pen-tool",
       abbr: "AR",
       logoUrl: "https://arch.kku.ac.th/arch2021/images/logo-arch-kku.png",
@@ -542,7 +542,7 @@
       criticalAlerts: 1,
       lastScanned: "14 ชั่วโมงที่แล้ว",
       edrInstallRate: 72,
-      coords: [16.4764, 102.8198], // Tech Area
+      coords: [16.4739852, 102.8214414], // Tech Area
       icon: "database",
       abbr: "TE",
       logoUrl: "https://te.kku.ac.th/te2021/images/logo-te-kku.png",
@@ -572,7 +572,7 @@
       criticalAlerts: 2,
       lastScanned: "16 ชั่วโมงที่แล้ว",
       edrInstallRate: 70,
-      coords: [16.4735, 102.8145], // Public Health Area
+      coords: [16.4705085, 102.8248688], // Public Health Area
       icon: "heart-pulse",
       abbr: "PH",
       logoUrl: "https://ph.kku.ac.th/ph2021/images/logo-ph-kku.png",
@@ -604,7 +604,7 @@
       criticalAlerts: 4,
       lastScanned: "18 ชั่วโมงที่แล้ว",
       edrInstallRate: 68,
-      coords: [16.4697, 102.8276], // Fine Arts Area
+      coords: [16.4693332, 102.8176599], // Fine Arts Area
       icon: "palette",
       abbr: "ART",
       logoUrl: "https://fa.kku.ac.th/fa2021/images/logo-fa-kku.png",
@@ -645,7 +645,7 @@
       criticalAlerts: 3,
       lastScanned: "20 ชั่วโมงที่แล้ว",
       edrInstallRate: 67,
-      coords: [16.4690, 102.8210], // Vet Area
+      coords: [16.4783999, 102.8312002], // Vet Area
       icon: "shield",
       abbr: "VET",
       logoUrl: "https://vet.kku.ac.th/vet2021/images/logo-vet-kku.png",
@@ -677,7 +677,7 @@
       criticalAlerts: 4,
       lastScanned: "22 ชั่วโมงที่แล้ว",
       edrInstallRate: 66,
-      coords: [16.4820, 102.8200], // Coords adjusted near main campus for UI mapping view
+      coords: [17.8049854, 102.7475011], // Coords adjusted near main campus for UI mapping view
       icon: "globe",
       abbr: "IS",
       logoUrl: "https://is.kku.ac.th/is2021/images/logo-is-kku.png",
@@ -710,7 +710,7 @@
       criticalAlerts: 5,
       lastScanned: "1 วันที่แล้ว",
       edrInstallRate: 62,
-      coords: [16.4718, 102.8211], // Agriculture Area
+      coords: [16.4764079, 102.8218693], // Agriculture Area
       icon: "leaf",
       abbr: "AG",
       logoUrl: "https://ag.kku.ac.th/ag2021/images/logo-ag-kku.png",
@@ -754,7 +754,7 @@
       criticalAlerts: 6,
       lastScanned: "1 วันที่แล้ว",
       edrInstallRate: 60,
-      coords: [16.4678, 102.8227], // Education Area
+      coords: [16.4731138, 102.8265673], // Education Area
       icon: "book-open",
       abbr: "EDU",
       logoUrl: "https://edu.kku.ac.th/edu2021/images/logo-edu-kku.png",
@@ -796,7 +796,7 @@
       criticalAlerts: 6,
       lastScanned: "1 วันที่แล้ว",
       edrInstallRate: 58,
-      coords: [16.4800, 102.8227], // Business Administration and Accountancy (BS KKU)
+      coords: [16.4739384, 102.8256076], // Business Administration and Accountancy (BS KKU)
       icon: "briefcase",
       abbr: "KKBS",
       logoUrl: "https://kkbs.kku.ac.th/kkbs2020/images/logo-kkbs.png",
@@ -847,7 +847,7 @@
       criticalAlerts: 12,
       lastScanned: "2 วันที่แล้ว",
       edrInstallRate: 52,
-      coords: [16.4720, 102.8248], // Humanities Area (HUSO KKU)
+      coords: [16.4755065, 102.8262861], // Humanities Area (HUSO KKU)
       icon: "users",
       abbr: "HUSO",
       logoUrl: "https://huso.kku.ac.th/huso2021/images/logo-huso-kku.png",

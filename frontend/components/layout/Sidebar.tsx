@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, AlertTriangle, Server, Building2,
-  Upload, ScrollText, LogOut, ShieldCheck, Users, Globe, RefreshCw
+  Upload, ScrollText, LogOut, ShieldCheck, Users, Globe, RefreshCw, Network
 } from "lucide-react";
 import { authApi } from "@/lib/api";
 import { useMe } from "@/lib/me";
@@ -15,6 +15,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/organizations", label: "คะแนนแยกตามคณะ",   icon: Building2 },
   { href: "/issues",        label: "รายการปัญหาที่พบ",          icon: AlertTriangle },
   { href: "/assets",        label: "สินทรัพย์ทั้งหมด",          icon: Server },
+  { href: "/network-map",   label: "แผนผังเครือข่าย",          icon: Network },
   { href: "/imports",       label: "นำเข้าข้อมูล",         icon: Upload,     roles: ["ADMIN", "ANALYST"] },
   { href: "/logs",          label: "บันทึกระบบ (Logs)",     icon: ScrollText, roles: ["ADMIN", "ANALYST"] },
   { href: "/admin/users",   label: "จัดการผู้ใช้งาน", icon: Users,      roles: ["ADMIN"] },

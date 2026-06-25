@@ -362,7 +362,7 @@ def process_files(score_file: str, master_file: str) -> dict:
     risk_by_host = (
         df_scored.groupby("asset_host", as_index=False)
         .agg(
-            TOTAL_RISK_SCORE=("SCORE_PER_ISSUE", "sum"),
+            TOTAL_RISK_SCORE=("ISSUE TYPE SCORE IMPACT", lambda x: pd.to_numeric(x, errors='coerce').sum()),
             TOTAL_ISSUES=("asset_host", "count"),
             ORGANIZATION=("Organization", "first")
         )
@@ -374,47 +374,21 @@ def process_files(score_file: str, master_file: str) -> dict:
     org_issue_type = result.groupby(["Organization", "FACTOR NAME", "ISSUE TYPE TITLE"]
         ).size().reset_index(name="count").sort_values(["Organization", "count"], ascending=[True, False])
     
-    # 8.1.1 score per issue [solution 1.1]
-    org_score = df_scored.groupby("Organization")["SCORE_PER_ISSUE"].sum().reset_index(name="TOTAL_DEDUCTION")
-    org_score["SECURITY_SCORE"] = (100 - org_score["TOTAL_DEDUCTION"]).clip(lower=0)
-    
-    # 8.1.2 score per issue [solution 1.2]
-    df_factory_score = org_score.merge(org_severity, on="Organization", how="left")
-    df_factory_score = df_factory_score.sort_values("SECURITY_SCORE")
-    
-    # 5.4 score per issue [solution 4]
-    TOTAL_DEDUCTION_ALL = df_scored["SCORE_PER_ISSUE"].sum()
-    UNIVERSITY_SCORE = 100 - TOTAL_DEDUCTION_ALL
-
+    # Calculate score using raw impact sum
     org_deduction = (
         df_scored
-        .groupby("Organization")["SCORE_PER_ISSUE"]
-        .sum()
+        .groupby("Organization")["ISSUE TYPE SCORE IMPACT"]
+        .apply(lambda x: pd.to_numeric(x, errors='coerce').sum())
         .reset_index(name="ORG_DEDUCTION")
     )
-    
-    if TOTAL_DEDUCTION_ALL == 0:
-        org_deduction["RISK_SHARE"] = 0
-    else:
-        org_deduction["RISK_SHARE"] = (
-            org_deduction["ORG_DEDUCTION"] / TOTAL_DEDUCTION_ALL
-        )
-        
-    # คำนวณคะแนนคณะจากคะแนนมหาลัย
-    # คณะเสียคะแนน = UNIVERSITY_SCORE × RISK_SHARE 
-    # // อิงคะแนนจากคะแนนมหาลัย ไม่ใช่อิงจากคะแนน 100 โดยตรง 
-    # // คณะไหนทำเสีย คะแนนก็จะน้อยกว่าของมหาลัย ,แต่ถ้าไม่ไม่ได้เสียคะแนนมันก็จะเท่าของมหาลัย
-    # คณะเหลือคะแนน = UNIVERSITY_SCORE × (1 − RISK_SHARE)
-    org_deduction["SECURITY_SCORE"] = (
-        UNIVERSITY_SCORE * (1 - org_deduction["RISK_SHARE"])
-    )
-    
-    org_deduction["SECURITY_SCORE"] = (
-        100 - (org_deduction["RISK_SHARE"] * TOTAL_DEDUCTION_ALL)
-    )
+    # Exponential decay formula: Score = 100 * exp(-Deduction / 150)
+    org_deduction["SECURITY_SCORE"] = (100 * np.exp(-org_deduction["ORG_DEDUCTION"] / 150.0)).round(1)
     org_deduction = org_deduction.sort_values("SECURITY_SCORE", ascending=True)
-    # col Organization	ORG_DEDUCTION	RISK_SHARE	SECURITY_SCORE
     org_score = org_deduction[["Organization", "SECURITY_SCORE"]].copy()
+
+    # And for factory score
+    df_factory_score = org_score.merge(org_severity, on="Organization", how="left")
+    df_factory_score = df_factory_score.sort_values("SECURITY_SCORE")
 
     issue_domain_count = (
         df_scored.groupby("ISSUE TYPE TITLE")["asset_host"]

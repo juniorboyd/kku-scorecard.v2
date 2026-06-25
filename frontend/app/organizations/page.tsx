@@ -329,7 +329,7 @@ export default function OrganizationsPage() {
   const assetTotal: number = assetData?.total ?? 0;
 
   // VIEWER hides the Actions column entirely, so table colSpans shrink by one.
-  const orgColSpan = canEdit ? 4 : 3;
+  const orgColSpan = canEdit ? 5 : 4;
   const assetColSpan = canEdit ? 6 : 5;
 
   return (
@@ -378,6 +378,7 @@ export default function OrganizationsPage() {
                 <SortableHeader label="Organization" field="name"    currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 <SortableHeader label="Domains"      field="domains" currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 <SortableHeader label="Issues"       field="issues"  currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
+                <SortableHeader label="Score"        field="score"   currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 {canEdit && <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Actions</th>}
               </tr>
             </thead>
@@ -394,6 +395,15 @@ export default function OrganizationsPage() {
                     <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{org.name}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.domains}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.issues}</td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                        org.securityScore >= 90 ? "bg-green-100 text-green-800" :
+                        org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
+                        "bg-red-100 text-red-800"
+                      }`}>
+                        {org.securityScore}
+                      </span>
+                    </td>
                     {canEdit && (
                       <td className="px-4 py-3 text-right">
                         <button onClick={() => deleteOrg(org.id)}

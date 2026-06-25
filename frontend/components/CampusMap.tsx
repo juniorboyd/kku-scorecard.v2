@@ -56,7 +56,11 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         if (!faculty.coords) return;
         
         // Find matching score from backend if available, otherwise use mock
-        const backendOrg = orgScores.find(o => o.organization === faculty.name || o.organization === faculty.nameEn);
+        const cleanName = (name: string) => name.replace(/\s*มข\.?\s*/g, "").trim().toLowerCase();
+        const backendOrg = orgScores.find(o => 
+          cleanName(o.organization) === cleanName(faculty.name) || 
+          cleanName(o.organization) === cleanName(faculty.nameEn)
+        );
         const score = backendOrg ? backendOrg.securityScore : faculty.score;
         
         let colorClass = "bg-green-500";
@@ -73,12 +77,26 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         
         const marker = L.marker([faculty.coords[0], faculty.coords[1]], { icon: customIcon });
         
+        const getGradeLabel = (s: number) => {
+          if (s >= 90) return "A";
+          if (s >= 80) return "B";
+          if (s >= 70) return "C";
+          if (s >= 60) return "D";
+          return "F";
+        };
+        const grade = getGradeLabel(score);
+
         marker.on("click", () => {
-          if (onMarkerClick) onMarkerClick(faculty);
+          if (onMarkerClick) onMarkerClick({ ...faculty, score, grade });
         });
 
         marker.addTo(markersGroup);
       });
+
+      if (markersGroup.getLayers().length > 0) {
+        const bounds = L.featureGroup(markersGroup.getLayers() as L.Marker[]).getBounds();
+        map.fitBounds(bounds, { padding: [30, 30] });
+      }
     }
   }, [orgScores, onMarkerClick]);
 
