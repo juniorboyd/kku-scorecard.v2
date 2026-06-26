@@ -127,7 +127,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4664986, 102.8280829], // Srinagarind Hospital Area
       icon: "stethoscope",
       abbr: "MED",
-      logoUrl: "https://md.kku.ac.th/wp-content/uploads/2020/09/Logo-MD-KKU-1.png",
+      logoUrl: "/logos/med.png",
       assets: [
         "https://md.kku.ac.th",
         "https://srinagarind.md.kku.ac.th",
@@ -185,7 +185,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4725469, 102.8229090], // Engineering Area
       icon: "settings",
       abbr: "EN",
-      logoUrl: "https://www.en.kku.ac.th/web/wp-content/uploads/2021/04/EN-logo-transparent.png",
+      logoUrl: "/logos/eng.png",
       assets: [
         "https://www.en.kku.ac.th",
         "https://www.enit.kku.ac.th/web",
@@ -243,7 +243,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4756280, 102.8235807], // Science Area
       icon: "flask",
       abbr: "SC",
-      logoUrl: "https://sci.kku.ac.th/sc/templates/sc_design2017/images/logo_sc.png",
+      logoUrl: "/logos/sci.png",
       assets: [
         "https://sc.kku.ac.th",
         "https://sci.kku.ac.th",
@@ -511,7 +511,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4760, 102.8250], // Grad School (Bimala building)
       icon: "graduation-cap",
       abbr: "GS",
-      logoUrl: "https://gs.kku.ac.th/gs2021/images/logo-gs-kku.png",
+      logoUrl: "/logos/gs.png",
       assets: [
         "https://gs.kku.ac.th",
         "https://admission.gs.kku.ac.th",
@@ -799,7 +799,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4739384, 102.8256076], // Business Administration and Accountancy (BS KKU)
       icon: "briefcase",
       abbr: "KKBS",
-      logoUrl: "https://kkbs.kku.ac.th/kkbs2020/images/logo-kkbs.png",
+      logoUrl: "/logos/bus.png",
       assets: [
         "https://kkbs.kku.ac.th",
         "https://assetskkbs.kku.ac.th",
@@ -850,7 +850,7 @@ export const SECURITY_MOCK_DATA = {
       coords: [16.4755065, 102.8262861], // Humanities Area (HUSO KKU)
       icon: "users",
       abbr: "HUSO",
-      logoUrl: "https://huso.kku.ac.th/huso2021/images/logo-huso-kku.png",
+      logoUrl: "/logos/human.png",
       assets: [
         "https://huso.kku.ac.th",
         "https://hs.kku.ac.th",

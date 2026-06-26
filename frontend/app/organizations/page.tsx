@@ -259,7 +259,8 @@ export default function OrganizationsPage() {
     setHistoryLoading(true);
     try {
       const res = await orgsApi.getHistory(org.id);
-      const formatted = res.map((d: any) => ({
+      const historyList = Array.isArray(res.data) ? res.data : (Array.isArray(res) ? res : []);
+      const formatted = historyList.map((d: any) => ({
         date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
         score: d.securityScore,
       }));

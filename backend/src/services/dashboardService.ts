@@ -539,24 +539,27 @@ export async function getOrgScores(options?: { snapshotDate?: string; importId?:
 
   const allIssues = await prisma.issue.findMany({
     where: { importId: latestImportId },
-    select: { scoreImpact: true, organizationName: true },
+    select: { scoreImpact: true, organizationName: true, organizationId: true },
   });
 
   // ORG_DEDUCTION = Σ scoreImpact for all issues belonging to that org.
   // "no data" is normalised to "unknown" so the frontend needs only one sentinel key.
-  const orgDeductionMap = new Map<string, number>();
+  const orgDeductionMap = new Map<string, { id: number | null, deduction: number }>();
   for (const issue of allIssues) {
     const raw = issue.organizationName;
     if (!raw) continue;
     const org = raw === "no data" ? "unknown" : raw;
-    orgDeductionMap.set(org, (orgDeductionMap.get(org) ?? 0) + issue.scoreImpact);
+    const existing = orgDeductionMap.get(org) ?? { id: issue.organizationId, deduction: 0 };
+    existing.deduction += issue.scoreImpact;
+    orgDeductionMap.set(org, existing);
   }
 
   // ORG_SCORE = 100 * exp(-ORG_DEDUCTION / 150)
   return Array.from(orgDeductionMap.entries())
-    .map(([organization, deduction]) => ({
+    .map(([organization, item]) => ({
       organization,
-      securityScore: parseFloat((100 * Math.exp(-deduction / 150)).toFixed(1)),
+      id: item.id,
+      securityScore: parseFloat((100 * Math.exp(-item.deduction / 150)).toFixed(1)),
     }))
     .sort((a, b) => a.securityScore - b.securityScore);
 }

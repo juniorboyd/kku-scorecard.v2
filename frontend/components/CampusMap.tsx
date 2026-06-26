@@ -63,16 +63,22 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         );
         const score = backendOrg ? backendOrg.securityScore : faculty.score;
         
-        let colorClass = "bg-green-500";
-        if (score < 60) colorClass = "bg-red-500";
-        else if (score < 70) colorClass = "bg-orange-500";
-        else if (score < 80) colorClass = "bg-yellow-500";
+        const borderClass = 
+          score >= 90 ? "border-emerald-500 ring-emerald-500/20" :
+          score >= 80 ? "border-green-400 ring-green-400/20" :
+          score >= 70 ? "border-yellow-500 ring-yellow-500/20" :
+          score >= 60 ? "border-orange-500 ring-orange-500/20" :
+          "border-red-500 ring-red-500/20";
         
+        const iconHtml = `<div class="w-10 h-10 rounded-full border-[3px] ${borderClass} bg-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform cursor-pointer ring-4">
+               <span class="font-black text-slate-700 text-xs">${faculty.abbr}</span>
+             </div>`;
+
         const customIcon = L.divIcon({
           className: "custom-div-icon",
-          html: `<div class="w-8 h-8 rounded-full border-2 border-white shadow-lg flex items-center justify-center ${colorClass} text-white font-bold text-xs hover:scale-110 transition-transform cursor-pointer">${faculty.abbr}</div>`,
-          iconSize: [32, 32],
-          iconAnchor: [16, 16],
+          html: iconHtml,
+          iconSize: [40, 40],
+          iconAnchor: [20, 20],
         });
         
         const marker = L.marker([faculty.coords[0], faculty.coords[1]], { icon: customIcon });
@@ -87,16 +93,19 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         const grade = getGradeLabel(score);
 
         marker.on("click", () => {
-          if (onMarkerClick) onMarkerClick({ ...faculty, score, grade });
+          if (onMarkerClick) {
+            onMarkerClick({
+              ...faculty,
+              id: backendOrg ? backendOrg.id : faculty.id,
+              name: backendOrg ? backendOrg.organization : faculty.name,
+              score,
+              grade
+            });
+          }
         });
 
         marker.addTo(markersGroup);
       });
-
-      if (markersGroup.getLayers().length > 0) {
-        const bounds = L.featureGroup(markersGroup.getLayers() as L.Marker[]).getBounds();
-        map.fitBounds(bounds, { padding: [30, 30] });
-      }
     }
   }, [orgScores, onMarkerClick]);
 
