@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#a83b24"> 
+        <meta http-equiv="content-language" content="en" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="author" content="Hs">
+        <meta name="description" content="- | Faculty of Humanities and Social Sciences, Khon Kaen University : คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยขอนแก่น">
+        <meta name="keywords" content="-">
+        <base href="https://huso.kku.ac.th/huso2021/images/logo-huso-kku.png">
+
+        <meta name="image" content="">
+
+        <title>
+           Faculty of Humanities and Social Sciences, Khon Kaen University : คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยขอนแก่น</title>
+
+        <link rel="stylesheet" href="https://huso.kku.ac.th/uikit/css/uikit_site.css">
+        <script src="https://huso.kku.ac.th/uikit/js/uikit.min.js"></script>
+        <script src="https://huso.kku.ac.th/uikit/js/jquery.js"></script>
+        <script src="https://huso.kku.ac.th/uikit/js/uikit-icons.min.js"></script>
+
+        <link href='https://fonts.googleapis.com/css?family=Kanit:200&display=swap' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link href='https://huso.kku.ac.th/uikit/themify-icons/themify-icons.css' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="https://huso.kku.ac.th/img/cover/icon.ico" type="image/x-icon">
+
+    </head>
+    <body>
+
+
+      <div class="uk-offcanvas-content">
+
+	<div class="uk-container-full-pic uk-container-center">
+		<div class="uk-container">
+			<div class="uk-grid uk-visible@s">
+					<div class="uk-width-1-1">
+						
+												
+												</div>
+			</div>
+		</div>
+	</div>
+
+<div class="uk-container-full-pic" style=" background-color: #3b3b3b; color: #717171; font-size: 12px;">
+			<div class="uk-container uk-container-center uk-visible@s">
+				<div class="uk-grid">
+
+							<div class="uk-width-1-1">
+									<nav class="uk-navbar" style="background-color: #a83b24;">
+											<div class="uk-navbar-left">
+												<a href="https://huso.kku.ac.th/th">
+														<img src="https://huso.kku.ac.th/img/cover/logo-huso-en.png" alt="Logo Hs@KKU" style=" max-height: 65px; margin: 10px; ">
+											  </a>
+											</div>
+
+											<div class="uk-navbar-right" style=" color: #ffffff; padding-right:20px">
+													 													 <p class="maintopmenu" style="text-align: right;">
+	<a href="https://huso.kku.ac.th/th">หน้าหลัก</a> | &nbsp;<a href="https://huso.kku.ac.th/th/index/%E0%B8%95%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%84%E0%B8%93%E0%B8%B0.html">ติดต่อ</a> | &nbsp;<!---<a href="https://hs.kku.ac.th/upload_news/pagesize_n5.php" target="_blank">ประกาศจัดซื้อจัดจ้าง</a> | ---><a href="https://huso.kku.ac.th/th"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ไทย</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> | </font></font><a href="https://huso.kku.ac.th/en"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">EN </font></font></a><br />
+	<strong><span class="maintopmenu" style="font-size:14px; line-height: 2.2;"><!---<a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/19/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%A9%E0%B8%B2">สมัครเข้าศึกษา</a><font style="vertical-align: inherit;"> | </font>---><a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/20/%E0%B8%9A%E0%B8%B8%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A3"><font style="vertical-align: inherit;">บุคลากร</font></a><font style="vertical-align: inherit;">&nbsp;| </font><!---<a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/21"><font style="vertical-align: inherit;">นักศึกษา </font></a><font style="vertical-align: inherit;">| </font>---><a href="https://hs.kku.ac.th/NEWSTD/index.html" target="_blank"><font style="vertical-align: inherit;"><strong>นักศึกษาใหม่ &#39;69&#39;</strong></font></a><font style="vertical-align: inherit;">&nbsp;| </font><a href="https://www.facebook.com/people/Husokkualumni/100071050011859/?paipv=0&amp;eav=AfYIwYEvHtncdaUoFAc1sF_SD1rUruRLO5KSvaWyE3kMDwyfH2exEqgQ1QWDe5l-qEI&amp;_rdr" target="_blank"><font style="vertical-align: inherit;"><strong>ศิษย์เก่า</strong></font></a></span></strong></p>
+<!-- <strong><span class="maintopmenu" style="font-size:14px; line-height: 2.2;"><a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/19/%E0%B8%AA%E0%B8%A1%E0%B8%B1%E0%B8%84%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%A9%E0%B8%B2">สมัครเข้าศึกษา</a><font style="vertical-align: inherit;"> | </font><a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/20/%E0%B8%9A%E0%B8%B8%E0%B8%84%E0%B8%A5%E0%B8%B2%E0%B8%81%E0%B8%A3"><font style="vertical-align: inherit;">บุคลากร</font></a><font style="vertical-align: inherit;"> | </font><a href="https://huso.kku.ac.th/th/category/%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5/21/%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%A8%E0%B8%B6%E0%B8%81%E0%B8%A9%E0%B8%B2"><font style="vertical-align: inherit;">นักศึกษา </font></a><font style="vertical-align: inherit;">| </font><a href="https://hs.kku.ac.th/NEWSTD/index.html" target="_blank"><font style="vertical-align: inherit;"><strong>นักศึษาใหม่ '64'</strong></font></a></span></strong></p> -->										  </div>
+									</nav>
+							</div>
+
+					</div>
+			</div>
+</div>
+
+
+				<div class="uk-container-full-pic uk-container-center" style="z-index: 980; "
+				 uk-sticky="bottom: #offset">
+			<div class="uk-container">
+				<div class="uk-grid uk-visible@s">
+						<div class="uk-width-1-1">
+									<nav class="uk-navbar-container" style=" background: #002147; padding-left: 20px; padding-right: 20px; text-transform: uppercase;" uk-navbar>
+											<div id="slogo" class="nav-overlay uk-navbar-left">
+													<ul class="uk-navbar-nav">
+
+																																												
+															
+															<li class="uk-active">
+
+																			                               <a href="https://huso.kku.ac.th/en#"  >
+			                          
+			                          			                           <i class="fas fa fa-home" aria-hidden="true"></i> &nbsp;
+			                         
+															 Home																	  																</a>
+																																	</li>
+															<li>
+
+
+															</li>
+
+																																												
+															
+															<li class="">
+
+																			                               <a href="#"  >
+			                          
+			                          			                           <i class="fas fa-address-card" aria-hidden="true"></i> &nbsp;
+			                         
+															 About Us																	  <i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>																</a>
+																		
+																			<div class="uk-navbar-dropdown">
+																					<ul class="uk-nav uk-navbar-dropdown-nav">
+
+																						
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/History"  >
+					                                    
+
+					                                       
+																							History
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/FacultyOverview"  >
+					                                    
+
+					                                       
+																							Faculty Overview
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/OrganizationalStructure"  >
+					                                    
+
+					                                       
+																							Organizational Structure
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/Administrative Team"  >
+					                                    
+
+					                                       
+																							Administrative Team
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/Staff"  >
+					                                    
+
+					                                       
+																							Staff
+																							<i class="fas fa-chevron-right" style="font-size: 14px; padding-left: 15px; "></i>
+
+																																																		<div class="uk-navbar-dropdown"  uk-dropdown="pos: right-top" style="background: #3479B2;padding: 15px;">
+																													<ul class="uk-nav uk-navbar-dropdown-nav">
+
+																														
+																															
+																														<li>
+																																																																 <a href="https://huso.kku.ac.th/en/staff/instructor"  >
+																															
+
+																																 
+																															Teaching Staff</a>
+
+																														</li>
+																														
+																															
+																														<li>
+																																																																 <a href="https://huso.kku.ac.th/en/staff/hr"  >
+																															
+
+																																 
+																															Supporting Staff</a>
+
+																														</li>
+																														
+																													</ul>
+																												</div>
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://www.ops.go.th/en/inter-about-ops-mhesi/higher-education/download/2870/5708/16" target=_blank >
+					                                    
+
+					                                       
+																							Accreditation
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																					</ul>
+																			</div>
+
+																																	</li>
+															<li>
+
+
+															</li>
+
+																																												
+															
+															<li class="">
+
+																			                               <a href="https://huso.kku.ac.th/th/info/StudentsEng"  >
+			                          
+			                          			                           <i class="fas fa fa-users" aria-hidden="true"></i> &nbsp;
+			                         
+															 Students																	  <i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>																</a>
+																		
+																			<div class="uk-navbar-dropdown">
+																					<ul class="uk-nav uk-navbar-dropdown-nav">
+
+																						
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/Undergraduate" target=_blank >
+					                                    
+
+					                                       
+																							Undergraduate
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/Graduate Students" target=_blank >
+					                                    
+
+					                                       
+																							Graduate Students
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																					</ul>
+																			</div>
+
+																																	</li>
+															<li>
+
+
+															</li>
+
+																																												
+															
+															<li class="">
+
+																			                               <a href="https://huso.kku.ac.th/th/info/ResearchandAcademicServices"  >
+			                          
+			                          			                           <i class="fas fas fa-search-plus" aria-hidden="true"></i> &nbsp;
+			                         
+															 Research																	  <i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>																</a>
+																		
+																			<div class="uk-navbar-dropdown">
+																					<ul class="uk-nav uk-navbar-dropdown-nav">
+
+																						
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/ResearchFundings"  >
+					                                    
+
+					                                       
+																							Research Fundings
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/ResearchCentersResearchGroups"  >
+					                                    
+
+					                                       
+																							Research Centers & Research Groups
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/ServicetotheCommunity"  >
+					                                    
+
+					                                       
+																							Service to the Community
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																							
+																							
+
+                                   						<li>
+
+																												                                         <a href="https://huso.kku.ac.th/th/info/ResearchandFundings"  >
+					                                    
+
+					                                       
+																							Research & Fundings
+																							
+
+																							
+																						</a>
+																					</li>
+
+																					 
+																					</ul>
+																			</div>
+
+																																	</li>
+															<li>
+
+
+															</li>
+
+																																												
+															
+															<li class="">
+
+																			                               <a href="https://huso.kku.ac.th/th/info/BooksTextbooks" target=_blank >
+			                          
+			                          			                           <i class="fas fa-solid fa-book" aria-hidden="true"></i> &nbsp;
+			                         
+															 Books/Textbooks																	  																</a>
+																																	</li>
+															<li>
+
+
+															</li>
+
+																																												
+															
+															<li class="">
+
+																			                               <a href="https://huso.kku.ac.th/th/info/SupportServices"  >
+			                          
+			                          			                           <i class="fas fa-solid fa-info" aria-hidden="true"></i> &nbsp;
+			                         
+															 Support & Services																	  																</a>
+																																	</li>
+															<li>
+
+
+															</li>
+
+														
+
+													</ul>
+
+											</div>
+
+																						<div class="nav-overlay uk-navbar-right">
+
+													<a class="uk-navbar-toggle" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+
+											</div>
+
+											<div class="nav-overlay uk-navbar-left uk-flex-1" hidden>
+
+													<div class="uk-navbar-item uk-width-expand">
+															<form class="uk-search uk-search-navbar uk-width-1-1" method="post"
+															      action="https://huso.kku.ac.th/th/find/n">
+																	<input class="uk-search-input" type="search" name="search" placeholder="Search..." autofocus>
+															</form>
+													</div>
+
+													<a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+
+											</div>
+											
+									</nav>
+						</div>
+
+			</div>
+
+		</div>
+	</div>
+	
+		<div class="uk-grid uk-hidden@s" style=" border-bottom: 1px solid #e5e5e5; padding-top: 10px; padding-bottom: 10px;    background-color: #a83b24;">
+
+				<div class="uk-navbar uk-navbar-container" style=" background: #a83b24; ">
+						<div class="uk-navbar-left">
+								<a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#"  uk-toggle="target: #offcanvas-overlay" style=" color: #fff; "></a>
+						</div>
+						<div class="uk-navbar-right uk-text-center">
+							<img src="https://huso.kku.ac.th/img/cover/logo-huso-en.png" alt="Logo Hs@KKU" style=" max-height: 65px; " >
+						</div>
+				</div>
+
+				<div id="offcanvas-overlay" uk-offcanvas="mode: slide; overlay: true">
+						<div class="uk-offcanvas-bar">
+
+									<ul class="uk-nav uk-nav-default">
+
+																																			
+												
+												<li class="uk-active">
+
+																												 <a href="https://huso.kku.ac.th/en#"  >
+													
+																										 <i class="fas fa fa-home" aria-hidden="true"></i> &nbsp;
+												 
+												 Home																												</a>
+																											</li>
+
+																																			
+												
+												<li class="">
+
+																												 <a href="#"  >
+													
+																										 <i class="fas fa-address-card" aria-hidden="true"></i> &nbsp;
+												 
+												 About Us															<i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>													</a>
+															
+																		<ul class="uk-nav-sub">
+
+																			
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/History"  >
+																				
+
+																					 																				History</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/FacultyOverview"  >
+																				
+
+																					 																				Faculty Overview</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/OrganizationalStructure"  >
+																				
+
+																					 																				Organizational Structure</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/Administrative Team"  >
+																				
+
+																					 																				Administrative Team</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/Staff"  >
+																				
+
+																					 																				Staff</a>
+
+																				
+																										<ul>
+
+																											
+																												
+																											<li>
+																																																										 <a href="https://huso.kku.ac.th/en/staff/instructor"  >
+																												
+
+																													 
+																												Teaching Staff</a>
+
+																											</li>
+																											
+																												
+																											<li>
+																																																										 <a href="https://huso.kku.ac.th/en/staff/hr"  >
+																												
+
+																													 
+																												Supporting Staff</a>
+
+																											</li>
+																											
+																										</ul>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://www.ops.go.th/en/inter-about-ops-mhesi/higher-education/download/2870/5708/16" target=_blank >
+																				
+
+																					 																				Accreditation</a>
+
+																				
+																			</li>
+
+																		 
+																		</ul>
+
+																											</li>
+
+																																			
+												
+												<li class="">
+
+																												 <a href="https://huso.kku.ac.th/th/info/StudentsEng"  >
+													
+																										 <i class="fas fa fa-users" aria-hidden="true"></i> &nbsp;
+												 
+												 Students															<i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>													</a>
+															
+																		<ul class="uk-nav-sub">
+
+																			
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/Undergraduate" target=_blank >
+																				
+
+																					 																				Undergraduate</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/Graduate Students" target=_blank >
+																				
+
+																					 																				Graduate Students</a>
+
+																				
+																			</li>
+
+																		 
+																		</ul>
+
+																											</li>
+
+																																			
+												
+												<li class="">
+
+																												 <a href="https://huso.kku.ac.th/th/info/ResearchandAcademicServices"  >
+													
+																										 <i class="fas fas fa-search-plus" aria-hidden="true"></i> &nbsp;
+												 
+												 Research															<i class="fas fa-chevron-down" style="font-size: 11px; padding-left: 7px; padding-top: 5px;"></i>													</a>
+															
+																		<ul class="uk-nav-sub">
+
+																			
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/ResearchFundings"  >
+																				
+
+																					 																				Research Fundings</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/ResearchCentersResearchGroups"  >
+																				
+
+																					 																				Research Centers & Research Groups</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/ServicetotheCommunity"  >
+																				
+
+																					 																				Service to the Community</a>
+
+																				
+																			</li>
+
+																		 
+																				
+																				
+																					<li>
+
+																																										 <a href="https://huso.kku.ac.th/th/info/ResearchandFundings"  >
+																				
+
+																					 																				Research & Fundings</a>
+
+																				
+																			</li>
+
+																		 
+																		</ul>
+
+																											</li>
+
+																																			
+												
+												<li class="">
+
+																												 <a href="https://huso.kku.ac.th/th/info/BooksTextbooks" target=_blank >
+													
+																										 <i class="fas fa-solid fa-book" aria-hidden="true"></i> &nbsp;
+												 
+												 Books/Textbooks																												</a>
+																											</li>
+
+																																			
+												
+												<li class="">
+
+																												 <a href="https://huso.kku.ac.th/th/info/SupportServices"  >
+													
+																										 <i class="fas fa-solid fa-info" aria-hidden="true"></i> &nbsp;
+												 
+												 Support & Services																												</a>
+																											</li>
+
+											
+											<hr/>
+
+											<li class="uk-nav-header">Language</li>
+											 <a href="https://huso.kku.ac.th/en" style="font-size:12px"><span class="uk-margin-small-right" uk-icon="icon:world" style=" margin-right: 2px !important; font-size:12px;"></span> ENGLISH</a> |
+										   <a href="https://huso.kku.ac.th/th" style="font-size:12px"><span class="uk-margin-small-right" uk-icon="icon:world" style=" margin-right: 2px !important; font-size:12px;"></span> ไทย</a>
+
+
+									</ul>
+
+						</div>
+				</div>
+
+	</div>
+	
+
+<div class="uk-container uk-container-center uk-margin-small uk-margin-remove-top uk-margin-remove-bottom uk-padding-remove"
+     style="background-color: #fff; padding-top: 40px;">
+
+<div class="" uk-grid>
+
+  <div class="uk-width-1-1">
+      <div class="uk-card uk-card uk-card-body uk-padding-small">
+					<br/><br/><br/>
+						<h1>404 Page Not Found
+						<br/>Oops! That page can’t be found. </h1>
+						<h2>เว็บไม่สามารถแสดงผลหน้านี้ได้ ลิงก์อาจเสียหายหรืออาจได้มีการลบออกแล้ว</h2>
+						<br/><br/><br/>
+
+      </div>
+  </div>
+</div>
+
+</div>
+<div class="uk-container-full-pic uk-container-center  uk-padding-small"
+     style="font-family: Krub , sans-serif;background: #002147;color: #fff;padding-right: 20px;padding-left: 20px;">
+
+<div class="uk-container uk-container-center uk-margin-top uk-padding-small"
+     style="font-family: Krub , sans-serif;background: #002147;color: #eee; font-size:14px;">
+          
+          <div style="padding: 0px 20px 0px 20px;"><div class="container">
+	<h1 class="title">
+		สถิติผู้เข้าชมเว็บไซต์</h1>
+	<!-- Statistics Boxes -->
+	<div class="stats-container">
+		<div class="stat-box">
+			<h3 class="stat-label">
+				Online Now</h3>
+			<p class="stat-value main-stat-editable" data-stat="onlineNow" id="onlineNow">
+				24</p>
+		</div>
+		<div class="stat-box">
+			<h3 class="stat-label">
+				วันนี้</h3>
+			<p class="stat-value main-stat-editable" data-stat="today" id="today">
+				156</p>
+		</div>
+		<div class="stat-box">
+			<h3 class="stat-label">
+				สัปดาห์นี้</h3>
+			<p class="stat-value main-stat-editable" data-stat="thisWeek" id="thisWeek">
+				1,234</p>
+		</div>
+		<div class="stat-box">
+			<h3 class="stat-label">
+				เดือนนี้</h3>
+			<p class="stat-value main-stat-editable" data-stat="thisMonth" id="thisMonth">
+				5,678</p>
+		</div>
+		<div class="stat-box">
+			<h3 class="stat-label">
+				ปีนี้</h3>
+			<p class="stat-value main-stat-editable" data-stat="thisYear" id="thisYear">
+				45,890</p>
+		</div>
+		<div class="stat-box">
+			<h3 class="stat-label">
+				รวมทั้งหมด</h3>
+			<p class="stat-value main-stat-editable" data-stat="total" id="total">
+				123,456</p>
+		</div>
+	</div>
+	<!-- Detail Statistics Button -->
+	<div style="text-align: center;">
+		<button class="detail-button" onclick="showDetailStats()">สถิติรายละเอียด 3 ปี</button></div>
+</div>
+<!-- Detail Statistics Popup -->
+<div class="popup-overlay" id="detailPopup">
+	<div class="popup-content">
+		<div class="popup-header">
+			<h2 class="popup-title">
+				สถิติรายละเอียด 3 ปี</h2>
+			<button class="close-button" onclick="closePopup('detailPopup')">&times;</button></div>
+		<div class="table-container">
+			<table>
+				<thead>
+					<tr>
+						<th>
+							ประเภท</th>
+						<th>
+							2024</th>
+						<th>
+							2023</th>
+						<th>
+							2022</th>
+						<th>
+							รวม</th>
+						<th>
+							เปอร์เซนต์</th>
+					</tr>
+				</thead>
+				<tbody id="detailTableBody">
+					<tr>
+						<td style="font-weight: 600; text-align: left;">
+							วัน</td>
+						<td class="editable" data-type="day" data-year="2024">
+							45,890</td>
+						<td class="editable" data-type="day" data-year="2023">
+							42,156</td>
+						<td class="editable" data-type="day" data-year="2022">
+							38,234</td>
+						<td class="row-total" id="dayTotal">
+							126,280</td>
+						<td id="dayPercent">
+							35.2%</td>
+					</tr>
+					<tr>
+						<td style="font-weight: 600; text-align: left;">
+							สัปดาห์</td>
+						<td class="editable" data-type="week" data-year="2024">
+							6,555</td>
+						<td class="editable" data-type="week" data-year="2023">
+							6,022</td>
+						<td class="editable" data-type="week" data-year="2022">
+							5,462</td>
+						<td class="row-total" id="weekTotal">
+							18,039</td>
+						<td id="weekPercent">
+							5.0%</td>
+					</tr>
+					<tr>
+						<td style="font-weight: 600; text-align: left;">
+							เดือน</td>
+						<td class="editable" data-type="month" data-year="2024">
+							1,527</td>
+						<td class="editable" data-type="month" data-year="2023">
+							1,403</td>
+						<td class="editable" data-type="month" data-year="2022">
+							1,272</td>
+						<td class="row-total" id="monthTotal">
+							4,202</td>
+						<td id="monthPercent">
+							1.2%</td>
+					</tr>
+					<tr>
+						<td style="font-weight: 600; text-align: left;">
+							ปี</td>
+						<td class="editable" data-type="year" data-year="2024">
+							127</td>
+						<td class="editable" data-type="year" data-year="2023">
+							117</td>
+						<td class="editable" data-type="year" data-year="2022">
+							106</td>
+						<td class="row-total" id="yearTotal">
+							350</td>
+						<td id="yearPercent">
+							0.1%</td>
+					</tr>
+					<tr>
+						<td style="font-weight: 600; text-align: left;">
+							รวมทั้งหมด</td>
+						<td style="font-weight: bold;">
+							54,099</td>
+						<td style="font-weight: bold;">
+							49,698</td>
+						<td style="font-weight: bold;">
+							45,074</td>
+						<td class="total-cell" id="grandTotal">
+							148,871</td>
+						<td style="font-weight: bold;">
+							100%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Success Message -->
+<div class="success-message success" id="successMessage">
+	<span id="successText">บันทึกข้อมูลเรียบร้อยแล้ว</span></div>
+<script>
+        let isAdminLoggedIn = false;
+        let statsData = {};
+
+        // Show detail statistics popup
+        function showDetailStats() {
+            document.getElementById('detailPopup').style.display = 'block';
+        }
+
+        // Close popup
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+            if (popupId === 'adminPopup') {
+                document.getElementById('adminUser').value = '';
+                document.getElementById('adminPass').value = '';
+            }
+        }
+
+
+
+
+
+        // Update totals and percentages
+        function updateTotals() {
+            const types = ['day', 'week', 'month', 'year'];
+            let grandTotal = 0;
+            
+            types.forEach(type => {
+                let typeTotal = 0;
+                const cells = document.querySelectorAll(`[data-type="${type}"]`);
+                cells.forEach(cell => {
+                    const value = parseInt(cell.textContent.replace(/,/g, '')) || 0;
+                    typeTotal += value;
+                });
+                
+                document.getElementById(type + 'Total').textContent = typeTotal.toLocaleString();
+                grandTotal += typeTotal;
+            });
+            
+            document.getElementById('grandTotal').textContent = grandTotal.toLocaleString();
+            
+            // Update percentages
+            types.forEach(type => {
+                const total = parseInt(document.getElementById(type + 'Total').textContent.replace(/,/g, ''));
+                const percentage = grandTotal > 0 ? ((total / grandTotal) * 100).toFixed(1) + '%' : '0%';
+                document.getElementById(type + 'Percent').textContent = percentage;
+            });
+        }
+
+        // Auto-save to App Sheet (simulated)
+        function autoSaveToAppSheet() {
+            // Collect all data including main stats and detail stats
+            const data = {
+                timestamp: new Date().toISOString(),
+                stats: {
+                    day: { 2024: 45890, 2023: 42156, 2022: 38234 },
+                    week: { 2024: 6555, 2023: 6022, 2022: 5462 },
+                    month: { 2024: 1527, 2023: 1403, 2022: 1272 },
+                    year: { 2024: 127, 2023: 117, 2022: 106 }
+                },
+                mainStats: {
+                    onlineNow: parseInt(document.getElementById('onlineNow').textContent.replace(/,/g, '')) || 0,
+                    today: parseInt(document.getElementById('today').textContent.replace(/,/g, '')) || 0,
+                    thisWeek: parseInt(document.getElementById('thisWeek').textContent.replace(/,/g, '')) || 0,
+                    thisMonth: parseInt(document.getElementById('thisMonth').textContent.replace(/,/g, '')) || 0,
+                    thisYear: parseInt(document.getElementById('thisYear').textContent.replace(/,/g, '')) || 0,
+                    total: parseInt(document.getElementById('total').textContent.replace(/,/g, '')) || 0
+                }
+            };
+            
+            // Simulate API call to App Sheet
+            localStorage.setItem('websiteStats', JSON.stringify(data));
+            
+            // Show auto-save notification occasionally
+            if (Math.random() < 0.3) { // 30% chance to show notification
+                showSuccessMessage('???? บันทึกอัตโนมัติ', 'info');
+            }
+        }
+
+        // Update main statistics display
+        function updateMainStats() {
+            // Simulate real-time updates
+            const stats = {
+                onlineNow: Math.floor(Math.random() * 50) + 10,
+                today: Math.floor(Math.random() * 200) + 100,
+                thisWeek: Math.floor(Math.random() * 2000) + 1000,
+                thisMonth: Math.floor(Math.random() * 8000) + 4000,
+                thisYear: Math.floor(Math.random() * 50000) + 40000,
+                total: Math.floor(Math.random() * 150000) + 100000
+            };
+            
+            Object.keys(stats).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = stats[key].toLocaleString();
+                }
+            });
+            
+            // Auto-save after updating stats
+            autoSaveToAppSheet();
+        }
+
+        // Show success message
+        function showSuccessMessage(message, type = 'success') {
+            const messageDiv = document.getElementById('successMessage');
+            const messageText = document.getElementById('successText');
+            
+            messageText.textContent = message;
+            messageDiv.className = `success-message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            const duration = type === 'info' ? 2000 : 3000;
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, duration);
+        }
+
+        // Close popups when clicking outside
+        window.addEventListener('click', function(event) {
+            const popups = document.querySelectorAll('.popup-overlay');
+            popups.forEach(popup => {
+                if (event.target === popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMainStats();
+            // Update stats every 30 seconds with auto-save
+            setInterval(updateMainStats, 30000);
+            
+            // Show initial auto-save notification
+            setTimeout(() => {
+                showSuccessMessage('???? ระบบบันทึกข้อมูลอัตโนมัติเริ่มทำงานแล้ว', 'info');
+            }, 2000);
+        });
+    </script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'993f787fc60cd022',t:'MTc2MTM3MTc4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody>
+		<tr valign="top">
+			<td align="left">
+				<div uk-grid="">
+					<div class="uk-width-1-2@s">
+						<strong>คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยขอนแก่น</strong><br />
+						123 ถ.มิตรภาพ ต.ในเมือง อ.เมืองขอนแก่น จ.ขอนแก่น 40002<br />
+						email: hs.inbox@kku.ac.th, husokku.info@gmail.com โทรศัพท์ 043-009-700 ต่อ 45888, 44867&nbsp; โทรสาร 043-202-318</div>
+					<div class="uk-width-1-2@s uk-text-right">
+						<strong>Follow Us</strong><br />
+						<a class="uk-button uk-button-default  uk-button-small" href="https://www.facebook.com/husokkuwhite/" target="_blank"><span class="uk-margin-small-right uk-icon" style=" margin-right: 0px !important; color: #fff; " uk-icon="facebook"><font style="color:#2d2d2d;">.</font></span></a><font style="#2d2d2d;"><font> <a class="uk-button uk-button-default  uk-button-small" href="https://www.youtube.com/channel/UCLME0SIx1_XdRtFAkj5g7gw/feed" target="_blank"><span class="uk-margin-small-right uk-icon" style=" margin-right: 0px !important; color: #fff; " uk-icon="youtube"><font style="color:#2d2d2d;">.</font></span></a></font></font></div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<style type="text/css">
+.container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+       .title {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 32px;
+            color: black;
+            background-color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-box {
+            background-color: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-valign: center;
+            width: 100px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .stat-label {
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: -18px;
+            font-size: 16px;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .detail-button {
+            background-color: #F8F8F8;
+            color: white;
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .detail-button:hover {
+            background-color: #6b7280;
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            width: 800px;
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .popup-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #6b7280;
+            cursor: pointer;
+        }
+        
+        .close-button:hover {
+            color: #374151;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: center;
+            color: #ffffff;
+        }
+        
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        th:not(:first-child) {
+            text-align: center;
+        }
+        
+        .total-cell {
+            font-weight: bold;
+            background-color: #fef3c7;
+        }
+        
+        .row-total {
+            font-weight: bold;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 4px;
+            color: white;
+            display: none;
+            z-index: 1001;
+        }
+        
+        .success {
+            background-color: #10b981;
+        }
+        
+        .info {
+            background-color: #3b82f6;
+        }
+        
+        .error {
+            background-color: #ef4444;
+        }
+        
+        .editable {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 2px 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .editable:hover {
+            background: #e0e0e0;
+        }
+        
+        .main-stat-editable {
+            cursor: pointer;
+        }
+        
+        .main-stat-editable:hover {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }				</style>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&nbsp;</p>
+</div>
+
+</div>
+</div>
+
+  <div class="uk-text-right" id="return-to-top"><a href="#" class="uk-button uk-button-default uk-button-small"
+    style=" padding: 7px 12px; background-color: #002147; color:#ffffff; border: 0px solid #e5e5e5;" uk-totop uk-scroll="duration:250"></a></div>
+
+  </div> 
+</body>
+
+
+<script>
+// ===== Scroll to Top ====
+$(window).scroll(function() {
+   if ($(this).scrollTop() > 90) {        // If page is scrolled more than 50px
+       $('#return-to-top').fadeIn(200).css({"transition": "all 0.5s ease" , "bottom": "30px"});    // Fade in the arrow
+   } else {
+       $('#return-to-top').fadeOut(200).css({"transition": "all 0.5s ease" , "bottom": "-30px"});   // Else fade out the arrow
+   }
+});
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158631202-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158631202-1');
+</script>
+
+
+
+<!-- Load Facebook SDK for JavaScript -->
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v9.0'
+          });
+        };
+
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/th_TH/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution=setup_tool
+        page_id="210044092898894"
+  theme_color="#a83b24"
+  logged_in_greeting="สวัสดีค่ะ มีอะไรให้คณะมนุษยศาสตร์และสังคมศาสตร์ ช่วยไหมคะ?"
+  logged_out_greeting="สวัสดีค่ะ มีอะไรให้คณะมนุษยศาสตร์และสังคมศาสตร์ ช่วยไหมคะ?">
+      </div>
+
+</html>

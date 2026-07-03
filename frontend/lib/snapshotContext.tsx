@@ -60,7 +60,13 @@ export function SnapshotProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  useEffect(() => { loadList(false); }, [loadList]);
+  useEffect(() => { 
+    loadList(false); 
+    const interval = setInterval(() => {
+      loadList(true);
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [loadList]);
 
   const refresh = useCallback(() => loadList(true), [loadList]);
 

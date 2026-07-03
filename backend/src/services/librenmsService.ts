@@ -46,78 +46,7 @@ const FACULTIES = [
   { code: "VM", th: "คณะสัตวแพทยศาสตร์", colorClass: "bg-green-500" }
 ];
 
-// Mock data fallback matching KKU structure
-const MOCK_TOPOLOGY: NetworkTopology = (() => {
-  const nodes: NetworkNode[] = [
-    { id: "core-0", label: "KKU-Core-Router-01 (Mittraphap)", type: "core", ip: "10.254.0.1", status: "up" },
-    { id: "core-1", label: "KKU-Core-Router-02 (ODT)", type: "core", ip: "10.254.0.2", status: "up" },
-  ];
-
-  const links: NetworkLink[] = [
-    { source: "core-0", target: "core-1", status: "up", utilization: 78 }
-  ];
-
-  FACULTIES.forEach((f, i) => {
-    const distId = `dist-${f.code.toLowerCase()}`;
-    const accId1 = `acc-${f.code.toLowerCase()}-01`;
-    const accId2 = `acc-${f.code.toLowerCase()}-02`;
-
-    // Distribution switch
-    nodes.push({
-      id: distId,
-      label: `sw-dist-${f.code.toLowerCase()}-01.kku.ac.th`,
-      type: "distribution",
-      ip: `10.${100 + i}.0.1`,
-      status: "up",
-      organization: f.th
-    });
-
-    // Access switch 1
-    nodes.push({
-      id: accId1,
-      label: `sw-acc-${f.code.toLowerCase()}-01`,
-      type: "access",
-      ip: `10.${100 + i}.1.11`,
-      status: "up",
-      organization: f.th
-    });
-
-    // Access switch 2 (Medicine & Engineering have some mock down status switches for realism)
-    const status2 = (f.code === "MED" && i % 2 === 0) || (f.code === "ENG") ? "down" : "up";
-    nodes.push({
-      id: accId2,
-      label: `sw-acc-${f.code.toLowerCase()}-02`,
-      type: "access",
-      ip: `10.${100 + i}.1.12`,
-      status: status2,
-      organization: f.th
-    });
-
-    // Link Core to Distribution
-    links.push({
-      source: i % 2 === 0 ? "core-0" : "core-1",
-      target: distId,
-      status: "up",
-      utilization: Math.floor(Math.random() * 85) + 5, // random 5-90%
-    });
-
-    // Links Distribution to Access
-    links.push({
-      source: distId,
-      target: accId1,
-      status: "up",
-      utilization: Math.floor(Math.random() * 35) + 5, // random 5-40%
-    });
-    links.push({
-      source: distId,
-      target: accId2,
-      status: status2,
-      utilization: status2 === "down" ? 0 : Math.floor(Math.random() * 25) + 5,
-    });
-  });
-
-  return { nodes, links };
-})();
+// MOCK_TOPOLOGY removed as requested by user
 
 // Normalize hostname or sysName to match KKU organizations precisely using token-based matching
 function matchOrgFromHostname(hostname: string, sysName?: string): string | undefined {
@@ -222,8 +151,8 @@ function inferDeviceNodeType(d: any): "core" | "distribution" | "access" | "serv
 
 export async function getNetworkTopology(): Promise<NetworkTopology> {
   if (!LIBRENMS_API_TOKEN) {
-    console.log("[LibreNMS] No API token configured. Returning mock topology.");
-    return MOCK_TOPOLOGY;
+    console.error("[LibreNMS] No API token configured.");
+    throw new Error("No API token configured for LibreNMS.");
   }
 
   try {
@@ -244,9 +173,6 @@ export async function getNetworkTopology(): Promise<NetworkTopology> {
     ];
     const links: NetworkLink[] = [];
 
-    // Track created distribution nodes to link access nodes to them
-    const distNodes = new Map<string, string>(); // org -> node_id
-
     apiDevices.forEach((d: any, index: number) => {
       const hostname = d.hostname ?? `device-${d.device_id}`;
       const org = matchOrgFromHostname(hostname, d.sysName);
@@ -254,71 +180,28 @@ export async function getNetworkTopology(): Promise<NetworkTopology> {
       const ip = d.ip ?? undefined;
 
       const deviceType = inferDeviceNodeType(d);
+      
+      const accessId = `acc-${d.device_id}`;
+      nodes.push({
+        id: accessId,
+        label: hostname,
+        type: deviceType,
+        ip,
+        status,
+        organization: org
+      });
 
-      if (org) {
-        let distId = distNodes.get(org);
-        if (!distId) {
-          distId = `dist-${index}`;
-          distNodes.set(org, distId);
-          const fac = FACULTIES.find(f => f.th === org);
-          const shortCode = fac ? fac.code.toLowerCase() : "unknown";
-
-          // Create distribution node for this org
-          nodes.push({
-            id: distId,
-            label: `sw-dist-${shortCode}-01.kku.ac.th`,
-            type: "distribution",
-            status: "up",
-            organization: org
-          });
-          // Connect to core
-          links.push({
-            source: "core-0",
-            target: distId,
-            status: "up",
-            utilization: (index * 23) % 80 + 10,
-          });
-        }
-
-        const accessId = `acc-${d.device_id}`;
-        nodes.push({
-          id: accessId,
-          label: hostname,
-          type: deviceType,
-          ip,
-          status,
-          organization: org
-        });
-
-        // Connect access node to distribution node
-        links.push({
-          source: distId,
-          target: accessId,
-          status,
-          utilization: status === "down" ? 0 : (d.device_id * 17) % 35 + 5,
-        });
-      } else {
-        // Unassigned node directly connected to core
-        const genericId = `gen-${d.device_id}`;
-        nodes.push({
-          id: genericId,
-          label: hostname,
-          type: deviceType,
-          ip,
-          status,
-        });
-        links.push({
-          source: "core-0",
-          target: genericId,
-          status,
-          utilization: status === "down" ? 0 : (d.device_id * 13) % 25 + 5,
-        });
-      }
+      // Connect access node directly to core-0 without fake distribution switches or fake utilization
+      links.push({
+        source: "core-0",
+        target: accessId,
+        status,
+      });
     });
 
     return { nodes, links };
   } catch (error: any) {
-    console.error("[LibreNMS] Failed to fetch device topology, using mock fallback. Error:", error.message);
-    return MOCK_TOPOLOGY;
+    console.error("[LibreNMS] Failed to fetch device topology. Error:", error.message);
+    throw error;
   }
 }

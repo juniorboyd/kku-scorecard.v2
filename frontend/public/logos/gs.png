@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#a73b23">
+        <meta name="description" content=" บัณฑิตวิทยาลัย มหาวิทยาลัยขอนแก่น">
+        <base href="https://gs.kku.ac.th/gs2021/images/logo-gs-kku.png">
+        <meta name="image" content="">
+        <title>
+          บัณฑิตวิทยาลัย มหาวิทยาลัยขอนแก่น Graduate School Khon Kaen University.</title>
+
+        <link rel="stylesheet" href="https://gs.kku.ac.th/uikit/css/uikit_gs.css">
+        <link rel="stylesheet" href="https://gs.kku.ac.th/uikit/css/components/slider.min.css">
+        <link rel="stylesheet" href="https://gs.kku.ac.th/uikit/css/components/slidenav.css"> 
+        <link href='https://gs.kku.ac.th/uikit/fonts/google_font/google_font.css' rel='stylesheet' type='text/css'>
+        <script src="https://gs.kku.ac.th/uikit/js/jquery.js"></script>
+        <script src="https://gs.kku.ac.th/uikit/js/uikit.min.js"></script>
+
+        <script src="https://gs.kku.ac.th/uikit/js/components/sticky.js"></script>
+
+                <script  type="module"  src="https://pdp.kku.ac.th/api/v1/widget"></script> 
+
+        <meta property="og:url"                content="https://gs.kku.ac.th/gs2021/images/logo-gs-kku.png" />
+        <meta property="og:type"               content="article" />
+        <meta property="og:title"              content="" />
+        <meta property="og:description"        content="  บัณฑิตวิทยาลัย มหาวิทยาลัยขอนแก่น , สร้างอนาคตที่ดี เรียน โท เอก ที่ ม.ขอนแก่น Graduate School Khon Kaen University." />
+        <meta property="og:image"              content="" />
+
+ 		<link href="https://gs.kku.ac.th/uikit/fonts/css/font-awesome.min.css" rel="stylesheet"> 
+    <link href="https://gs.kku.ac.th/uikit/fonts/fontawesome7/css/fontawesome.css" rel="stylesheet" />
+  	<link href="https://gs.kku.ac.th/uikit/fonts/fontawesome7/css/solid.css" rel="stylesheet" />
+    <link href="https://gs.kku.ac.th/uikit/fonts/fontawesome7/css/brands.css" rel="stylesheet" />
+  
+ 		<link rel="shortcut icon" href="https://gs.kku.ac.th/uikit/img/GSicon.png" type="image/x-icon">
+    </head>
+
+    <body>
+        <kku-cookie-widget language="th" style="--primary-color: #a73b23;"></kku-cookie-widget>
+
+
+      
+      
+
+      <!-- This is the modal -->
+      <div id="modallanguage" class="uk-modal">
+          <div class="uk-modal-dialog">
+              <a class="uk-modal-close uk-close"></a>
+              <h3>Choose language</h3>
+              <p class="uk-text-center">
+                <a href="https://gs.kku.ac.th/"><img src="https://app.gs.kku.ac.th/images/img/img/lang/th.png" width="30" style=" margin: 10px 2px 10px 15px;" /></a>
+                      <a href="https://gs.kku.ac.th/">ไทย</a>
+
+                <a href="https://app.gs.kku.ac.th/gs/en"><img src="https://app.gs.kku.ac.th/images/img/img/lang/us.png" width="30" style=" margin: 10px 2px 10px 15px;" /></a>
+                      <a href="https://app.gs.kku.ac.th/gs/en">English</a>
+
+                <br/>
+
+                <a href="https://gs.kku.ac.th/home/index.php/main-laos.html"><img src="https://app.gs.kku.ac.th/images/img/img/lang/lo.png" width="30" style=" margin: 10px 2px 10px 15px;" /></a>
+                      <a href="https://gs.kku.ac.th/home/index.php/main-laos.html">ພາສາລາວ</a>
+
+                <a href="https://gs.kku.ac.th/home/index.php/main-vietnam.html"><img src="https://app.gs.kku.ac.th/images/img/img/lang/vn.png" width="30" style=" margin: 10px 2px 10px 15px;" /></a>
+                      <a href="https://gs.kku.ac.th/home/index.php/main-vietnam.html">Tiếng Việt</a>
+              </p>
+          </div>
+      </div>
+		
+								
+
+		
+		<div id="showtop" style=" display: none; width: 100%; z-index: 999; margin-top: -59px; ">
+			<div class="uk-bodytopslide" data-uk-sticky="{top:-500, animation: 'uk-animation-slide-top'}">
+				<div class="uk-container uk-container-center">
+
+					<nav class="uk-navbar uk-margin-large-bottomslide">
+
+														<ul class="uk-navbar-nav uk-navbar-navslide uk-hidden-small">
+
+																<li class="uk-active">
+											<a href="https://gs.kku.ac.th/"><i class="fa fa-home" style=" font-size: x-large;"></i></a>
+								</li>
+
+								<li 										data-uk-dropdown="{pos:'bottom-center' , delay: 10}">
+										<a href="#"> ข่าว<i class="fa fa-angle-down" style="font-size: 14px; padding-left:1px;"></i></a>
+
+										<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2" style="border: 1px solid #ddd;">
+
+											<div class="uk-grid uk-dropdown-grid">
+												<div class="uk-width-1-2">
+														<ul class="uk-nav uk-nav-navbar">
+																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/7/activity_news">ข่าวกิจกรรม</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/9/graduate_news">ข่าวประชาสัมพันธ์</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/11/admission_news">ข่าวรับสมัครเข้าศึกษา</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/13/honours_awards">ผลงานและรางวัล</a></li>
+
+																																																		
+																																														</ul>
+												</div>
+
+												<div class="uk-width-1-2">
+														<ul class="uk-nav uk-nav-navbar">
+																
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/8/scholarships_news">ประกาศผลทุนการศึกษา</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/10/conference_news">ข่าวประชุมวิชาการ</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/12/training_news">ข่าวอบรมพัฒนาทักษะ</a></li>
+
+																																																		
+																																
+																																		
+																			<li><a href="https://gs.kku.ac.th/th/category/14/newsletter">วารสารข่าวบัณฑิตศึกษา</a></li>
+
+																																																																</ul>
+												</div>
+											</div>
+
+										</div>
+								</li>
+
+								<li 										data-uk-dropdown="{delay: 10}">
+										<a href="#"> รับสมัครและหลักสูตร<i class="fa fa-angle-down" style="font-size: 14px; padding-left:1px;"></i></a>
+
+										<div class="uk-dropdown uk-dropdown-navbar" style="border: 1px solid #ddd;">
+												<ul class="uk-nav uk-nav-navbar">
+
+														
+														<li><a href="https://gsbooks.gs.kku.ac.th/66/manual/index.html#Course" target="_blank">รายละเอียดหลักสูตร</a></li>
+														<li><a href="https://gsbooks.gs.kku.ac.th/pr/manual/index.html" target="_blank">ประชาสัมพันธ์หลักสูตร ระดับบัณฑิตศึกษ1</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/ps2026r1">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2569 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/bio2025r">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/bio2025">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2025e1">รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2568</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/hgdm2025">รับสมัครนักศึกษา ระดับประกาศนียบัตรบัณฑิตชั้นสูง ทางวิทยาศาสตร์การแพทย์คลินิก ประจำปีการศึกษา 2568</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2025r2">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 รอบ 2</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/ps2025r2">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.) รอบ 2</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2025q1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/bio2024r">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2567 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/ps2025r1">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2025r1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 (บุคคลทั่วไป)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2024e1">รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2567</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2024r2">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 รอบ 2</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2024q1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a></li>
+
+														
+															<li><a href="https://gs.kku.ac.th/admissions/r/gs2024r1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 (บุคคลทั่วไป)</a></li>
+
+																										</ul>
+										</div>
+
+								</li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>หลักสูตรและการรับสมัคร</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="https://app.gs.kku.ac.th/gs/th/category/5/3660/3660/Interdisciplinary_Programs.html"  >
+                          
+                                                   
+												 <font>สาขาวิชาร่วม</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>ทุนการศึกษา</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>วิทยานิพนธ์/การศึกษาอิสระ</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="https://app.gs.kku.ac.th/gs/th/page/announcements_gs/"  >
+                          
+                                                   
+												 <font>ระเบียบ/ประกาศ</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>วารสาร มข.ฉบับ บศ.</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>GS Training</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="#"  >
+                          
+                                                   
+												 <font>เกี่ยวกับ บว.</font>													</a>
+
+                         
+                         
+                      </li>
+
+                
+                    
+                   
+                      
+                      <li class="uk-parent"                                                    >
+
+                                                         <a href="https://app.gs.kku.ac.th/gs/th/category/5/3773/3773/"  >
+                          
+                                                   
+												 <font>FAQ</font>													</a>
+
+                         
+                         
+                      </li>
+
+                								
+							</ul>
+							<a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas style=" /*float: right;*/ padding-top: 15px; "></a>
+							<div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="https://gs.kku.ac.th/uikit/img/newLogo.png" alt="#LG"/></div>
+			</nav>
+					</div>
+				</div>
+			</div>
+			
+
+				<div class="uk-bodytop">
+    	<div class="uk-bodytop2"></div>
+
+        <div class="uk-container uk-container-center uk-margin-top">
+
+					<a class="uk-navbar-brand uk-hidden-small" href="https://gs.kku.ac.th/"><img style=" max-width: 90%; " src="https://gs.kku.ac.th/uikit/img/newLogo.png" alt="#LoGo"/></a>
+
+					<div class="uk-navbar-flip"><h2 style="float: left; padding: 23px 25px 10px 10px; font-size: 16px; font-family: Kanit, sans-serif; color: rgb(149, 150, 154);">
+	<span class="uk-hidden-small" style="font-size:13px;"><a href="https://app.gs.kku.ac.th/gs/th/gskku/contact">ติดต่อ บว.</a> | <a href="https://app.gs.kku.ac.th/gs/th/category/5/3773/3773/">FAQ</a>&nbsp; &nbsp; &nbsp;&nbsp;</span> ไทย | <a href="https://app.gs.kku.ac.th/gs/en/">EN</a>&nbsp; <img alt="" src="https://app.gs.kku.ac.th/images/img/png-clipart-black-ribbon-awareness-ribbon-orange-ribbon-logo-black-ribbon-ribbon-logo%20(1).png" style="color: rgb(34, 34, 34); font-family: Arial, Verdana, sans-serif; font-size: 12px; width: 50px; height: 50px;" /></h2>
+</div>
+
+            <nav class="uk-navbar">
+
+                <ul class="uk-navbar-nav uk-hidden-small uk-navbar-flip" style="padding-top: 5px;">
+
+																		<li class="uk-active">
+												<a href="https://gs.kku.ac.th/"><i class="fa fa-home" style=" font-size: x-large;"></i></a>
+									</li>
+
+									<li 											data-uk-dropdown="{pos:'bottom-center' , delay: 10}">
+											<a href="#"> ข่าว<i class="fa fa-angle-down" style="font-size: 14px; padding-left:1px;"></i></a>
+
+											<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-width-2" style="border: 1px solid #ddd;">
+
+												<div class="uk-grid uk-dropdown-grid">
+													<div class="uk-width-1-2">
+															<ul class="uk-nav uk-nav-navbar">
+																	
+																																		  	
+																				<li><a href="https://gs.kku.ac.th/th/category/7/activity_news">ข่าวกิจกรรม</a></li>
+
+																																																					
+																																		
+																																		  	
+																				<li><a href="https://gs.kku.ac.th/th/category/9/graduate_news">ข่าวประชาสัมพันธ์</a></li>
+
+																																																					
+																																		
+																																		  	
+																				<li><a href="https://gs.kku.ac.th/th/category/11/admission_news">ข่าวรับสมัครเข้าศึกษา</a></li>
+
+																																																					
+																																		
+																																		  	
+																				<li><a href="https://gs.kku.ac.th/th/category/13/honours_awards">ผลงานและรางวัล</a></li>
+
+																																																					
+																																																	</ul>
+													</div>
+
+													<div class="uk-width-1-2">
+															<ul class="uk-nav uk-nav-navbar">
+																	
+																																		
+																																				
+																				<li><a href="https://gs.kku.ac.th/th/category/8/scholarships_news">ประกาศผลทุนการศึกษา</a></li>
+
+																																																					
+																																		
+																																				
+																				<li><a href="https://gs.kku.ac.th/th/category/10/conference_news">ข่าวประชุมวิชาการ</a></li>
+
+																																																					
+																																		
+																																				
+																				<li><a href="https://gs.kku.ac.th/th/category/12/training_news">ข่าวอบรมพัฒนาทักษะ</a></li>
+
+																																																					
+																																		
+																																				
+																				<li><a href="https://gs.kku.ac.th/th/category/14/newsletter">วารสารข่าวบัณฑิตศึกษา</a></li>
+
+																																																																				</ul>
+													</div>
+												</div>
+
+											</div>
+									</li>
+									
+								
+  
+									
+
+									<li 											data-uk-dropdown="{delay: 10}">
+											<a href="#"> รับสมัครและหลักสูตร<i class="fa fa-angle-down" style="font-size: 14px; padding-left:1px;"></i></a>
+										<div class="uk-dropdown uk-dropdown-navbar" style="border: 1px solid #ddd;">
+													<ul class="uk-nav uk-nav-navbar">
+
+															
+															<li><a href="https://gsbooks.gs.kku.ac.th/66/manual/index.html#Course" target="_blank">รายละเอียดหลักสูตร</a>
+
+															<div class="uk-dropdown uk-dropdown-navbar" style="border: 1px solid #ddd;">
+													<ul class="uk-nav uk-nav-navbar">
+													<li><a href="https://gsbooks.gs.kku.ac.th/66/manual/index.html#Course" target="_blank">รายละเอียดหลักสูตร1234</a>
+													</li>
+													</li>
+																			</div>
+															
+															<li><a href="https://gsbooks.gs.kku.ac.th/pr/manual/index.html" target="_blank">ประชาสัมพันธ์หลักสูตร ระดับบัณฑิตศึกษา2</a></li>
+															
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/ps2026r1">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2569 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/bio2025r">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/bio2025">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2025e1">รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2568</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/hgdm2025">รับสมัครนักศึกษา ระดับประกาศนียบัตรบัณฑิตชั้นสูง ทางวิทยาศาสตร์การแพทย์คลินิก ประจำปีการศึกษา 2568</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2025r2">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 รอบ 2</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/ps2025r2">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.) รอบ 2</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2025q1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/bio2024r">รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2567 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/ps2025r1">รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2025r1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 (บุคคลทั่วไป)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2024e1">รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2567</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2024r2">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 รอบ 2</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2024q1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a></li>
+
+															
+																<li><a href="https://gs.kku.ac.th/admissions/r/gs2024r1">รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 (บุคคลทั่วไป)</a></li>
+
+																												</ul>
+											</div>
+
+									</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>หลักสูตรและการรับสมัคร</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="https://app.gs.kku.ac.th/gs/th/category/5/3660/3660/Interdisciplinary_Programs.html"  >
+														
+																											 
+													 <font>สาขาวิชาร่วม</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>ทุนการศึกษา</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>วิทยานิพนธ์/การศึกษาอิสระ</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="https://app.gs.kku.ac.th/gs/th/page/announcements_gs/"  >
+														
+																											 
+													 <font>ระเบียบ/ประกาศ</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>วารสาร มข.ฉบับ บศ.</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>GS Training</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="#"  >
+														
+																											 
+													 <font>เกี่ยวกับ บว.</font>														</a>
+
+                           
+													 
+												</li>
+
+									
+                      
+										 
+												
+												<li class="uk-parent"																												>
+
+																														 <a href="https://app.gs.kku.ac.th/gs/th/category/5/3773/3773/"  >
+														
+																											 
+													 <font>FAQ</font>														</a>
+
+                           
+													 
+												</li>
+
+																		
+                </ul>
+                <a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas style=" /*float: right;*/ padding-top: 15px; "></a>
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="https://gs.kku.ac.th/uikit/img/newLogo.png" alt="#LG"/></div>
+
+			</nav>
+
+            </div>
+
+         </div>
+         
+				          <div id="offcanvas" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <ul class="uk-nav uk-nav-side uk-nav-side_gs uk-nav-parent-icon"  data-uk-nav>
+
+																				<li class="uk-active">
+													<a href="https://gs.kku.ac.th/"><i class="fa fa-home" style=" font-size: x-large;"></i> หน้าหลัก</a>
+										</li>
+
+										<li class="uk-parent">
+												<a href="#"> ข่าว</a>
+														<ul class="uk-nav-sub">
+																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/7/activity_news">ข่าวกิจกรรม</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/8/scholarships_news">ประกาศผลทุนการศึกษา</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/9/graduate_news">ข่าวประชาสัมพันธ์</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/10/conference_news">ข่าวประชุมวิชาการ</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/11/admission_news">ข่าวรับสมัครเข้าศึกษา</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/12/training_news">ข่าวอบรมพัฒนาทักษะ</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/13/honours_awards">ผลงานและรางวัล</a></li>
+
+																																														  	
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a href="https://gs.kku.ac.th/th/category/14/newsletter">วารสารข่าวบัณฑิตศึกษา</a></li>
+
+																																														</ul>
+
+										</li>
+
+										<li class="uk-parent">
+												<a href="#"> รับสมัครและหลักสูตร</a>
+														<ul class="uk-nav-sub">
+
+																<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a style=" padding: 12px 10px; " href="https://app.gs.kku.ac.th/images/img/admissions/25_07_2018_allprogram.pdf" target="_blank"><i class="fa fa-file-text-o" aria-hidden="true"></i> หลักสูตรที่เปิดสอน (PDF)</a></li>
+																<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a style=" padding: 12px 10px; " href="https://gsbooks.gs.kku.ac.th/66/manual/index.html#Course" target="_blank"><i class="fa fa-file-text-o" aria-hidden="true"></i> รายละเอียดหลักสูตร</a></li>
+																<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;"><a style=" padding: 12px 10px; " href="https://gsbooks.gs.kku.ac.th/pr/manual/index.html" target="_blank"><i class="fa fa-file-text-o" aria-hidden="true"></i> ประชาสัมพันธ์หลักสูตร ระดับบัณฑิตศึกษา3</a></li>
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/ps2026r1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2569 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/bio2025r"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/bio2025"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2568 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2025e1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2568</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/hgdm2025"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ระดับประกาศนียบัตรบัณฑิตชั้นสูง ทางวิทยาศาสตร์การแพทย์คลินิก ประจำปีการศึกษา 2568</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2025r2"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 รอบ 2</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/ps2025r2"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.) รอบ 2</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2025q1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/bio2024r"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษาระดับบัณฑิตศึกษา ประจำปีการศึกษา 2567 สาขาวิชาชีววิทยาสำหรับครู (แบบชุดวิชา) รอบ 2</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/ps2025r1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครสอบคัดเลือกเข้าศึกษา ภาคต้น ปีการศึกษา 2568 หลักสูตรศึกษาศาสตรมหาบัณฑิต ภายใต้โครงการ(สควค.)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2025r1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2568 (บุคคลทั่วไป)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2024e1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคปลาย ปีการศึกษา 2567</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2024r2"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 รอบ 2</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2024q1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 โควตา (เฉพาะนักศึกษามหาวิทยาลัยขอนแก่น และศิษย์เก่าที่สำเร็จการศึกษาไม่เกิน 5 ปี)</a>
+																	</li>
+
+																
+																	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+																		<a style=" padding: 12px 10px; " href="https://gs.kku.ac.th/admissions/r/gs2024r1"><i class="fa fa-file-text-o" aria-hidden="true"></i> รับสมัครนักศึกษา ประจำภาคต้น ปีการศึกษา 2567 (บุคคลทั่วไป)</a>
+																	</li>
+
+																														</ul>
+
+										</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 หลักสูตรและการรับสมัคร													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://admission.gs.kku.ac.th/" target="_blank">การรับสมัคร</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://gsbooks.gs.kku.ac.th/67/manual/#Course">ข้อมูลหลักสูตร</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://gsbooks.gs.kku.ac.th/68/manual/#Course">รายละเอียดหลักสูตร</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/5/3600/3600/">ประกาศค่าธรรมเนียมการศึกษา</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://registrar.kku.ac.th/kkustudentpage1/academiccalendar/">ปฏิทินการศึกษา</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/page/cross-ins-reg/">ลงทะเบียนข้ามสถาบัน</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://interadmission.gs.kku.ac.th/">Foreign Studens Application</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://forms.gle/KMq67MW3rKDMkJ7W6">รับสมัครกรณีพิเศษ (ตลอดปี)</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li  >
+
+																																 <a href="https://app.gs.kku.ac.th/gs/th/category/5/3660/3660/Interdisciplinary_Programs.html"  >
+															
+																													 
+														 สาขาวิชาร่วม													 		</a>
+
+															
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 ทุนการศึกษา													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/94">ประกาศรับสมัครทุนการศึกษา</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/8/scholarships_news">ประกาศผลทุนการศึกษา</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/5/3991/3991/ScholarshipMultidisciplinaryPrograms.html">ทุนการศึกษาสาขาวิชาร่วม</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/95/schEx/3595">ทุนการศึกษาภายนอก</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 วิทยานิพนธ์/การศึกษาอิสระ													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/page/Thesis_Guide/">คู่มือการทำวิทยานิพนธ์</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/page/Thesis_Guide/Guidelines">แนวปฏิบัติ (รูปแบบ, การส่ง, จริยธรรม)</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/page/Thesis_Guide/refer">รูปแบบการอ้างอิง</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/page/Thesis_Guide/Template">Template / ตัวอย่างวิทยานิพนธ์</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">ส่งวิทยานิพนธ์และเผยแพร่การตีพิมพ์</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/page/Thesis-Journal-Submis/">E-Thesis</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://gsmis.gs.kku.ac.th/">บว.37 ส่งข้อมูลการเผยแพร่ผลงาน</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/9/graduate_news/3711/">ขั้นตอนการส่งแบบฟอร์ม บว.37</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">Research Resources</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://journal.gs.kku.ac.th/gs">วารสารวิจัย มข. ฉบับ บศ.(วิทยาศาสตร์และเทคโนโลยี)</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://journal.gs.kku.ac.th/hs">วารสารวิจัย มข. ฉบับ บศ.(มนุษยศาสตร์และสังคมศาสตร์)</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://library.kku.ac.th/">KKU Library</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/16/research/2077/thai-journal.html">ตรวจสอบรายชื่อ Scopus/ISI/TCI สำหรับตีพิมพ์</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://gsmis.gs.kku.ac.th/thesis/search">ค้นหา งานวิจัย,ผลงานตีพิมพ์ของนักศึกษา</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://online.anyflip.com/gumht/xcse/mobile/index.html">การลงนามด้วยลายเซ็นต์ดิจิตอล</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://image.kku.ac.th/f/ae5c2V9O-5jxj-qz7T-5DizMELV.pdf">การลงนามด้วยลายเซ็นต์ดิจิตอล for Mac OS</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li  >
+
+																																 <a href="https://app.gs.kku.ac.th/gs/th/page/announcements_gs/"  >
+															
+																													 
+														 ระเบียบ/ประกาศ													 		</a>
+
+															
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 วารสาร มข.ฉบับ บศ.													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://journal.gs.kku.ac.th/gs" target="_blank">วารสารวิจัย มข. ฉบับ บศ.(วิทยาศาสตร์และเทคโนโลยี)</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://journal.gs.kku.ac.th/hs">วารสารวิจัย มข. ฉบับ บศ.(มนุษยศาสตร์และสังคมศาสตร์)</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/publication/abstracts-and-fullpapers">Abstracts and Full Papers (NGRC)</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 GS Training													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/5/3789/3789/GS-Training.html">อบรม Online (KKU X)</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/page/training/onsite">อบรม Onsite</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/5/3707/3707/">AI The Series</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/5/3703/3703/shotmrdm-old.html">อบรมระยะสั้น</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/page/gs-km">การจัดการความรู้ (KM)</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li 																	class="uk-parent"														class="uk-parent" >
+
+																																 <a href="#"  >
+															
+																													 
+														 เกี่ยวกับ บว.													 		</a>
+
+																                               <!-- This is the dropdown -->
+	                               <ul class="uk-nav-sub">
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">การบริหารองค์กร</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/gskku/management-structure">โครงสร้างการบริหาร</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/18/about_us/3613">บอร์ดสูงสุด กำกับ</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/gskku/management-organization">การบริหารองค์กร (กบว)</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/category/18/about_us/3601">GS KKU Branding</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">บุคลากร</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/18/about_us/4065">ผู้บริหาร</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/category/18/about_us/4064">บุคลากร</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">ประวัติบัณฑิตวิทยาลัย</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/gskku/about-gskku">แนะนำบัณฑิตวิทยาลัย</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/gskku/administrator-history">ประวัติรายนามคณบดี</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="#">แผน และผลปฏิบัติการประจำปี</a>
+		<ul>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/publication/action-plan">แผนปฏิบัติราชการ</a></li>
+			<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+				<a href="https://app.gs.kku.ac.th/gs/th/publication/annual-report">รายงานประจำปี บว.</a></li>
+		</ul>
+	</li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://app.gs.kku.ac.th/gs/th/gskku/contact">ติดต่อ บว.</a></li>
+	<li style="font-size: 15px; border-bottom: 1px solid #404040;margin: 4px;">
+		<a href="https://sites.google.com/kku.ac.th/gsoffice">บริการจองยานพาหนะและห้องประชุม</a></li>
+</ul>
+	                            
+	 													 
+													</li>
+
+										
+											 
+											 
+											 		
+													<li  >
+
+																																 <a href="https://app.gs.kku.ac.th/gs/th/category/5/3773/3773/"  >
+															
+																													 
+														 FAQ													 		</a>
+
+															
+	 													 
+													</li>
+
+																				
+
+	 									 	 									 
+
+                </ul>
+            </div>
+        </div>
+				
+				
+				<script>
+				// ===== Scroll to Top ====
+				$(window).scroll(function() {
+					 if ($(this).scrollTop() >= 300) {        // If page is scrolled more than 50px
+							 $('#showtop').fadeIn(300);    // Fade in the arrow
+
+					 } else {
+							 $('#showtop').fadeOut(300);   // Else fade out the arrow
+							 $('#showtop').hide();
+					 }
+				});
+
+				</script>
+<div class="uk-container uk-container-center uk-margin-top uk-margin-bottom">
+	<div class="uk-grid">
+		<div class="uk-width-medium-1-1 uk-margin-bottom">
+			<br/> 
+			<h1>404 Page Not Found
+			<br/>Oops! That page can’t be found. </h1>
+			<h2>เว็บไม่สามารถแสดงผลหน้านี้ได้ ลิงก์อาจเสียหายหรืออาจได้มีการลบออกแล้ว</h2>
+			<br/><br/><br/>
+		</div>
+	</div>
+
+	</div>
+<div style="position: fixed; bottom: 20px; right: 20px; opacity: 1;">
+	<a href="https://m.me/147427798607588" target="_blank" style="font-size: 50px; border-radius: 40% 10%; background: #fff;">
+	<i class="fa-brands fa-facebook-messenger" style=" color: #db4c2a; "></i>
+	</a>
+</div>
+
+<div style="position: fixed; bottom: 100px; right: 20px; opacity: 1;">
+	<a href="https://chatgpt.com/g/g-6936402ecba48191b13b8e0d298aa49e-kku-graduate-school-scholarship-assistant-ai" target="_blank" style="font-size: 50px; border-radius: 40% 10%; background: #fff;">
+	<i class="fa-brands fa-openai" style=" color: #db4c2a; "></i>
+	</a>
+</div>
+ 
+<script>
+// ===== Scroll to Top ====
+$(window).scroll(function() {
+   if ($(this).scrollTop() >= 250) {        // If page is scrolled more than 50px
+       $('#return-to-top').fadeIn(200);    // Fade in the arrow
+   } else {
+       $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+   }
+});
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-7982978-1', 'auto');
+  ga('send', 'pageview');
+
+</script> 
+
+<div class="uk-text-right" id="return-to-top"><a href="#top" class="uk-button uk-button-gs" style=" padding: 4px 12px 4px 12px; " data-uk-smooth-scroll><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+
+
+
+        <div class="uk-footer">
+        	 <div class="uk-container uk-container-center uk-margin-top">
+        	 	<div class="uk-grid">
+
+
+                                <div class="uk-width-medium-2-3">
+	<h4>
+		<br />
+		<span style="color:#999;">บัณฑิตวิทยาลัย มหาวิทยาลัยขอนแก่น<br />
+		ติดต่อ: ชั้น 3 อาคาร พิมล กลกิจ อ.เมือง จ.ขอนแก่น 40002 โทรศัพท์ 08-8062-0132 หรือ 08-1768-9618</span></h4>
+	<h4>
+		<span style="color:#999;">แนะนำ ติ-ชม : Contact Webmaster: e-mail : graduate@kku.ac.th</span></h4>
+</div>
+<div class="uk-width-medium-1-3">
+	<h4>
+		<br />
+		<span style="color:#999;">Follow us</span></h4>
+	<h4 style="margin-top: 15px;">
+		<a href="https://www.facebook.com/graduateschoolkku" target="_blank"><span style="color:#999;"><i aria-hidden="true" class="fa-brands fa-facebook-square"><span style="color:#000;">.</span></i></span></a> <a href="https://www.youtube.com/GSKKU" target="_blank"><span style="color:#999;"><i aria-hidden="true" class="fa-brands fa-youtube-square"><span style="color:#000;">.</span></i></span></a> <a data-uk-modal="" href="#modallanguage" style="font-size: 12px; color:#999;">Language | ไทย <img src="https://app.gs.kku.ac.th/images/img/img/lang/th.png" style="margin: 7px 7px 10px 7px;" width="25" /></a></h4>
+</div>
+<div class="uk-width-medium-1-1">
+	<h4>
+		<a href="https://app.gs.kku.ac.th/gs/th/gskku/contact"><span style="font-family: 'Kanit', sans-serif; color:#fff; "><u>หมายเลขติดต่อบัณฑิตวิทยาลัย</u></span></a></h4>
+</div>
+<div class="uk-width-medium-1-1" style="text-align: center;">
+	<p style="font-size: 11px; color:#666; text-align: left;">
+		<br />
+		&copy; COPYRIGHT 2022 GRADUATE SCHOOL KHON KAEN UNIVERSITY</p>
+</div>
+<p>
+	&nbsp;</p>
+
+
+
+              </div>
+        	 </div>
+        </div>
+
+    </body>
+</html>

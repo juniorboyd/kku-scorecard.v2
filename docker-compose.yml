@@ -36,7 +36,7 @@ services:
       # Generate: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
       ENCRYPTION_KEY: 8d09db15ed247efef0e86512ca10222a42bcc36e7889af751a9b8d6790f5d838
       NODE_ENV: development
-      FRONTEND_URL: http://nginx:80
+      FRONTEND_URL: http://localhost:3000
       APP_BASE_URL: https://localhost:4333
       SSO_REDIRECT_URL: https://localhost:4333/callback
 
@@ -58,7 +58,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_API_BASE_URL: ""
+        NEXT_PUBLIC_API_BASE_URL: "http://localhost:4000"
     container_name: kku_frontend
     environment:
       NODE_ENV: production

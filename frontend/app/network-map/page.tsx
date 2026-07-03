@@ -241,33 +241,32 @@ function NetworkTopologyFlow() {
     );
     
     // Distribute unassigned generic nodes across multiple concentric rings to avoid overlap
-    const nodesPerRing = [18, 28, 38, 48];
-    genericAccess.forEach((node, i) => {
-      let cumulative = 0;
-      let ring = 0;
-      for (let r = 0; r < nodesPerRing.length; r++) {
-        cumulative += nodesPerRing[r];
-        if (i < cumulative) {
-          ring = r;
-          break;
-        }
-        if (r === nodesPerRing.length - 1) {
-          ring = r;
-        }
-      }
+    const genericCount = genericAccess.length;
+    let placedNodes = 0;
+    let ringIndex = 0;
 
-      const ringRadius = 390 + ring * 90;
-      const ringStartIdx = ring > 0 ? nodesPerRing.slice(0, ring).reduce((a, b) => a + b, 0) : 0;
-      const ringEndIdx = Math.min(genericAccess.length, ringStartIdx + nodesPerRing[ring]);
-      const totalInRing = ringEndIdx - ringStartIdx;
+    while (placedNodes < genericCount) {
+      // Start rings at radius 260, expanding outwards by 100px per ring
+      const radius = 260 + ringIndex * 100;
       
-      const idxInRing = i - ringStartIdx;
-      const staggerAngle = (ring * Math.PI) / 8;
-      const angle = (idxInRing * 2 * Math.PI) / (totalInRing || 1) + staggerAngle;
-
-      node.x = cx + Math.cos(angle) * ringRadius;
-      node.y = cy + Math.sin(angle) * ringRadius;
-    });
+      // Calculate how many nodes can fit in this ring assuming each needs ~70px of arc length
+      const maxNodesInThisRing = Math.floor((2 * Math.PI * radius) / 70) || 1;
+      
+      const nodesToPlace = Math.min(maxNodesInThisRing, genericCount - placedNodes);
+      
+      for (let i = 0; i < nodesToPlace; i++) {
+        const node = genericAccess[placedNodes + i];
+        // Stagger each ring slightly to avoid straight lines
+        const staggerAngle = (ringIndex % 2 === 0) ? 0 : (Math.PI / nodesToPlace);
+        const angle = (i * 2 * Math.PI) / nodesToPlace + staggerAngle;
+        
+        node.x = cx + Math.cos(angle) * radius;
+        node.y = cy + Math.sin(angle) * radius;
+      }
+      
+      placedNodes += nodesToPlace;
+      ringIndex++;
+    }
 
     // Generate React Flow Nodes
     const flowNodes: FlowNode[] = devices

@@ -19,7 +19,9 @@ export default function LandingPage() {
       const r = await authApi.login();
       if (r.redirectUrl) window.location.href = r.redirectUrl;
       else router.replace("/dashboard");
-    } catch {
+    } catch (error: any) {
+      console.error(error);
+      alert("Login failed: " + (error.message || String(error)));
       setLoginLoading(false);
     }
   }

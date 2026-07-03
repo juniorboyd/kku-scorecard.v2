@@ -66,25 +66,34 @@ export default function DashboardPage() {
   const [orgScores, setOrgScores] = useState<any[]>([]);
   const [orgScoresLoading, setOrgScoresLoading] = useState(true);
 
-  const load = useCallback(() => {
+  const fetchDashboardData = useCallback((isPolling = false) => {
     if (selectedSnapshotId === null) return;
-    setLoading(true);
+    if (!isPolling) setLoading(true);
     setError(false);
     dashboardApi
       .getOverview({ snapshotId: selectedSnapshotId })
       .then((r) => setData(r.data))
       .catch(() => setError(true))
-      .finally(() => setLoading(false));
+      .finally(() => { if (!isPolling) setLoading(false); });
 
-    setOrgScoresLoading(true);
+    if (!isPolling) setOrgScoresLoading(true);
     dashboardApi
       .getOrgScores(selectedSnapshotId)
       .then((r) => setOrgScores(r.data ?? []))
       .catch(() => setOrgScores([]))
-      .finally(() => setOrgScoresLoading(false));
+      .finally(() => { if (!isPolling) setOrgScoresLoading(false); });
   }, [selectedSnapshotId]);
 
-  useEffect(() => { load(); }, [load]);
+  const load = useCallback(() => fetchDashboardData(false), [fetchDashboardData]);
+
+  useEffect(() => { 
+    load(); 
+    // Real-time polling every 30 seconds
+    const interval = setInterval(() => {
+      fetchDashboardData(true);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [load, fetchDashboardData]);
 
   const stat = data?.latestStat;
   const score = data?.scoreHistory?.at(-1)?.score ?? "—";
@@ -245,11 +254,7 @@ export default function DashboardPage() {
           const unknownOrg = orgScores.find((o) => UNKNOWN_KEYS.has(o.organization ?? ""));
 
           if (!orgScoresLoading && knownOrgs.length === 0) {
-            // Use mock data fallback
-            knownOrgs = SECURITY_MOCK_DATA.faculties.map(f => ({
-              organization: f.name,
-              securityScore: f.score
-            })).sort((a, b) => a.securityScore - b.securityScore);
+            // No mock fallback anymore
           }
 
           return (
