@@ -333,6 +333,9 @@ def process_files(score_file: str, master_file: str) -> dict:
     result.loc[maskUnknown, ["matched_domain", "Organization", "master_domain"]] = "unknown"
     result["abbr_en"] = result["abbr_en"].fillna("")
     
+    # Clean string dashes to 0 in result
+    result["ISSUE TYPE SCORE IMPACT"] = pd.to_numeric(result["ISSUE TYPE SCORE IMPACT"], errors='coerce').fillna(0)
+    
     # 3 count issue severity by type (high, medium, low, info)
     severity_order = ["HIGH", "MEDIUM", "LOW", "INFO"]
     severity_count = result["ISSUE TYPE SEVERITY"].value_counts().reindex(severity_order, fill_value=0)
@@ -340,7 +343,7 @@ def process_files(score_file: str, master_file: str) -> dict:
     issue_type_df = result[["FACTOR NAME", "ISSUE TYPE TITLE", "ISSUE TYPE SCORE IMPACT"]].drop_duplicates().reset_index(drop=True)
     issue_count = result.groupby(["FACTOR NAME", "ISSUE TYPE TITLE"]).size().reset_index(name="TOTAL_ISSUES")
     issue_score = issue_type_df.merge(issue_count, on=["FACTOR NAME", "ISSUE TYPE TITLE"], how="left")
-    issue_score["SCORE_PER_ISSUE"] = issue_score["ISSUE TYPE SCORE IMPACT"].astype(float) / issue_score["TOTAL_ISSUES"].astype(float)
+    issue_score["SCORE_PER_ISSUE"] = pd.to_numeric(issue_score["ISSUE TYPE SCORE IMPACT"], errors='coerce').fillna(0) / pd.to_numeric(issue_score["TOTAL_ISSUES"], errors='coerce')
     issue_score = issue_score.sort_values(["FACTOR NAME", "ISSUE TYPE TITLE"]).reset_index(drop=True)
 
     # 1 issue total count per org

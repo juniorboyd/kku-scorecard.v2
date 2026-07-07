@@ -204,7 +204,12 @@ export async function importMappingFile(filePath: string) {
         await prisma.domain.create({ data: { organizationId: org.id, domain } });
         created++;
       } else {
-        skipped++;
+        if (existing.organizationId !== org.id) {
+          await prisma.domain.update({ where: { id: existing.id }, data: { organizationId: org.id } });
+          created++; // Count as updated
+        } else {
+          skipped++;
+        }
       }
     } catch (e: any) {
       errors.push(`${domain}: ${e.message}`);
