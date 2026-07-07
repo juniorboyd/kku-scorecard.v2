@@ -77,18 +77,7 @@ export default function Sidebar() {
 
       {/* Footer Elements */}
       <div className="p-6 space-y-4">
-        {/* Scanner Status Card */}
-        <div className="bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/80 dark:to-slate-800/30 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">สถานะระบบการสแกน</span>
-          </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mb-3">สแกนล่าสุด: 2026-06-24 08:30</p>
-          <button className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-xl text-xs font-semibold shadow-md shadow-blue-500/10 transition-all">
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>สแกนระบบอีกครั้ง</span>
-          </button>
-        </div>
+
 
 
       </div>
