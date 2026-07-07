@@ -14,7 +14,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard",     label: "ภาพรวมความปลอดภัย",       icon: LayoutDashboard },
   { href: "/organizations", label: "คะแนนแยกตามคณะ",   icon: Building2 },
   { href: "/issues",        label: "รายการปัญหาที่พบ",          icon: AlertTriangle },
-  { href: "/assets",        label: "สินทรัพย์ทั้งหมด",          icon: Server },
+  { href: "/assets",        label: "IP Address / Domain",          icon: Server },
   { href: "/network-map",   label: "แผนผังเครือข่าย",          icon: Network },
   { href: "/imports",       label: "นำเข้าข้อมูล",         icon: Upload,     roles: ["ADMIN", "ANALYST"] },
   { href: "/logs",          label: "บันทึกระบบ (Logs)",     icon: ScrollText, roles: ["ADMIN", "ANALYST"] },
@@ -91,20 +91,7 @@ export default function Sidebar() {
           </button>
         </div>
 
-        {/* Logout */}
-        <div className="pt-2 border-t border-slate-200 dark:border-slate-800">
-          <button
-            onClick={async () => {
-              const r = await authApi.logout();
-              if (r.redirectUrl) window.location.href = r.redirectUrl;
-              else window.location.href = "/login";
-            }}
-            className="flex items-center gap-3 w-full px-4 py-2 rounded-xl text-sm font-medium text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            ออกจากระบบ
-          </button>
-        </div>
+
       </div>
     </aside>
   );

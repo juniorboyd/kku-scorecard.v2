@@ -11,7 +11,7 @@ import { useTheme } from "next-themes";
 const TITLES: Record<string, string> = {
   "/dashboard":     "ภาพรวมความปลอดภัย",
   "/issues":        "รายการปัญหาที่พบ",
-  "/assets":        "สินทรัพย์ทั้งหมด",
+  "/assets":        "IP Address / Domain",
   "/organizations": "คะแนนแยกตามคณะ",
   "/imports":       "นำเข้าข้อมูล",
   "/logs":          "บันทึกระบบ (Logs)",
@@ -24,11 +24,7 @@ const ROLE_BADGE: Record<string, string> = {
   VIEWER:  "bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-400",
 };
 
-async function doLogout() {
-  const r = await authApi.logout();
-  if (r.redirectUrl) window.location.href = r.redirectUrl;
-  else window.location.href = "/login";
-}
+
 
 export default function Topbar() {
   const path = usePathname();
@@ -165,10 +161,7 @@ export default function Topbar() {
                   <Settings className="w-4 h-4" />
                   การตั้งค่าบัญชี
                 </Link>
-                <button onClick={doLogout} className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10">
-                  <LogOut className="w-4 h-4" />
-                  ออกจากระบบ
-                </button>
+
               </div>
             </div>
           )}

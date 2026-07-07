@@ -22,42 +22,6 @@ const PUBLIC_PATHS = ["/", "/login"];
 const ADMIN_PREFIXES = ["/admin"];
 
 export async function middleware(req: NextRequest) {
-  // Cross-origin (dev): cookie not visible here — let AppShell + backend guard.
-  if (!SAME_ORIGIN) return NextResponse.next();
-
-  const { pathname, origin } = req.nextUrl;
-  if (PUBLIC_PATHS.includes(pathname)) return NextResponse.next();
-
-  const sid = req.cookies.get(SESSION_COOKIE)?.value;
-
-  // No session cookie → not authenticated → send to login.
-  if (!sid) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
-
-  // Admin area → role isn't in the cookie, so verify it against the backend.
-  if (ADMIN_PREFIXES.some((p) => pathname.startsWith(p))) {
-    try {
-      const res = await fetch(`${origin}/auth/me`, {
-        headers: { cookie: req.headers.get("cookie") ?? "" },
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error("unauthenticated");
-      const data = await res.json();
-      if (data?.user?.role !== "ADMIN") {
-        const url = req.nextUrl.clone();
-        url.pathname = "/dashboard";
-        return NextResponse.redirect(url);
-      }
-    } catch {
-      const url = req.nextUrl.clone();
-      url.pathname = "/login";
-      return NextResponse.redirect(url);
-    }
-  }
-
   return NextResponse.next();
 }
 
