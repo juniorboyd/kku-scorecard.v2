@@ -3,10 +3,10 @@ import fs from "fs";
 import prisma from "../lib/prisma.ts";
 import { SSC_API_URL, SSC_API_KEY_HEADER, SSC_COMPANY_DOMAIN, UPLOAD_DIR, TEMP_DIR, DATA_DIR } from "../config.ts";
 import { ensureDirectory } from "../utils/fileUtils.ts";
-import { normalizeOrganizationName } from "../utils/textUtils.ts";
+import { normalizeOrganizationName, matchOrgFromHostname } from "../utils/textUtils.ts";
 import { runPythonProcessor } from "../lib/pythonRunner.ts";
 import { getScorecardApiKey } from "./settingsService.ts";
-import { writeMasterDomainCsv } from "./domainService.ts";
+import { writeMasterDomainCsv, findOrCreateOrganization } from "./domainService.ts";
 import axios from "axios";
 
 ensureDirectory(DATA_DIR);
@@ -118,11 +118,36 @@ export async function processSecurityScorecardUpload(opts: {
     const orgByName = new Map<string, { id: number; name: string }>();
     for (const o of dbOrgs) orgByName.set(o.name.trim().toLowerCase(), { id: o.id, name: o.name });
 
+    // Pre-pass: auto-detect missing organizations sequentially to avoid race conditions
+    for (const row of result.raw_result) {
+      let rawOrg = String(row.Organization ?? "").trim();
+      let match = (rawOrg && rawOrg !== "unknown" && rawOrg !== "no data") ? orgByName.get(rawOrg.toLowerCase()) : undefined;
+      
+      if (!match) {
+        const matchedDomain = String(row.matched_domain ?? "");
+        const host = row.asset_host ? String(row.asset_host).trim() : matchedDomain;
+        const guessedOrgName = matchOrgFromHostname(host || matchedDomain || String(row["FINAL URL"] ?? ""));
+        if (guessedOrgName && !orgByName.has(guessedOrgName.toLowerCase())) {
+          const newOrg = await findOrCreateOrganization(guessedOrgName);
+          orgByName.set(newOrg.name.toLowerCase(), { id: newOrg.id, name: newOrg.name });
+        }
+      }
+    }
+
     const issuePromises = result.raw_result.map(async (row: any) => {
       const rawOrg = String(row.Organization ?? "").trim();
-      const match = (rawOrg && rawOrg !== "unknown" && rawOrg !== "no data")
+      let match = (rawOrg && rawOrg !== "unknown" && rawOrg !== "no data")
         ? orgByName.get(rawOrg.toLowerCase())
         : undefined;
+
+      if (!match) {
+        const matchedDomain = String(row.matched_domain ?? "");
+        const host = row.asset_host ? String(row.asset_host).trim() : matchedDomain;
+        const guessedOrgName = matchOrgFromHostname(host || matchedDomain || String(row["FINAL URL"] ?? ""));
+        if (guessedOrgName) {
+           match = orgByName.get(guessedOrgName.toLowerCase());
+        }
+      }
 
       const organizationId = match?.id ?? null;
       const organizationName = match?.name ?? "unknown";
