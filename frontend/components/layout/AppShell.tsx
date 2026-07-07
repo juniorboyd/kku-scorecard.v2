@@ -5,8 +5,8 @@ import { authApi } from "@/lib/api";
 import { SnapshotProvider } from "@/lib/snapshotContext";
 import { ToastProvider } from "@/lib/toast";
 import { MeContext, type Me } from "@/lib/me";
-import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import Sidebar from "./Sidebar";
 import NewDataBanner from "./NewDataBanner";
 import AccessDenied from "@/components/ui/AccessDenied";
 
@@ -27,13 +27,25 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const isPublic = PUBLIC_EXACT.includes(path) || PUBLIC_PATHS.some((p) => path.startsWith(p));
   const [me, setMe] = useState<Me>(null);
-  const [status, setStatus] = useState<"loading" | "authed">("loading");
+  const [status, setStatus] = useState<"loading" | "authed" | "error">("loading");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
     if (isPublic) return;
     authApi.me()
       .then((r) => { setMe(r.user ?? null); setStatus("authed"); })
-      .catch(() => router.replace("/login"));
+      .catch(async () => {
+        try {
+          await authApi.login();
+          const r = await authApi.me();
+          setMe(r.user ?? null);
+          setStatus("authed");
+        } catch(e: any) {
+          console.error("Auth failed:", e);
+          setErrorMsg(e.message || String(e));
+          setStatus("error");
+        }
+      });
   }, [isPublic, router]);
 
   if (isPublic) return <>{children}</>;
@@ -42,6 +54,17 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "#1e3a5f", borderTopColor: "transparent" }} />
+      </div>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <div className="min-h-screen bg-red-50 flex items-center justify-center p-6 text-center text-red-800">
+        <div>
+          <h2 className="text-xl font-bold mb-2">Authentication Failed</h2>
+          <p>{errorMsg}</p>
+        </div>
       </div>
     );
   }

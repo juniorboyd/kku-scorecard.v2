@@ -6,8 +6,8 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/dashboard");
-  }, [router]);
+    window.location.href = "/dashboard?v=2";
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-900 to-brand-700 flex items-center justify-center p-4">

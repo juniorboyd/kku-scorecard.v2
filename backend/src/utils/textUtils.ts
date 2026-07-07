@@ -9,7 +9,8 @@ export function normalizeOrganizationName(name: string): string {
 
 export function hasCorruptedUnicode(text: string): boolean {
   if (!text) return false;
-  return /[�￹-￻]|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/.test(text);
+  // Catches standard mojibake like à¸, Ã, or replacement characters
+  return /[￹-￻]|[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]|à¸|à¹|Ã/.test(text);
 }
 
 function levenshteinDistance(a: string, b: string): number {

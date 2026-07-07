@@ -10,19 +10,7 @@ const api = axios.create({
 
 const PUBLIC_PATHS = ["/", "/login"];
 
-api.interceptors.response.use(
-  (r) => r,
-  (err) => {
-    if (
-      err.response?.status === 401 &&
-      typeof window !== "undefined" &&
-      !PUBLIC_PATHS.includes(window.location.pathname)
-    ) {
-      window.location.href = "/login";
-    }
-    return Promise.reject(err);
-  }
-);
+// Interceptor for 401 removed to allow AppShell to handle it gracefully
 
 // Auth
 export const authApi = {

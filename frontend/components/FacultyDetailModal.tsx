@@ -42,15 +42,15 @@ export default function FacultyDetailModal({
       organizations: [faculty.name],
       pageSize: 1000,
     })
-    .then((res) => {
-      setIssues(res.data?.items ?? []);
-    })
-    .catch((err) => {
-      console.error("Error fetching issues:", err);
-    })
-    .finally(() => {
-      setLoadingIssues(false);
-    });
+      .then((res) => {
+        setIssues(res.data?.items ?? []);
+      })
+      .catch((err) => {
+        console.error("Error fetching issues:", err);
+      })
+      .finally(() => {
+        setLoadingIssues(false);
+      });
 
     setLoadingAssets(true);
     domainsApi.list({
@@ -58,37 +58,37 @@ export default function FacultyDetailModal({
       organizations: [faculty.name],
       pageSize: 1000,
     })
-    .then((res) => {
-      const assetList = (res.items ?? []).map((item: any) => item.domain);
-      setAssets(assetList);
-    })
-    .catch((err) => {
-      console.error("Error fetching assets:", err);
-    })
-    .finally(() => {
-      setLoadingAssets(false);
-    });
+      .then((res) => {
+        const assetList = (res.items ?? []).map((item: any) => item.domain);
+        setAssets(assetList);
+      })
+      .catch((err) => {
+        console.error("Error fetching assets:", err);
+      })
+      .finally(() => {
+        setLoadingAssets(false);
+      });
   }, [faculty.name, selectedSnapshotId]);
 
   useEffect(() => {
     if (faculty.id && !isNaN(Number(faculty.id))) {
       setLoadingHistory(true);
       orgsApi.getHistory(Number(faculty.id))
-      .then((res) => {
-        const historyList = Array.isArray(res.data) ? res.data : (Array.isArray(res) ? res : []);
-        const formatted = historyList.map((d: any) => ({
-          date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
-          score: d.securityScore,
-        }));
-        setHistoryData(formatted);
-      })
-      .catch((err) => {
-        console.error("Error fetching score history:", err);
-        setHistoryData([]);
-      })
-      .finally(() => {
-        setLoadingHistory(false);
-      });
+        .then((res) => {
+          const historyList = Array.isArray(res.data) ? res.data : (Array.isArray(res) ? res : []);
+          const formatted = historyList.map((d: any) => ({
+            date: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
+            score: d.securityScore,
+          }));
+          setHistoryData(formatted);
+        })
+        .catch((err) => {
+          console.error("Error fetching score history:", err);
+          setHistoryData([]);
+        })
+        .finally(() => {
+          setLoadingHistory(false);
+        });
     } else {
       setLoadingHistory(false);
       setHistoryData([]);
@@ -98,7 +98,7 @@ export default function FacultyDetailModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-        
+
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
           <div>
@@ -107,14 +107,13 @@ export default function FacultyDetailModal({
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
-              <span className={`px-3 py-1 rounded-lg text-sm font-bold ${
-                faculty.grade === "A" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" :
-                faculty.grade === "B" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" :
-                faculty.grade === "C" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" :
-                faculty.grade === "D" ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400" :
-                "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-              }`}>GRADE {faculty.grade}</span>
-              
+              <span className={`px-3 py-1 rounded-lg text-sm font-bold ${faculty.grade === "A" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" :
+                  faculty.grade === "B" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" :
+                    faculty.grade === "C" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" :
+                      faculty.grade === "D" ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400" :
+                        "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                }`}>GRADE {faculty.grade}</span>
+
               <div className="text-right border-l border-slate-200 dark:border-slate-700 pl-4">
                 <div className="text-2xl font-black text-slate-800 dark:text-slate-100">{faculty.score.toFixed(1)}</div>
                 <div className="text-xs font-bold text-slate-400">SCORE</div>
@@ -134,9 +133,8 @@ export default function FacultyDetailModal({
             <div className="flex border-b border-slate-100 dark:border-slate-800 px-6 pt-4 gap-6 bg-white dark:bg-slate-900">
               <button
                 onClick={() => setActiveTab("issues")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${
-                  activeTab === "issues" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                }`}
+                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "issues" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4" />
@@ -145,20 +143,18 @@ export default function FacultyDetailModal({
               </button>
               <button
                 onClick={() => setActiveTab("assets")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${
-                  activeTab === "assets" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                }`}
+                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "assets" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <Server className="w-4 h-4" />
-                  สินทรัพย์และโดเมน
+                  ดฟหฟด
                 </div>
               </button>
               <button
                 onClick={() => setActiveTab("history")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${
-                  activeTab === "history" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                }`}
+                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "history" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-4 h-4" />

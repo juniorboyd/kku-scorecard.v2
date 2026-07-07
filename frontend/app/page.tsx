@@ -6,8 +6,8 @@ export default function LandingPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/dashboard");
-  }, [router]);
+    window.location.href = "/dashboard?v=2";
+  }, []);
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center">
