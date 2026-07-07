@@ -62,7 +62,7 @@ app.get("/", (_req, res) => res.json({ message: "KKU SecurityScorecard Backend",
 ensureDirs();
 ensureDevUser()
   .then(() => {
-    scheduleDailyFetch();
+    // scheduleDailyFetch();
     app.listen(PORT, () => {
       console.log(`Backend running on http://localhost:${PORT} [AUTH_MODE=${AUTH_MODE}]`);
     });
