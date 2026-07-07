@@ -7,7 +7,7 @@ import Modal from "@/components/ui/Modal";
 import Pagination from "@/components/ui/Pagination";
 import SortableHeader from "@/components/ui/SortableHeader";
 import OrgCombobox from "@/components/ui/OrgCombobox";
-import { orgsApi, domainsApi } from "@/lib/api";
+import { orgsApi, domainsApi, importsApi } from "@/lib/api";
 import { useCanEdit } from "@/lib/me";
 import { useToast } from "@/lib/toast";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
@@ -242,6 +242,18 @@ export default function OrganizationsPage() {
     } finally { setSaving(false); }
   }
 
+  async function handleCleanup() {
+    setSaving(true);
+    try {
+      await importsApi.cleanupOrgs();
+      toast.success("Cleanup completed successfully");
+      loadOrgs();
+      loadAssets();
+    } catch (e: any) {
+      toast.error(e.response?.data?.error ?? e.message);
+    } finally { setSaving(false); }
+  }
+
   async function deleteOrg(id: number) {
     if (!confirm("Delete this organization?")) return;
     try {
@@ -387,6 +399,7 @@ export default function OrganizationsPage() {
         </div>
         {canEdit && (
           <div className="flex gap-2">
+            <button className="btn-secondary text-red-600 border-red-200 hover:bg-red-50" onClick={handleCleanup} disabled={saving}><Trash2 className="w-4 h-4" /> Clean Up Garbage</button>
             <button className="btn-secondary" onClick={() => setBulkOpen(true)}><Upload className="w-4 h-4" /> Bulk Upload</button>
             <button className="btn-secondary" onClick={() => setAddDomainOpen(true)}><Plus className="w-4 h-4" /> Add Asset</button>
             <button className="btn-primary" onClick={() => setAddOrgOpen(true)}><Plus className="w-4 h-4" /> Add Organization</button>
