@@ -1,6 +1,18 @@
 "use client";
 import React from "react";
-import { X, ExternalLink, ShieldAlert, Server, Calendar, Info, ShieldCheck, AlertTriangle } from "lucide-react";
+import { X, ExternalLink, ShieldAlert, Server, Calendar, Info, ShieldCheck, AlertTriangle, Lightbulb } from "lucide-react";
+
+// พจนานุกรมคำอธิบายปัญหา (Issue Descriptions)
+const ISSUE_DESCRIPTIONS: Record<string, string> = {
+  "Unsafe Implementation Of Subresource Integrity": "มีการใช้งาน Subresource Integrity (SRI) อย่างไม่ปลอดภัย หรืออาจตั้งค่าผิดพลาด ทำให้ไฟล์สคริปต์ที่โหลดจากภายนอกอาจถูกปลอมแปลงหรือฝังโค้ดอันตรายได้",
+  "TLS Service Supports Weak Cipher Suites": "เซิร์ฟเวอร์มีการเปิดใช้งานการเข้ารหัส (Cipher Suites) ที่เก่าและอ่อนแอ ซึ่งเสี่ยงต่อการถูกดักจับข้อมูลหรือถูกเจาะรหัสผ่าน ควรปิดการใช้งานการเข้ารหัสแบบเก่า (เช่น RC4, 3DES)",
+  "Website does not implement X-Content-Type-Options": "เว็บไซต์ไม่ได้ตั้งค่า Header X-Content-Type-Options เป็น nosniff ทำให้เบราว์เซอร์อาจพยายามเดาประเภทของไฟล์ (MIME Sniffing) ซึ่งอาจนำไปสู่การโจมตีแบบ XSS ได้",
+  "Content Security Policy (CSP) Missing": "ไม่มีการตั้งค่า Content Security Policy (CSP) ซึ่งเป็นระบบป้องกันสำคัญที่ช่วยระบุว่าเว็บไซต์อนุญาตให้โหลดสคริปต์หรือทรัพยากรจากที่ไหนบ้าง ทำให้เสี่ยงต่อการถูกฝังโค้ดแปลกปลอม (Cross-Site Scripting)",
+  "Website Does Not Implement HSTS": "ไม่ได้เปิดใช้งาน HTTP Strict Transport Security (HSTS) ทำให้ผู้ใช้อาจเชื่อมต่อผ่าน HTTP ธรรมดาแทนที่จะเป็น HTTPS แบบบังคับ ซึ่งเสี่ยงต่อการถูกดักข้อมูลระหว่างทาง",
+  "Website Does Not Implement Strict-Transport-Security": "ไม่ได้เปิดใช้งาน HTTP Strict Transport Security (HSTS) ทำให้ผู้ใช้อาจเชื่อมต่อผ่าน HTTP ธรรมดาแทนที่จะเป็น HTTPS แบบบังคับ ซึ่งเสี่ยงต่อการถูกดักข้อมูลระหว่างทาง",
+  "Website Does Not Implement X-Frame-Options": "ไม่ได้ตั้งค่า X-Frame-Options ทำให้เว็บไซต์อาจถูกนำไปฝังใน iframe ของเว็บอื่น และนำไปสู่การโจมตีแบบ Clickjacking (หลอกให้คลิก)",
+  "Server Information Leakage": "เซิร์ฟเวอร์เปิดเผยข้อมูลเวอร์ชันของซอฟต์แวร์ที่ใช้งานอยู่ (เช่น Apache, Nginx, PHP version) ออกมาใน Header ซึ่งแฮกเกอร์อาจนำข้อมูลนี้ไปค้นหาช่องโหว่ที่ตรงกับเวอร์ชันนั้นๆ ได้",
+};
 
 export default function IssueDetailModal({
   issue,
@@ -10,6 +22,16 @@ export default function IssueDetailModal({
   onClose: () => void;
 }) {
   const sev = (issue.severity ?? "").toUpperCase();
+  const issueTitle = issue.issueTypeTitle || issue.title || issue.name || "Unknown Issue";
+  
+  // หาคำอธิบายปัญหาแบบ Case Insensitive (และ partial match)
+  let descriptionText = "ยังไม่มีคำอธิบายเพิ่มเติมสำหรับปัญหานี้";
+  for (const [key, value] of Object.entries(ISSUE_DESCRIPTIONS)) {
+    if (issueTitle.toLowerCase().includes(key.toLowerCase())) {
+      descriptionText = value;
+      break;
+    }
+  }
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
@@ -29,7 +51,7 @@ export default function IssueDetailModal({
             </div>
             <div>
               <h2 className="text-lg font-extrabold text-slate-800 dark:text-slate-100 leading-tight">
-                {issue.issueTypeTitle || issue.title || issue.name || "Unknown Issue"}
+                {issueTitle}
               </h2>
               <div className="flex items-center gap-2 mt-1">
                 <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
@@ -52,6 +74,17 @@ export default function IssueDetailModal({
 
         {/* Content */}
         <div className="overflow-y-auto p-6 space-y-6">
+          
+          {/* Issue Explanation */}
+          <div className="bg-blue-50/50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 flex gap-3">
+            <Lightbulb className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-sm font-bold text-blue-900 dark:text-blue-100 mb-1">ความหมายของปัญหานี้</h4>
+              <p className="text-sm text-blue-800 dark:text-blue-300 leading-relaxed">
+                {descriptionText}
+              </p>
+            </div>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
