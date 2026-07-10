@@ -6,6 +6,7 @@ import Pagination from "@/components/ui/Pagination";
 import SortableHeader from "@/components/ui/SortableHeader";
 import { issuesApi } from "@/lib/api";
 import { useSnapshot } from "@/lib/snapshotContext";
+import IssueDetailModal from "@/components/IssueDetailModal";
 
 const SEVERITIES = ["HIGH", "MEDIUM", "LOW", "INFO"];
 const SSC_FACTORS = [
@@ -63,6 +64,7 @@ export default function IssuesPage() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<SortKey>("severity");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [selectedIssue, setSelectedIssue] = useState<any | null>(null);
 
   // Filter state
   const [filterOpen, setFilterOpen] = useState(false);
@@ -363,7 +365,7 @@ export default function IssuesPage() {
                 <tr><td colSpan={9} className="text-center py-12 text-gray-400">No issues found</td></tr>
               ) : (
                 issues.map((issue: any) => (
-                  <tr key={issue.id} className="hover:bg-gray-50">
+                  <tr key={issue.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedIssue(issue)}>
                     <td className="px-4 py-3 text-gray-700 max-w-[180px] truncate text-xs">{issue.organizationName || "—"}</td>
                     <td className="px-4 py-3 text-gray-600 max-w-[140px] truncate text-xs">{issue.factorName}</td>
                     <td className="px-4 py-3 text-gray-700 max-w-[200px] truncate text-xs">{issue.issueTypeTitle}</td>
@@ -408,6 +410,14 @@ export default function IssuesPage() {
           <Pagination page={page} pageSize={PAGE_SIZE} total={total} onChange={(p) => { setPage(p); load(p); }} />
         </div>
       </div>
+
+      {/* Detail Modal */}
+      {selectedIssue && (
+        <IssueDetailModal
+          issue={selectedIssue}
+          onClose={() => setSelectedIssue(null)}
+        />
+      )}
     </div>
   );
 }
