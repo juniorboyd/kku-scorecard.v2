@@ -12,6 +12,7 @@ const TITLES: Record<string, string> = {
   "/dashboard":     "ภาพรวมความปลอดภัย",
   "/issues":        "รายการปัญหาที่พบ",
   "/assets":        "IP Address / Domain",
+  "/api-request":   "ร้องขอ API",
   "/organizations": "คะแนนแยกตามคณะ",
   "/imports":       "นำเข้าข้อมูล",
   "/logs":          "บันทึกระบบ (Logs)",
