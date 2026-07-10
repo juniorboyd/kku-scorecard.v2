@@ -156,3 +156,12 @@ model FacultyDailyStat {
   @@index([organizationId])
   @@index([date])
 }
+
+model ApiKey {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  name      String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

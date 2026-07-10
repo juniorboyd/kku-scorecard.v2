@@ -232,6 +232,9 @@ export const adminApi = {
     api.patch(`/api/admin/users/${id}/status`, { status }).then((r) => r.data),
   deleteUser: (id: number) =>
     api.delete(`/api/admin/users/${id}`).then((r) => r.data),
+  getApiKeys: () => api.get("/api/admin/api-keys").then((r) => r.data),
+  generateApiKey: (name: string) => api.post("/api/admin/api-keys/generate", { name }).then((r) => r.data),
+  deleteApiKey: (id: number) => api.delete(`/api/admin/api-keys/${id}`).then((r) => r.data),
 };
 
 // Network Map

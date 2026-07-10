@@ -53,7 +53,10 @@ app.use(
 );
 
 app.use(optionalAuth);
+import publicRoutes from "./routes/public.routes.ts";
+
 app.use("/auth", authRoutes);
+app.use("/api/public/v1", publicRoutes);
 app.use("/api", routes);
 
 app.get("/health", (_req, res) => res.json({ status: "ok", authMode: AUTH_MODE }));

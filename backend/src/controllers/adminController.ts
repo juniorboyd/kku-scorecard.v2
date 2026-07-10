@@ -116,3 +116,70 @@ export async function deleteUser(req: Request, res: Response) {
   await writeAuditLog(req.user?.id, `ADMIN_DELETE_USER:${user.email}`);
   return res.json({ success: true });
 }
+
+import crypto from "crypto";
+
+// POST /api/admin/api-keys/generate
+export async function generateApiKey(req: Request, res: Response) {
+  try {
+    const { name = "Generated API Key" } = req.body as { name?: string };
+    
+    // สร้าง random hash สุ่มๆ (32 characters hex)
+    const randomHash = crypto.randomBytes(16).toString("hex");
+
+    const keyRecord = await prisma.apiKey.create({
+      data: {
+        key: randomHash,
+        name: name,
+        isActive: true,
+      }
+    });
+
+    await writeAuditLog(req.user?.id, `ADMIN_GENERATE_API_KEY:${randomHash}`);
+    return res.status(201).json({ success: true, apiKey: keyRecord.key, name: keyRecord.name });
+  } catch (error) {
+    console.error("Error generating API key:", error);
+    return res.status(500).json({ error: "Failed to generate API key" });
+  }
+}
+
+// GET /api/admin/api-keys
+export async function listApiKeys(req: Request, res: Response) {
+  try {
+    const keys = await prisma.apiKey.findMany({
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        key: true,
+        name: true,
+        isActive: true,
+        createdAt: true,
+      }
+    });
+    return res.json({ success: true, keys });
+  } catch (error) {
+    console.error("Error fetching API keys:", error);
+    return res.status(500).json({ error: "Failed to fetch API keys" });
+  }
+}
+
+// DELETE /api/admin/api-keys/:id
+export async function deleteApiKey(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const keyRecord = await prisma.apiKey.findUnique({ where: { id } });
+    
+    if (!keyRecord) {
+      return res.status(404).json({ error: "API key not found" });
+    }
+
+    await prisma.apiKey.delete({ where: { id } });
+    await writeAuditLog(req.user?.id, `ADMIN_DELETE_API_KEY:${keyRecord.key}`);
+    
+    return res.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting API key:", error);
+    return res.status(500).json({ error: "Failed to delete API key" });
+  }
+}
+
