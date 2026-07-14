@@ -34,15 +34,10 @@ export async function exchangeCodeForToken(code: string): Promise<SSOTokenRespon
 }
 
 export async function fetchUserProfile(accessToken: string): Promise<SSOProfile> {
-  // KKU SSO requires a POST with FormData (even if empty)
-  const FormData = (await import("form-data")).default;
-  const formData = new FormData();
-  // console.log("[SSO] Profile fetch URL:", SSO_PROFILE_API);
-  // console.log("[SSO] Profile fetch headers:", { Authorization: `Bearer ${accessToken.slice(0, 20)}...` });
-  const response = await axios.post<SSOProfile>(SSO_PROFILE_API, formData, {
+  const response = await axios.post<SSOProfile>(SSO_PROFILE_API, '', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      ...formData.getHeaders(),
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
   // console.log("[SSO] Profile response:", JSON.stringify(response.data, null, 2));
@@ -52,8 +47,11 @@ export async function fetchUserProfile(accessToken: string): Promise<SSOProfile>
 export async function verifyAuthStatus(accessToken: string): Promise<boolean> {
   try {
     // console.log("[SSO] Status check URL:", SSO_STATUS_API);
-    const response = await axios.get(SSO_STATUS_API, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+    const response = await axios.post(SSO_STATUS_API, '', {
+      headers: { 
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
     });
     // console.log("[SSO] Status response:", JSON.stringify(response.data, null, 2));
     return response.data?.valid === true || response.status === 200;

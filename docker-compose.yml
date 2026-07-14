@@ -30,7 +30,7 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:postgres7842@postgres:5432/kku_scorecard?schema=public"
       PYTHON_EXECUTABLE: /usr/bin/python3
-      AUTH_MODE: DEV
+      AUTH_MODE: SSO
       ADMIN_EMAILS: chetsada.k@kkumail.com
       # 32-byte hex key for encrypting sensitive settings at rest. Required to boot.
       # Generate: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -63,8 +63,8 @@ services:
     environment:
       NODE_ENV: production
       BACKEND_URL: http://backend:4000
-    ports:
-      - "3000:3000"
+#    ports:
+#      - "3000:3000"
     depends_on:
       - backend
     networks:
