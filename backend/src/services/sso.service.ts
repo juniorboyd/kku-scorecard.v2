@@ -20,16 +20,18 @@ export interface SSOProfile {
 }
 
 export async function exchangeCodeForToken(code: string): Promise<SSOTokenResponse> {
-  const body = {
-    code,
-    redirectUrl: SSO_REDIRECT_URL,
-    clientId: SSO_CLIENT_ID,
-    clientSecret: SSO_CLIENT_SECRET,
-  };
-  // console.log("[SSO] Token exchange URL:", SSO_TOKEN_API);
-  // console.log("[SSO] Token exchange body:", JSON.stringify(body, null, 2));
-  const response = await axios.post<SSOTokenResponse>(SSO_TOKEN_API, body);
-  // console.log("[SSO] Token exchange response:", JSON.stringify(response.data, null, 2));
+  const params = new URLSearchParams();
+  params.append('code', code);
+  params.append('redirect_uri', SSO_REDIRECT_URL);
+  params.append('client_id', SSO_CLIENT_ID);
+  params.append('client_secret', SSO_CLIENT_SECRET);
+  params.append('grant_type', 'authorization_code'); // Standard OAuth2 parameter, just in case
+
+  const response = await axios.post<SSOTokenResponse>(SSO_TOKEN_API, params.toString(), {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
   return response.data;
 }
 
