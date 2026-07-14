@@ -31,6 +31,26 @@ async function ensureDevUser() {
   console.log(`[DEV] User seeded: id=${user.id} (${user.email})`);
 }
 
+async function fixCorruptedOrgNames() {
+  try {
+    const orgs = await prisma.organization.findMany();
+    for (let o of orgs) {
+      let n = o.name;
+      if (n.includes('คณะเ') && n.includes('สัชศาสตร์')) n = 'คณะเภสัชศาสตร์';
+      if (n.includes('สถาบัน') && n.includes('าษา')) n = 'สถาบันภาษา';
+      if (n.includes('สำนักงานส') && n.includes('ามหาวิทยาลัย')) n = 'สำนักงานสภามหาวิทยาลัย';
+      
+      if (n !== o.name) {
+        console.log(`[FIX] Correcting org name: ${o.name} -> ${n}`);
+        await prisma.organization.update({ where: { id: o.id }, data: { name: n } });
+        await prisma.issue.updateMany({ where: { organizationId: o.id }, data: { organizationName: n } });
+      }
+    }
+  } catch (err) {
+    console.error("[FIX] Error correcting org names:", err);
+  }
+}
+
 const app = express();
 
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
@@ -64,7 +84,8 @@ app.get("/", (_req, res) => res.json({ message: "KKU SecurityScorecard Backend",
 
 ensureDirs();
 ensureDevUser()
-  .then(() => {
+  .then(async () => {
+    await fixCorruptedOrgNames();
     scheduleDailyFetch();
     app.listen(PORT, () => {
       console.log(`Backend running on http://localhost:${PORT} [AUTH_MODE=${AUTH_MODE}]`);
