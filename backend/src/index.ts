@@ -76,6 +76,8 @@ app.use(optionalAuth);
 import publicRoutes from "./routes/public.routes.ts";
 
 app.use("/auth", authRoutes);
+import { callback as ssoCallback } from "./controllers/authController.ts";
+app.get("/callback", ssoCallback);
 app.use("/api/public/v1", publicRoutes);
 app.use("/api", routes);
 
