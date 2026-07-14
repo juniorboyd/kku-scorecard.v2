@@ -22,9 +22,9 @@ export interface SSOProfile {
 export async function exchangeCodeForToken(code: string): Promise<SSOTokenResponse> {
   const body = {
     code,
-    redirect_uri: SSO_REDIRECT_URL,
-    client_id: SSO_CLIENT_ID,
-    client_secret: SSO_CLIENT_SECRET,
+    redirectUrl: SSO_REDIRECT_URL,
+    clientId: SSO_CLIENT_ID,
+    clientSecret: SSO_CLIENT_SECRET,
   };
 
   const response = await axios.post<SSOTokenResponse>(SSO_TOKEN_API, body, {
