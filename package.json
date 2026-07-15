@@ -1,0 +1,25 @@
+{
+  "name": "kku-scorecard",
+  "version": "1.0.0",
+  "description": "Full-stack monorepo: Next.js frontend, Express + Prisma backend, Python processor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juniorboyd/kku-scorecard.v2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/juniorboyd/kku-scorecard.v2/issues"
+  },
+  "homepage": "https://github.com/juniorboyd/kku-scorecard.v2#readme",
+  "dependencies": {
+    "pdfkit": "^0.19.1",
+    "puppeteer": "^25.3.0"
+  }
+}

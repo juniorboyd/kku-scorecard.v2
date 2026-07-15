@@ -34,11 +34,11 @@ export const ADMIN_EMAILS: string[] = (process.env.ADMIN_EMAILS ?? "")
 export const SSO_APP_ID = process.env.SSO_APP_ID ?? "";
 export const SSO_CLIENT_ID = process.env.SSO_CLIENT_ID ?? "";
 export const SSO_CLIENT_SECRET = process.env.SSO_CLIENT_SECRET ?? "";
-export const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL ?? "https://sso-uat-web.kku.ac.th/login";
-export const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL ?? "https://sso-uat-web.kku.ac.th/logout";
-export const SSO_TOKEN_API = process.env.SSO_TOKEN_API ?? "https://sso-uat-api.kku.ac.th/auth.token";
-export const SSO_PROFILE_API = process.env.SSO_PROFILE_API ?? "https://sso-uat-api.kku.ac.th/user.profile";
-export const SSO_STATUS_API = process.env.SSO_STATUS_API ?? "https://sso-uat-api.kku.ac.th/auth.status";
+export const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL ?? "https://sso-web.kku.ac.th/login";
+export const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL ?? "https://sso-web.kku.ac.th/logout";
+export const SSO_TOKEN_API = process.env.SSO_TOKEN_API ?? "https://sso-api.kku.ac.th/auth.token";
+export const SSO_PROFILE_API = process.env.SSO_PROFILE_API ?? "https://sso-api.kku.ac.th/user.profile";
+export const SSO_STATUS_API = process.env.SSO_STATUS_API ?? "https://sso-api.kku.ac.th/auth.status";
 export const SSO_REDIRECT_URL = process.env.SSO_REDIRECT_URL ?? `${APP_BASE_URL}/callback`;
 
 // SecurityScorecard

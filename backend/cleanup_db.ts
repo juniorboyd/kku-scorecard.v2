@@ -1,0 +1,1 @@
+import { mergeCorruptedOrganizations } from './src/services/domainService.ts'; async function run() { console.log('Cleaning up...'); const r = await mergeCorruptedOrganizations(); console.log(r); process.exit(0); } run();
