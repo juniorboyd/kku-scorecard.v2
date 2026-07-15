@@ -148,7 +148,7 @@ export default function FacultyDetailModal({
               >
                 <div className="flex items-center gap-2">
                   <Server className="w-4 h-4" />
-                  ดฟหฟด
+                  สินทรัพย์
                 </div>
               </button>
               <button
