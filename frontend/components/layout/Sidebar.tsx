@@ -20,7 +20,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/logs",          label: "บันทึกระบบ (Logs)",     icon: ScrollText, roles: ["ADMIN", "ANALYST"] },
   { href: "/admin/users",   label: "จัดการผู้ใช้งาน", icon: Users,      roles: ["ADMIN"] },
   { href: "/admin/api-keys",label: "จัดการ API Keys", icon: Key,        roles: ["ADMIN"] },
-  { href: "/admin/2fa-setup",label: "ตั้งค่า 2FA", icon: ShieldCheck,    roles: ["ADMIN"] },
+  { href: "/admin/2fa-setup",label: "ตั้งค่า 2FA", icon: ShieldCheck },
 ];
 
 export default function Sidebar() {
