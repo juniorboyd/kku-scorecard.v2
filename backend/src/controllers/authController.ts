@@ -3,7 +3,7 @@ import { AUTH_MODE, DEV_ROLE, SSO_APP_ID, SSO_LOGIN_URL, SSO_LOGOUT_URL, SSO_RED
 import { exchangeCodeForToken, fetchUserProfile } from "../services/sso.service.ts";
 import { writeAuditLog } from "../services/logService.ts";
 import prisma from "../lib/prisma.ts";
-import { authenticator } from "otplib";
+import { generateSecret, generateURI, verify } from "otplib";
 import qrcode from "qrcode";
 import { encrypt, decrypt } from "../utils/crypto.ts";
 
@@ -156,7 +156,7 @@ export async function setup2Fa(req: Request, res: Response) {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "Not authenticated" });
     }
-    const secret = authenticator.generateSecret();
+    const secret = generateSecret();
     const encryptedSecret = encrypt(secret);
     
     await prisma.user.update({
@@ -164,7 +164,7 @@ export async function setup2Fa(req: Request, res: Response) {
       data: { twoFactorSecret: encryptedSecret },
     });
 
-    const otpauth = authenticator.keyuri(req.user.email, "Security Scorecard", secret);
+    const otpauth = generateURI({ secret, label: req.user.email, issuer: "Security Scorecard" });
     const qrCodeUrl = await qrcode.toDataURL(otpauth);
     res.json({ success: true, qrCodeUrl });
   } catch (error: any) {
@@ -189,7 +189,7 @@ export async function verifySetup2Fa(req: Request, res: Response) {
     }
 
     const secret = decrypt(user.twoFactorSecret);
-    const isValid = authenticator.verify({ token, secret });
+    const { valid: isValid } = await verify({ token, secret });
     if (!isValid) {
       return res.status(400).json({ error: "Invalid verification code" });
     }
@@ -242,7 +242,7 @@ export async function login2Fa(req: Request, res: Response) {
     }
 
     const secret = decrypt(user.twoFactorSecret);
-    const isValid = authenticator.verify({ token, secret });
+    const { valid: isValid } = await verify({ token, secret });
     if (!isValid) {
       return res.status(400).json({ error: "Invalid verification code" });
     }
