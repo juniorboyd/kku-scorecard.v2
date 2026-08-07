@@ -10,6 +10,7 @@ export type Me = {
   lastName?: string;
   role: Role | string;
   facultyName?: string;
+  twoFactorEnabled?: boolean;
 } | null;
 
 /**
