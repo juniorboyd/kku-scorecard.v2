@@ -60,7 +60,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     );
   }
 
-  const restriction = ROUTE_ROLES.find((r) => path.startsWith(r.prefix));
+  const restriction = ROUTE_ROLES.find((r) => path.startsWith(r.prefix) && path !== "/admin/2fa-setup");
   const allowed = !restriction || (!!me?.role && restriction.roles.includes(me.role));
 
   return (
