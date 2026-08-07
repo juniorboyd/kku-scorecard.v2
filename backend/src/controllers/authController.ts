@@ -206,7 +206,7 @@ export async function verifySetup2Fa(req: Request, res: Response) {
     }
 
     const secret = decrypt(user.twoFactorSecret);
-    const { valid: isValid } = await verify({ token, secret, epochTolerance: 180 });
+    const { valid: isValid } = await verify({ token, secret });
     if (!isValid) {
       return res.status(400).json({ error: "Invalid verification code" });
     }
@@ -259,7 +259,7 @@ export async function login2Fa(req: Request, res: Response) {
     }
 
     const secret = decrypt(user.twoFactorSecret);
-    const { valid: isValid } = await verify({ token, secret, epochTolerance: 180 });
+    const { valid: isValid } = await verify({ token, secret });
     if (!isValid) {
       return res.status(400).json({ error: "Invalid verification code" });
     }
