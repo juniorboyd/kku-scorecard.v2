@@ -146,9 +146,26 @@ export async function logout(req: Request, res: Response) {
   return res.json({ success: true });
 }
 
-export function getMe(req: Request, res: Response) {
-  if (!req.user) return res.status(401).json({ error: "Not authenticated" });
-  return res.json({ success: true, user: req.user, authMode: AUTH_MODE });
+export async function getMe(req: Request, res: Response) {
+  if (!req.user || !req.user.id) return res.status(401).json({ error: "Not authenticated" });
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        role: true,
+        facultyName: true,
+        twoFactorEnabled: true,
+      }
+    });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    return res.json({ success: true, user, authMode: AUTH_MODE });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }
 
 export async function setup2Fa(req: Request, res: Response) {
