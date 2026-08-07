@@ -162,7 +162,17 @@ export default function Topbar() {
                   <Settings className="w-4 h-4" />
                   การตั้งค่าบัญชี
                 </Link>
-
+                <button
+                  onClick={async () => {
+                    const r = await authApi.logout();
+                    if (r.redirectUrl) window.location.href = r.redirectUrl;
+                    else window.location.href = "/login";
+                  }}
+                  className="flex items-center gap-3 w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10"
+                >
+                  <LogOut className="w-4 h-4" />
+                  ออกจากระบบ
+                </button>
               </div>
             </div>
           )}
