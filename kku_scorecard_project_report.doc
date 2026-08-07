@@ -1,0 +1,314 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>รายงานโครงงาน KKU Security Scorecard</title>
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>100</w:Zoom>
+<w:DoNotOptimizeForBrowser/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
+body {
+    font-family: 'TH Sarabun New', 'TH Sarabun PSK', 'Sarabun', sans-serif;
+    font-size: 16pt;
+    line-height: 1.5;
+    color: #000000;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 6pt;
+    text-indent: 1.25cm;
+    text-align: justify;
+}
+p.no-indent {
+    text-indent: 0;
+}
+h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    page-break-before: always;
+}
+h1.cover-title {
+    page-break-before: avoid;
+    font-size: 24pt;
+    margin-top: 50pt;
+}
+h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+}
+h3 {
+    font-size: 16pt;
+    font-weight: bold;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 12pt;
+    margin-bottom: 12pt;
+}
+th, td {
+    border: 1px solid #000000;
+    padding: 6pt;
+    text-align: left;
+    font-size: 16pt;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+@page {
+    size: A4;
+    margin: 1.5in 1in 1in 1in;
+}
+.cover-page {
+    text-align: center;
+    height: 100%;
+}
+.page-break {
+    page-break-before: always;
+}
+</style>
+</head>
+<body>
+
+<div class="cover-page" style="page-break-after: always; text-align: center;">
+    <br><br><br>
+    <div style="font-size: 26pt; font-weight: bold;">รายงานโครงงานเทคโนโลยีสารสนเทศ</div>
+    <br>
+    <div style="font-size: 22pt; font-weight: bold; margin-top: 30px;">
+        ระบบแดชบอร์ดประเมินและติดตามความปลอดภัยทางไซเบอร์ มหาวิทยาลัยขอนแก่น<br>
+        (KKU Security Scorecard & Vulnerability Management Dashboard)
+    </div>
+    <br><br><br><br><br><br>
+    
+    <div style="font-size: 18pt; margin-top: 100px; line-height: 2;">
+        <strong>เสนอโดย</strong><br>
+        คณะผู้พัฒนาโครงงาน มหาวิทยาลัยขอนแก่น
+    </div>
+    
+    <br><br><br><br><br>
+    
+    <div style="font-size: 18pt; margin-top: 150px;">
+        รายงานนี้เป็นส่วนหนึ่งของวิชาโครงงานเทคโนโลยีสารสนเทศ<br>
+        วิทยาลัยการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น<br>
+        ปีการศึกษา 2569
+    </div>
+</div>
+
+<div class="page-break">
+    <h1>สารบัญ</h1>
+    <p class="no-indent" style="text-align: center; font-weight: bold; margin-bottom: 20px;">เรื่อง &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; หน้า</p>
+    <p class="no-indent">บทที่ 1: บทนำ .................................................................................................................................... 1</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">1.1 ความเป็นมาและความสำคัญของปัญหา ..................................................................................... 1</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">1.2 วัตถุประสงค์ของโครงงาน ........................................................................................................... 1</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">1.3 ขอบเขตของโครงงาน .................................................................................................................. 2</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">1.4 ประโยชน์ที่คาดว่าจะได้รับ ........................................................................................................... 2</p>
+    <p class="no-indent" style="margin-top: 10px;">บทที่ 2: ทฤษฎีและเทคโนโลยีที่เกี่ยวข้อง ........................................................................................... 3</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">2.1 แนวคิดการประเมินความมั่นคงปลอดภัยทางไซเบอร์ ................................................................ 3</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">2.2 เทคโนโลยีฝั่งผู้ใช้งาน (Frontend Technology) ...................................................................... 3</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">2.3 เทคโนโลยีฝั่งเซิร์ฟเวอร์และฐานข้อมูล (Backend & Database) ............................................... 4</p>
+    <p class="no-indent" style="margin-top: 10px;">บทที่ 3: การออกแบบและพัฒนาโครงสร้างระบบ .................................................................................. 5</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">3.1 สถาปัตยกรรมระบบ (System Architecture) ............................................................................. 5</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">3.2 การออกแบบฐานข้อมูล (Database Schema Design) ................................................................ 5</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">3.3 อัลกอริทึมการแมปปิ้งโดเมนของแต่ละหน่วยงาน ..................................................................... 6</p>
+    <p style="text-indent: 1cm; margin-bottom: 4pt;">3.4 การติดตั้งและการใช้งานในระบบจริง ......................................................................................... 7</p>
+</div>
+
+<h1>บทที่ 1<br>บทนำ (Introduction)</h1>
+
+<h2>1.1 ความเป็นมาและความสำคัญของปัญหา</h2>
+<p>
+ในปัจจุบัน เทคโนโลยีสารสนเทศและการสื่อสารได้เข้ามามีบทบาทสำคัญอย่างยิ่งต่อการดำเนินงานของสถาบันอุดมศึกษา มหาวิทยาลัยขอนแก่น (KKU) เป็นหนึ่งในสถาบันการศึกษาขนาดใหญ่ที่มีโครงข่ายเครือข่ายคอมพิวเตอร์ที่เชื่อมต่อครอบคลุมกว่า 21 คณะและหน่วยงานภายใน ซึ่งบริการทั้งระบบเครือข่ายไร้สาย (WiFi), ระบบสารสนเทศส่วนกลาง, และเซิร์ฟเวอร์ย่อยของแต่ละคณะ
+</p>
+<p>
+ด้วยขนาดของเครือข่ายและจำนวนผู้ใช้งานที่หนาแน่น ส่งผลให้มหาวิทยาลัยมีความเสี่ยงสูงต่อภัยคุกคามทางไซเบอร์ (Cybersecurity Threats) เช่น การโจมตีระบบเครือข่าย, การแพร่กระจายของมัลแวร์, ช่องโหว่จากการที่ไม่ได้อัปเดตระบบปฏิบัติการ (Patching), ตลอดจนปัญหาโดเมนหลอกลวงหรือการปลอมแปลงอีเมล (DNS Spoofing) การควบคุมและตรวจสอบความปลอดภัยในระดับมหาวิทยาลัยเดิมทีทำได้ยากเนื่องจากขาดเครื่องมือที่ช่วยบูรณาการข้อมูลและจัดระเบียบคะแนนความปลอดภัยของแต่ละหน่วยงานอย่างเห็นภาพชัดเจน (Visualized Dashboard)
+</p>
+<p>
+ดังนั้น โครงงาน <strong>KKU Security Scorecard</strong> จึงถูกพัฒนาขึ้นเพื่อแก้ไขปัญหานี้ โดยการดึงข้อมูลและรายงานช่องโหว่ความเสี่ยงจากแพลตฟอร์มระดับโลกอย่าง <strong>SecurityScorecard API</strong> หรือผ่านการอัปโหลดไฟล์รายงานความเสี่ยง (CSV Import) เพื่อนำมาประมวลผลวิเคราะห์ และจัดเกรดความปลอดภัย (A-F) ให้กับแต่ละหน่วยงาน พร้อมระบุพิกัดที่ตั้งคณะผ่านแผนที่เชิงปฏิสัมพันธ์ (Interactive Campus Map) เพื่อให้ผู้ดูแลระบบไอที (Network & Security Administrators) สามารถตรวจพบจุดอ่อน ค้นหาอุปกรณ์และโดเมนย่อยที่มีความเสี่ยง และแก้ไขปัญหาได้อย่างทันท่วงที
+</p>
+
+<h2>1.2 วัตถุประสงค์ของโครงงาน</h2>
+<p class="no-indent" style="margin-left: 1.25cm;">
+1. เพื่อออกแบบและพัฒนาระบบประเมินความปลอดภัยทางไซเบอร์ (Security Scorecard) แบบเรียลไทม์และแบบข้อมูลย้อนหลังสำหรับคณะและหน่วยงานต่าง ๆ ภายในมหาวิทยาลัยขอนแก่น<br>
+2. เพื่อแสดงแผนภาพสถานะความปลอดภัยของเครือข่ายแบบโต้ตอบ (Interactive Campus Map) ของแต่ละคณะภายในวิทยาเขต<br>
+3. เพื่อพัฒนาระบบนำเข้าข้อมูลช่องโหว่ (Vulnerability Import System) ที่สนับสนุนทั้งการดึงข้อมูลผ่าน API ตรงและการอัปโหลดไฟล์รายงานแบบแมนนวลเพื่อความยืดหยุ่นในการใช้งาน<br>
+4. เพื่อพัฒนาสถาปัตยกรรมระบบที่มีความมั่นคงปลอดภัย โดยข้อมูลการเชื่อมต่อและกุญแจสำคัญ (API Credentials) จะถูกเข้ารหัสในระดับฐานข้อมูล (AES-256-GCM)
+</p>
+
+<h2>1.3 ขอบเขตของโครงงาน</h2>
+<p>
+โครงงานระบบประเมินความปลอดภัยทางไซเบอร์ KKU Security Scorecard ได้กำหนดขอบเขตของการพัฒนาไว้ดังนี้:
+</p>
+<p class="no-indent" style="margin-left: 1.25cm;">
+1. <strong>ระบบเบื้องหน้า (Frontend):</strong> พัฒนาด้วย Next.js รองรับการเข้าถึงแบบ Responsive Web Design มีระบบแสดงกราฟแนวโน้มความเสี่ยง กราฟเรดาร์เปรียบเทียบระดับความรุนแรง และแผนที่เชิงปฏิสัมพันธ์โดยใช้ Leaflet.js<br>
+2. <strong>ระบบเบื้องหลัง (Backend):</strong> พัฒนาด้วย Node.js (Express Framework) เชื่อมโยงฐานข้อมูล PostgreSQL ผ่าน Prisma ORM<br>
+3. <strong>การเชื่อมโยงข้อมูลภายนอก (Data Integration):</strong> เชื่อมโยงกับ SecurityScorecard API เพื่อดาวน์โหลดคะแนนแยกตามปัจจัยหลัก และรองรับการอัปโหลดและวิเคราะห์ความเสี่ยงผ่าน CSV Mapping อัตโนมัติ โดยระบุชื่อโดเมนย่อยเพื่อแมปหาผู้รับผิดชอบตามคณะ<br>
+4. <strong>การปกป้องข้อมูล (Security):</strong> เข้ารหัสข้อมูลที่เป็นความลับระดับสูง (เช่น API Key) ก่อนบันทึกลงฐานข้อมูลโดยใช้โปรโตคอลเข้ารหัส AES-256-GCM<br>
+5. <strong>ขอบเขตหน่วยงาน:</strong> ครอบคลุมคณะและหน่วยงานหลัก 21 หน่วยงานของมหาวิทยาลัยขอนแก่น ทั้งในวิทยาเขตหลักและวิทยาเขตหนองคาย
+</p>
+
+<h2>1.4 ประโยชน์ที่คาดว่าจะได้รับ</h2>
+<p class="no-indent" style="margin-left: 1.25cm;">
+1. ผู้บริหารของมหาวิทยาลัยและศูนย์คอมพิวเตอร์ได้รับทราบภาพรวมความปลอดภัยทางไซเบอร์ของทุกคณะได้อย่างแม่นยำและเป็นระบบ<br>
+2. ช่วยลดเวลาในการค้นหาจุดอ่อนและช่องโหว่ของระบบเครือข่ายและเว็บไซต์ย่อยผ่านการแจ้งเตือนและการจัดหมวดหมู่ความรุนแรง (Severity Levels)<br>
+3. พัฒนาการประสานงานระหว่างศูนย์คอมพิวเตอร์กลางและฝ่ายไอทีประจำคณะ โดยมีข้อมูลอ้างอิงชุดเดียวกัน (Single Source of Truth) เพื่อยกระดับความมั่นคงปลอดภัยร่วมกัน
+</p>
+
+<h1>บทที่ 2<br>ทฤษฎีและเทคโนโลยีที่เกี่ยวข้อง</h1>
+
+<p>
+การพัฒนาระบบ KKU Security Scorecard จำเป็นต้องใช้ความรู้ทางด้านความปลอดภัยทางไซเบอร์ ระบบเครือข่ายคอมพิวเตอร์ และเทคโนโลยีการพัฒนาเว็บแอปพลิเคชันสมัยใหม่ดังต่อไปนี้:
+</p>
+
+<h2>2.1 แนวคิดการประเมินความมั่นคงปลอดภัยทางไซเบอร์ (Security Scorecard Concepts)</h2>
+<p>
+การให้คะแนนความปลอดภัย (Security Rating) เป็นวิธีประเมินความเสี่ยงจากภายนอกโดยไม่จำเป็นต้องเจาะระบบแบบล่วงล้ำ (Non-intrusive scanning) โดยพิจารณาจาก 4 เสาหลักทางเทคโนโลยี:
+</p>
+<p class="no-indent" style="margin-left: 1.25cm;">
+1. <strong>WiFi & Network:</strong> ความถูกต้องในการตั้งค่าการเข้ารหัส อุปกรณ์ที่เชื่อมโยง และพอร์ตที่เปิดใช้งานสู่ภายนอกเพื่อป้องกันการบุกรุกเครือข่าย<br>
+2. <strong>Patch & EDR (Endpoint Detection and Response):</strong> การตรวจจับอุปกรณ์ปลายทางและประวัติการอัปเดตเพื่ออุดช่องโหว่ความปลอดภัยที่พบบ่อย (Common Vulnerabilities and Exposures: CVE)<br>
+3. <strong>Portal & App:</strong> ตรวจสอบความปลอดภัยของเว็บแอปพลิเคชันภายใต้โดเมนย่อยของคณะ เช่น การบังคับใช้ HTTPS และความเสถียรของ SSL Certificate<br>
+4. <strong>DNS & Anti-Spoofing:</strong> การตั้งค่าเรคคอร์ด DNS เพื่อป้องกันการปลอมแปลงอีเมลและการทำ Phishing (เช่น SPF, DKIM, DMARC)
+</p>
+
+<h2>2.2 เทคโนโลยีฝั่งผู้ใช้งาน (Frontend Technology)</h2>
+<p>
+ในส่วนของระบบติดต่อผู้ใช้งาน (UI) ได้รับการพัฒนาโดยเน้นความสวยงามทันสมัย (Premium Look) และความเร็วในการตอบสนอง โดยเลือกใช้เทคโนโลยีดังนี้:
+</p>
+<p class="no-indent" style="margin-left: 1.25cm;">
+* <strong>Next.js:</strong> React Framework ที่มีประสิทธิภาพสูง รองรับสถาปัตยกรรมกึ่งเซิร์ฟเวอร์ (Server-side rendering) และ API Routes<br>
+* <strong>Leaflet.js:</strong> ไลบรารีสำหรับแผนที่เชิงโต้ตอบแบบ Open-source โดยใช้แผนที่ฐานของ CARTO และทำ Custom Marker ด้วยโลโก้ของคณะสีต่างๆ ตามเกรด (A - เขียว, B - ฟ้า, C - เหลือง, D - ส้ม, F - แดง)<br>
+* <strong>Tailwind CSS:</strong> ยูทิลิตี้ CSS ที่ช่วยให้สามารถพัฒนาสลับธีม Dark Mode / Light Mode ได้อย่างราบรื่นพร้อมการแสดงผลแอนิเมชันขนาดเล็ก (Micro-animations)
+</p>
+
+<h2>2.3 เทคโนโลยีฝั่งเซิร์ฟเวอร์และฐานข้อมูล (Backend & Database)</h2>
+<p>
+สถาปัตยกรรมด้านหลังบ้านได้รับการออกแบบให้มีความเสถียรและทนทานต่อข้อมูลช่องโหว่ขนาดใหญ่ ประกอบด้วย:
+</p>
+<p class="no-indent" style="margin-left: 1.25cm;">
+* <strong>Express (Node.js):</strong> ทำหน้าที่เป็น RESTful API Gateway ในการรับส่งข้อมูล ประมวลผลตรรกะ และเชื่อมต่อ API ภายนอกอย่างปลอดภัย<br>
+* <strong>PostgreSQL & Prisma ORM:</strong> ใช้ระบบฐานข้อมูลเชิงสัมพันธ์ของ PostgreSQL เพื่อจัดเก็บข้อมูลอย่างเป็นโครงสร้าง ควบคุมข้อมูลด้วย Prisma Client ในรูปแบบ Type-safe<br>
+* <strong>AES-256-GCM Encryption:</strong> ใช้การเข้ารหัสความลับสำคัญ เช่น API Key ของ SecurityScorecard เพื่อความปลอดภัยที่แน่นหนาในกรณีที่ข้อมูลรั่วไหลในระดับดิสก์
+</p>
+
+<h1>บทที่ 3<br>การออกแบบและพัฒนาโครงสร้างระบบ</h1>
+
+<h2>3.1 สถาปัตยกรรมระบบ (System Architecture)</h2>
+<p>
+ระบบถูกออกแบบมาในลักษณะ Monorepo ภายใต้สถาปัตยกรรมแบบ Microservice ที่จำลองด้วย Docker-compose เพื่อความสะดวกในการติดตั้ง ประกอบด้วย 4 เซอร์วิสหลัก ได้แก่ Nginx (Reverse Proxy พอร์ต 4333), Next.js (Frontend พอร์ต 3000), Express (Backend พอร์ต 5000), และ PostgreSQL (Database พอร์ต 5432) ดังผังโครงสร้างการเชื่อมต่อดังนี้:
+</p>
+<p class="no-indent" style="text-align: center;">
+[ผู้ใช้] &rarr; HTTPS:4333 &rarr; [Nginx] &rarr; (ต่อเส้นทางไป Next.js หรือ Express) &rarr; [PostgreSQL DB / External APIs]
+</p>
+
+<h2>3.2 การออกแบบฐานข้อมูล (Database Schema Design)</h2>
+<p>
+ตารางข้อมูลในระบบได้รับการสร้างขึ้นตามโมเดล Prisma เพื่อรองรับการสืบค้นข้อมูลอย่างรวดเร็ว โครงสร้างตารางสำคัญมีรายละเอียดดังต่อไปนี้:
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>ชื่อโมเดล (Model)</th>
+            <th>แอตทริบิวต์หลัก</th>
+            <th>ชนิดข้อมูล (Type)</th>
+            <th>คำอธิบาย</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>User</strong></td>
+            <td>id, email, role, status</td>
+            <td>Int, String, Enum, Enum</td>
+            <td>ข้อมูลผู้ใช้งานระบบ (ADMIN, ANALYST, VIEWER)</td>
+        </tr>
+        <tr>
+            <td><strong>Organization</strong></td>
+            <td>id, name, createdAt</td>
+            <td>Int, String, DateTime</td>
+            <td>ตารางเก็บชื่อคณะและหน่วยงานทั้ง 21 แห่ง</td>
+        </tr>
+        <tr>
+            <td><strong>Domain</strong></td>
+            <td>id, organizationId, domain</td>
+            <td>Int, Int, String</td>
+            <td>ตารางจับคู่โดเมนย่อยของแต่ละคณะ (เช่น medicine.kku.ac.th)</td>
+        </tr>
+        <tr>
+            <td><strong>Import</strong></td>
+            <td>id, importDate, status, totalIssues</td>
+            <td>Int, DateTime, String, Int</td>
+            <td>ประวัติการดึงข้อมูลหรืออัปโหลดข้อมูลความปลอดภัย</td>
+        </tr>
+        <tr>
+            <td><strong>Issue</strong></td>
+            <td>id, severity, scoreImpact, host</td>
+            <td>Int, String, Float, String</td>
+            <td>รายละเอียดของช่องโหว่ความเสี่ยงแต่ละรายการที่ตรวจพบ</td>
+        </tr>
+        <tr>
+            <td><strong>FacultyDailyStat</strong></td>
+            <td>id, date, organizationId, securityScore</td>
+            <td>Int, DateTime, Int, Float</td>
+            <td>ข้อมูลคะแนนประวัติย้อนหลังของคณะรายวัน</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>3.3 อัลกอริทึมการแมปปิ้งโดเมนของแต่ละหน่วยงาน</h2>
+<p>
+เมื่อระบบได้รับรายงานความมั่นคงปลอดภัย ระบบจะวิเคราะห์ชื่อเครื่องโฮสต์ (Host) หรือ โดเมนย่อย (Matched Domain) จากข้อมูลความเสี่ยง จากนั้นนำมาสืบค้นกับรายการโดเมนในตาราง Domain เพื่อชี้เป้าความรับผิดชอบไปยังคณะนั้นๆ ดังฟังก์ชันการประมวลผลย่อยในระบบ:
+</p>
+<pre style="background-color: #f8f9fa; padding: 10pt; border: 1px solid #ddd; font-family: monospace; font-size: 11pt; text-indent: 0;">
+export function assignIssueToOrganization(issueHost: string, domainsList: Domain[]) {
+  // ตรวจหาโดเมนลงท้าย เช่น mail.medicine.kku.ac.th จะแมปเข้ากับ medicine.kku.ac.th
+  const matchedDomain = domainsList.find(d => 
+    issueHost.endsWith(d.domain) || issueHost === d.domain
+  );
+  return matchedDomain ? matchedDomain.organizationId : null;
+}
+</pre>
+
+<h2>3.4 การติดตั้งและการใช้งานในระบบจริง (Deployment Pipeline)</h2>
+<p>
+การจัดเตรียมซอฟต์แวร์สำหรับการใช้งานจริงบนเซิร์ฟเวอร์ของศูนย์คอมพิวเตอร์ ใช้ไฟล์ <code>docker-compose.yml</code> ในการสร้างสภาพแวดล้อมที่ควบคุมได้และปลอดภัย:
+</p>
+<pre style="background-color: #f8f9fa; padding: 10pt; border: 1px solid #ddd; font-family: monospace; font-size: 11pt; text-indent: 0;">
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: kku_scorecard
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://...
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+  frontend:
+    build: ./frontend
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "4333:443"
+</pre>
+<p>
+เมื่อเรียกใช้คำสั่ง <code>docker compose up --build -d</code> ระบบจะเริ่มต้นการทำงานทันที ทำให้ผู้ดูแลระบบสามารถเข้าแดชบอร์ดได้อย่างมั่นใจผ่านโปรโตคอลรักษาความปลอดภัย SSL/TLS
+</p>
+
+</body>
+</html>

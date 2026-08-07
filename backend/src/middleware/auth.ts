@@ -32,6 +32,16 @@ declare module "express-session" {
       facultyName?: string;
       [key: string]: any;
     };
+    preAuthProfile?: {
+      id?: number;
+      email?: string;
+      firstName?: string;
+      lastName?: string;
+      role?: string;
+      facultyName?: string;
+      accessToken?: string;
+      [key: string]: any;
+    };
   }
 }
 

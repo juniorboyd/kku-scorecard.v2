@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายงานสรุปความคืบหน้าโครงงานและการเข้าร่วมสัมมนาวิชาการ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: #1e293b;
+            background: #ffffff;
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm 18mm;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .report-header {
+            border-bottom: 2.5px solid #ea580c;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .header-title h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+        .header-title h2 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ea580c;
+            margin-top: 2px;
+        }
+        .header-meta {
+            text-align: right;
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Section Styling */
+        .section-box {
+            margin-bottom: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #ea580c;
+            border-radius: 6px;
+            padding: 10px 14px;
+        }
+        .section-box.alt {
+            border-left-color: #2563eb;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .section-title span.badge {
+            background: #ea580c;
+            color: #ffffff;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .section-title span.badge.blue {
+            background: #2563eb;
+        }
+
+        /* Grid & Columns */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .chapter-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+        }
+        .chapter-card h4 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #ea580c;
+            margin-bottom: 3px;
+        }
+        .chapter-card p {
+            font-size: 11.5px;
+            color: #334155;
+            text-align: justify;
+        }
+
+        ul.compact-list {
+            padding-left: 16px;
+            margin-top: 3px;
+        }
+        ul.compact-list li {
+            font-size: 11.5px;
+            margin-bottom: 3px;
+            color: #334155;
+        }
+        ul.compact-list li strong {
+            color: #0f172a;
+        }
+
+        /* Event Details Table */
+        .event-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+            font-size: 11.5px;
+        }
+        .event-info-table td {
+            padding: 4px 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .event-info-table td.label {
+            font-weight: 700;
+            color: #1e293b;
+            width: 25%;
+            background: #f1f5f9;
+        }
+
+        /* Footer */
+        .report-footer {
+            margin-top: 10px;
+            padding-top: 6px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="report-header">
+        <div class="header-title">
+            <h1>รายงานสรุปความคืบหน้าโครงงานและการเข้าร่วมสัมมนาวิชาการ</h1>
+            <h2>One-Page Executive Summary Report</h2>
+        </div>
+    </div>
+
+    <!-- PART 1: PROJECT PROGRESS (CHAPTERS 1 - 3) -->
+    <div class="section-box">
+        <div class="section-title">
+            <span class="badge">ส่วนที่ 1</span>
+            <span>สรุปเนื้อหาโครงงานเทคโนโลยีสารสนเทศ (บทที่ 1 - 3)</span>
+        </div>
+        <p style="font-size: 12px; margin-bottom: 6px; font-weight: 600; color: #0f172a;">
+            โครงงาน: ระบบแดชบอร์ดประเมินและติดตามความปลอดภัยทางไซเบอร์ มหาวิทยาลัยขอนแก่น (KKU Security Scorecard & Vulnerability Management Dashboard)
+        </p>
+
+        <div class="chapter-card">
+            <h4>บทที่ 1: บทนำ (Introduction)</h4>
+            <p>
+                <strong>ความเป็นมาและความสำคัญ:</strong> เครือข่าย มข. มีขนาดใหญ่ครอบคลุมกว่า 21 คณะ/หน่วยงาน เผชิญความเสี่ยงทางไซเบอร์สูง เช่น การละเลยการ Patch อุปกรณ์, DNS Spoofing และมัลแวร์ เดิมขาดเครื่องมือศูนย์กลางในการประเมินภาพรวมความปลอดภัย<br>
+                <strong>วัตถุประสงค์:</strong> พัฒนาระบบประเมิน Security Scorecard แบบเรียลไทม์, สร้างแผนที่ Interactive Campus Map แสดงเกรดความปลอดภัย (A-F) รายคณะ, รองรับการนำเข้าข้อมูลทั้ง API และ CSV Manual Import พร้อมเข้ารหัสลับ API Key ด้วย AES-256-GCM
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <div class="chapter-card">
+                <h4>บทที่ 2: ทฤษฎีและเทคโนโลยีที่เกี่ยวข้อง</h4>
+                <ul class="compact-list">
+                    <li><strong>Security Rating (4 เสาหลัก):</strong> ประเมินจาก WiFi/Network, Patch & EDR (CVE), Portal/App, และ DNS/Anti-Spoofing</li>
+                    <li><strong>Frontend:</strong> Next.js, Leaflet.js (Interactive Map), Tailwind CSS</li>
+                    <li><strong>Backend & DB:</strong> Node.js (Express Framework), PostgreSQL, Prisma ORM, เข้ารหัสด้วย AES-256-GCM</li>
+                </ul>
+            </div>
+
+            <div class="chapter-card">
+                <h4>บทที่ 3: การออกแบบและสถาปัตยกรรมระบบ</h4>
+                <ul class="compact-list">
+                    <li><strong>Architecture:</strong> Full-stack Monorepo บน Docker-compose (Nginx Proxy 4333, Next.js 3000, Express 5000, PostgreSQL 5432)</li>
+                    <li><strong>Domain Mapping:</strong> อัลกอริทึม Token-based matching จำแนกโดเมนย่อยเข้าสู่คณะที่รับผิดชอบโดยอัตโนมัติ</li>
+                    <li><strong>Database Models:</strong> User, Organization, Domain, Issue, Import, FacultyDailyStat</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 2: SEMINAR SUMMARY (FORTINET SECURITY SUMMIT 2026) -->
+    <div class="section-box alt">
+        <div class="section-title">
+            <span class="badge blue">ส่วนที่ 2</span>
+            <span>สรุปการเข้าร่วมสัมมนาวิชาการ Fortinet Security Summit Thailand 2026 – Khon Kaen</span>
+        </div>
+
+        <table class="event-info-table">
+            <tr>
+                <td class="label">วัน เวลา สถานที่:</td>
+                <td>วันพุธที่ 22 กรกฎาคม 2026 เวลา 09:00 - 16:15 น. ณ ห้องประชุม อวานี คอนเวนชั่น 1 โรงแรมอวานี ขอนแก่น</td>
+            </tr>
+            <tr>
+                <td class="label">วิทยากรผู้ทรงคุณวุฒิ:</td>
+                <td>
+                    1. <strong>ดร. ศุภกร กังพิศดาร</strong> (ผู้จัดการประจำประเทศไทยและลาว ฟอร์ติเน็ต ประเทศไทย)<br>
+                    2. <strong>ดร. กิตติ์ เธียรธโนปจัย</strong> (ผู้ช่วยอธิการบดีฝ่ายดิจิทัล มหาวิทยาลัยขอนแก่น)<br>
+                    3. <strong>ผศ.นพ.ไพฑูรย์ ประภิณวณิชตร</strong> (ผู้อำนวยการศูนย์บริหารจัดการทรัพย์สิน มหาวิทยาลัยขอนแก่น)<br>
+                    4. <strong>ดร. รัฐติพงษ์ พุทธเจริญ</strong> (ผอ. ฝ่ายวิศวกรรมระบบ ฟอร์ติเน็ต ประเทศไทย - ผู้ดำเนินรายการ)
+                </td>
+            </tr>
+        </table>
+
+        <div class="chapter-card" style="margin-bottom: 0;">
+            <h4 style="color: #2563eb;">สรุปสาระสำคัญและกิจกรรมที่เข้าร่วม (Key Highlights & Experience)</h4>
+            <ul class="compact-list">
+                <li><strong>ความเป็นที่ 1 ของ Fortinet (Market Leadership):</strong> การนำเสนอภาพรวมความเป็นผู้นำอันดับ 1 ด้านโซลูชันความปลอดภัยระดับโลก ด้วยวิสัยทัศน์ Security Fabric ที่เชื่อมโยงอุปกรณ์และระบบความปลอดภัยไซเบอร์ทั้งหมดเข้าไว้ด้วยกันอย่างเป็นเอกภาพ</li>
+                <li><strong>แนวทางในยุค AI และภัยคุกคามอนาคต (AI & Machine-Speed Cyber Defense):</strong> การขับเคลื่อนระบบป้องกันภัยไซเบอร์สำหรับองค์กรในอนาคตด้วย AI และ Automation เพื่อรับมือกับภัยคุกคามยุคใหม่ที่เกิดขึ้นอย่างรวดเร็วระดับ Machine-Speed ช่วยตรวจจับ คัดกรอง และสกัดกั้นภัยคุกคามได้แบบอัตโนมัติทันที</li>
+                <li><strong>บรรยากาศและสวัสดิการในงาน:</strong> ผู้เข้าร่วมสัมมนาได้รับความรู้เต็มอิ่ม พร้อมสวัสดิการอาหารกลางวัน (รับประทานข้าวเที่ยงฟรี) และโอกาสแลกเปลี่ยนประสบการณ์กับผู้เชี่ยวชาญด้าน Cybersecurity ระดับประเทศ</li>
+            </ul>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <div style="text-align: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px;">
+                    <img src="images/event_stage.jpg" style="width: 100%; height: 140px; object-fit: contain; border-radius: 4px; display: block; margin: 0 auto;">
+                    <div style="font-size: 10px; color: #475569; font-weight: 500; margin-top: 4px;">ภาพบรรยากาศการสัมมนาบนเวที</div>
+                </div>
+                <div style="text-align: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px;">
+                    <img src="images/event_table.jpg" style="width: 100%; height: 140px; object-fit: contain; border-radius: 4px; display: block; margin: 0 auto;">
+                    <div style="font-size: 10px; color: #475569; font-weight: 500; margin-top: 4px;">บรรยากาศและของว่างในงาน</div>
+                </div>
+                <div style="text-align: center; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px;">
+                    <img src="images/event_lunch.jpg" style="width: 100%; height: 140px; object-fit: contain; border-radius: 4px; display: block; margin: 0 auto;">
+                    <div style="font-size: 10px; color: #475569; font-weight: 500; margin-top: 4px;">สวัสดิการอาหารกลางวันฟรี</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

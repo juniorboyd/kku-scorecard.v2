@@ -35,6 +35,8 @@ model User {
   role        UserRole   @default(VIEWER)
   status      UserStatus @default(PENDING)
   facultyName String?
+  twoFactorSecret  String?
+  twoFactorEnabled Boolean    @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   logs        AuditLog[]

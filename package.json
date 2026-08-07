@@ -20,6 +20,7 @@
   "homepage": "https://github.com/juniorboyd/kku-scorecard.v2#readme",
   "dependencies": {
     "pdfkit": "^0.19.1",
+    "pptxgenjs": "^4.0.1",
     "puppeteer": "^25.3.0"
   }
 }

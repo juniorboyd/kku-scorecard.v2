@@ -17,6 +17,10 @@ export const authApi = {
   login: (body?: any) => api.post("/auth/login", body).then((r) => r.data),
   logout: () => api.post("/auth/logout").then((r) => r.data),
   me: () => api.get("/auth/me").then((r) => r.data),
+  setup2Fa: () => api.post("/auth/2fa/setup").then((r) => r.data),
+  verify2Fa: (token: string) => api.post("/auth/2fa/verify", { token }).then((r) => r.data),
+  disable2Fa: () => api.post("/auth/2fa/disable").then((r) => r.data),
+  login2Fa: (token: string) => api.post("/auth/2fa/login", { token }).then((r) => r.data),
 };
 
 // Snapshots (global)
