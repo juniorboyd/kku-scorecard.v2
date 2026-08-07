@@ -4,6 +4,18 @@ import { generateSync } from "otplib";
 
 async function main() {
   const email = "watchara.sup@kkumail.com";
+  
+  // Check if reset argument is passed
+  const args = process.argv.slice(2);
+  if (args.includes("reset")) {
+    await prisma.user.update({
+      where: { email },
+      data: { twoFactorEnabled: false, twoFactorSecret: null },
+    });
+    console.log(`Successfully reset 2FA to DISABLED for ${email}`);
+    return;
+  }
+
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
     console.log("User not found");
