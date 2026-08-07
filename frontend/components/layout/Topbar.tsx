@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { User, CalendarDays, Settings, LogOut, ChevronDown, Search, Bell, Sun, Moon, AlertTriangle } from "lucide-react";
+import { User, CalendarDays, Settings, LogOut, ChevronDown, Search, Bell, Sun, Moon, AlertTriangle, Upload, ScrollText, Users, Key } from "lucide-react";
 import { useSnapshot } from "@/lib/snapshotContext";
 import { useMe } from "@/lib/me";
 import { authApi } from "@/lib/api";
@@ -158,6 +158,31 @@ export default function Topbar() {
                 )}
               </div>
               <div className="py-2 border-t border-slate-100 dark:border-slate-800">
+                {(role === "ADMIN" || role === "ANALYST") && (
+                  <>
+                    <Link href="/imports" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+                      <Upload className="w-4 h-4" />
+                      นำเข้าข้อมูล
+                    </Link>
+                    <Link href="/logs" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+                      <ScrollText className="w-4 h-4" />
+                      บันทึกระบบ (Logs)
+                    </Link>
+                  </>
+                )}
+                {role === "ADMIN" && (
+                  <>
+                    <Link href="/admin/users" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+                      <Users className="w-4 h-4" />
+                      จัดการผู้ใช้งาน
+                    </Link>
+                    <Link href="/admin/api-keys" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
+                      <Key className="w-4 h-4" />
+                      จัดการ API Keys
+                    </Link>
+                  </>
+                )}
+                <div className="my-1 border-t border-slate-100 dark:border-slate-800/80"></div>
                 <Link href="/settings" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
                   <Settings className="w-4 h-4" />
                   การตั้งค่าบัญชี

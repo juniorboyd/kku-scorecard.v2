@@ -16,10 +16,6 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/issues",        label: "รายการปัญหาที่พบ",          icon: AlertTriangle },
   { href: "/assets",        label: "IP Address / Domain",          icon: Server },
   { href: "/api-request",   label: "ร้องขอ API",          icon: Activity },
-  { href: "/imports",       label: "นำเข้าข้อมูล",         icon: Upload,     roles: ["ADMIN", "ANALYST"] },
-  { href: "/logs",          label: "บันทึกระบบ (Logs)",     icon: ScrollText, roles: ["ADMIN", "ANALYST"] },
-  { href: "/admin/users",   label: "จัดการผู้ใช้งาน", icon: Users,      roles: ["ADMIN"] },
-  { href: "/admin/api-keys",label: "จัดการ API Keys", icon: Key,        roles: ["ADMIN"] },
 ];
 
 export default function Sidebar() {
