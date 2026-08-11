@@ -79,3 +79,32 @@ cd backend
 npx prisma migrate deploy   # apply existing migrations
 npx prisma generate         # regenerate the Prisma client
 ```
+
+---
+
+## 🛡️ Two-Factor Authentication (2FA)
+
+The system enforces a secure, industry-standard **TOTP (Time-based One-Time Password)** multi-factor authentication mechanism for all authenticated routes.
+
+### 1. User Interface
+- Users can manage (enable/disable) their 2FA settings directly under **"การตั้งค่าบัญชี" (Account Settings)** in the top-right profile dropdown menu.
+- During registration, a secure QR code is generated for scanning with mobile authenticator apps (e.g. Google Authenticator, Microsoft Authenticator, Authy).
+- Once enabled, subsequent logins will prompt for a 6-digit verification code.
+
+### 2. Cryptographic Security
+- All 2FA secret keys are stored **AES-256-CBC encrypted** in the database to prevent compromises in case of a database leak.
+- Verification uses standard `otplib` checks configured to align strictly with standard 30-second cycles.
+
+### 🛠️ CLI Admin Utility
+
+An administrator command-line tool is available inside the backend container to troubleshoot and manage user 2FA statuses directly.
+
+To access the utility, run:
+
+```bash
+# Reset (disable) 2FA for a user (useful if a user loses their authenticator app)
+sudo docker compose exec backend node dist/check-user.js reset
+
+# Scan for time-drift offsets (investigate why a code is rejected)
+sudo docker compose exec backend node dist/check-user.js scan <6-digit-otp-code-from-user>
+```
