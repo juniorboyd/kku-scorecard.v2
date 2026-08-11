@@ -49,27 +49,6 @@ ENCRYPTION_KEY=<64-hex-char string>
 
 ---
 
-## 🔌 LibreNMS & Network Map Integration
-
-The dashboard features an interactive **SVG Network Topology Map** (`/network-map`) that polls live device metadata from the university's LibreNMS instance.
-
-### 1. Configuration (`backend/.env`)
-
-Ensure the following variables are configured with your live LibreNMS endpoint and token:
-
-```env
-LIBRENMS_API_URL=https://lnms.kku.ac.th/api/v0
-LIBRENMS_API_TOKEN=<YOUR_LIBRENMS_API_TOKEN>
-```
-
-### 2. Device to Organization Mapping
-
-Since LibreNMS devices typically report IP addresses as their hostnames, the system uses a **token-based matching algorithm** on both `hostname` and `sysName` (device system name) to automatically classify network switches under their respective KKU faculties/departments (e.g. `faculty-vet-b3` -> คณะสัตวแพทยศาสตร์, `kkbs-bs01` -> คณะบริหารธุรกิจและการบัญชี).
-
-If no keywords match, the device falls under "ไม่ระบุสังกัด (Unassigned)" directly connected to the Core Router.
-
----
-
 ## 🗄️ Database Migrations (Local Development)
 
 If running outside Docker:
