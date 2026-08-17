@@ -66,5 +66,5 @@ export function matchOrgFromHostname(hostname: string): string | undefined {
   if (hasToken("law") || hasToken("lw")) return "คณะนิติศาสตร์";
   if (hasToken("te") || hasToken("tech") || hasPrefix("tech") || hasToken("technology")) return "คณะเทคโนโลยี";
   if (hasToken("nu") || hasToken("nurs") || hasPrefix("nurs") || hasToken("nursing")) return "คณะพยาบาลศาสตร์";
-  return undefined;
+  return "สำนักงานอธิการบดี";
 }
