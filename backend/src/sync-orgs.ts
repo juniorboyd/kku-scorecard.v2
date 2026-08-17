@@ -26,12 +26,19 @@ async function main() {
     }
 
     console.log(`Found ${externalOrgs.length} organizations from NOC API.`);
+    if (externalOrgs.length > 0) {
+      console.log("Sample organization from API:", JSON.stringify(externalOrgs[0], null, 2));
+    }
     let createdCount = 0;
     let updatedCount = 0;
+    let skippedCount = 0;
 
     for (const org of externalOrgs) {
       const orgId = Number(org.id);
-      if (isNaN(orgId)) continue;
+      if (isNaN(orgId)) {
+        skippedCount++;
+        continue;
+      }
 
       const orgName = org.name || `Organization ${orgId}`;
 
@@ -60,6 +67,7 @@ async function main() {
     console.log(`\n🎉 SYNC COMPLETED SUCCESSFULLY!`);
     console.log(`- Created: ${createdCount} organizations`);
     console.log(`- Updated: ${updatedCount} organizations`);
+    console.log(`- Skipped (invalid ID): ${skippedCount} organizations`);
 
   } catch (error: any) {
     console.error("❌ Sync failed:");
