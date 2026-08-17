@@ -59,7 +59,7 @@ export default function FacultyDetailModal({
       pageSize: 1000,
     })
       .then((res) => {
-        const assetList = (res.items ?? []).map((item: any) => item.domain);
+        const assetList = (res.data?.items ?? res.items ?? []).map((item: any) => item.domain);
         setAssets(assetList);
       })
       .catch((err) => {
