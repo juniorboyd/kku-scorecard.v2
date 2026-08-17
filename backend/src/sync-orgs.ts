@@ -34,29 +34,23 @@ async function main() {
     let skippedCount = 0;
 
     for (const org of externalOrgs) {
-      const orgId = Number(org.id);
-      if (isNaN(orgId)) {
+      const orgName = org.name;
+      if (!orgName) {
         skippedCount++;
         continue;
       }
 
-      const orgName = org.name || `Organization ${orgId}`;
-
-      // Upsert into Organization table
+      // Upsert into Organization table by name
       const existing = await prisma.organization.findUnique({
-        where: { id: orgId }
+        where: { name: orgName }
       });
 
       if (existing) {
-        await prisma.organization.update({
-          where: { id: orgId },
-          data: { name: orgName }
-        });
+        // Since there is only "name" field, if it already exists, no updates are needed.
         updatedCount++;
       } else {
         await prisma.organization.create({
           data: {
-            id: orgId,
             name: orgName
           }
         });
