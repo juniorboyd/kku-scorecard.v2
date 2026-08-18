@@ -307,6 +307,33 @@ export default function AssetsPage() {
           />
         </div>
 
+        {/* Quick Organization Filter */}
+        <div className="flex items-center gap-2 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 bg-white dark:bg-slate-900 min-w-[240px] text-slate-700 dark:text-slate-300">
+          <span className="text-xs text-slate-400 font-medium whitespace-nowrap">หน่วยงาน:</span>
+          <select
+            className="text-xs font-semibold bg-transparent border-none outline-none cursor-pointer w-full text-slate-700 dark:text-slate-200"
+            value={activeFilters.selectedOrgs[0] ?? ""}
+            onChange={(e) => {
+              const val = e.target.value;
+              const u = {
+                ...activeFilters,
+                selectedOrgs: val ? [val] : [],
+                assigned: val ? ("known" as const) : ("all" as const),
+              };
+              setActiveFilters(u);
+              setPendingFilters(u);
+              setPage(1);
+            }}
+          >
+            <option value="" className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200">ทั้งหมด (All Organizations)</option>
+            {allOrgs.map((org) => (
+              <option key={org.id} value={org.name} className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200">
+                {org.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Filter */}
         <div className="relative" ref={filterRef}>
           <button
