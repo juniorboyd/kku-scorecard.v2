@@ -1,89 +1,117 @@
-# KKU Security Score Card
+# 🛡️ KKU Security Scorecard
 
-Full-stack monorepo: Next.js frontend, Express + Prisma backend, Python processor.
-
-- `frontend/` — Next.js app
-- `backend/` — Express API + Prisma (PostgreSQL)
-- `python/` — CSV processing scripts
-- `nginx/` — reverse proxy for the dockerized deployment
-
-See [DEV_MODE.md](DEV_MODE.md), [ASSET_SYSTEM.md](ASSET_SYSTEM.md), and [SYSTEM_ANALYSIS.md](SYSTEM_ANALYSIS.md) for details.
+**ระบบแดชบอร์ดประเมินและวิเคราะห์ความมั่นคงปลอดภัยไซเบอร์ มหาวิทยาลัยขอนแก่น**
+ระบบที่ถูกพัฒนาขึ้นเพื่อเป็นศูนย์กลางการแสดงสถานะความปลอดภัย (Security Posture), จัดเกรดระดับคะแนนความเสี่ยง (A-F), และรวบรวมรายการปัญหาทางเทคนิคพร้อมคำอธิบายและแนวทางการแก้ไขปัญหา (Remediation) ภาษาไทย สำหรับทุกคณะและหน่วยงานภายในมหาวิทยาลัยขอนแก่น
 
 ---
 
-## 🚀 Quick Start (Dockerized Deployment)
+## 📂 โครงสร้างของโปรเจกต์ (Project Structure)
+โปรเจกต์นี้ได้รับการพัฒนาในรูปแบบ **Full-stack Monorepo** ประกอบด้วยส่วนสำคัญดังนี้:
 
-To build and start the entire stack (PostgreSQL, Backend, Frontend, and Nginx proxy) in development/production mode:
+* 🌐 **/frontend** — เว็บไซต์หน้าบ้าน พัฒนาด้วย Next.js (React), TypeScript, TailwindCSS, Chart.js/Recharts (สำหรับสถิติกราฟ) และ Leaflet.js (แผนที่วิทยาเขตเชิงตอบโต้)
+* ⚙️ **/backend** — เซิร์ฟเวอร์หลังบ้าน พัฒนาด้วย Node.js, Express, และ Prisma ORM เชื่อมต่อกับระบบฐานข้อมูล PostgreSQL
+* 🐍 **/python** — สคริปต์เสริมสำหรับประมวลผลข้อมูลความปลอดภัยและช่วยคัดแยกพิกัดข้อมูลภูมิศาสตร์ (Geocoding)
+* 🛡️ **/nginx** — ระบบเว็บเซิร์ฟเวอร์ย่อยสำหรับทำหน้าที่เป็น Reverse Proxy จัดการใบรับรองความปลอดภัย (SSL/TLS Certificate) และบังคับการเข้าถึงผ่าน HTTPS
+
+---
+
+## 🚀 วิธีการติดตั้งและรันระบบด่วน (ด้วย Docker)
+
+ระบบได้รับการออกแบบให้พร้อมรันผ่านตู้คอนเทนเนอร์ (Docker Containers) ทั้ง PostgreSQL, Backend, Frontend และ Nginx ในคำสั่งเดียว:
 
 ```bash
-# Start all containers in background
+# 1. สั่งบิวด์และเริ่มระบบในเบื้องหลัง (Background)
 docker compose up --build -d
 
-# Stop all containers
+# 2. ตรวจสอบสถานะการรันของตู้ทั้งหมด
+docker compose ps
+
+# 3. สั่งหยุดการทำงานของระบบทั้งหมด
 docker compose down
 ```
-
-The application will be accessible securely at **`https://localhost:4333`** (proxied by Nginx).
+ระบบจะเปิดใช้งานอย่างปลอดภัย (HTTPS) ผ่านพอร์ต Nginx Proxy ที่พอร์ต: **`https://localhost:4333`**
 
 ---
 
-## ⚙️ Environment Setup
+## ⚙️ การตั้งค่าสภาพแวดล้อม (Environment Setup)
 
-Copy `backend/.env.example` to `backend/.env` and fill in the values.
+คัดลอกไฟล์ตัวอย่างค่าคอนฟิก `.env` ในฝั่งหลังบ้านเพื่อตั้งค่าใช้งานจริง:
+```bash
+cp backend/.env.example backend/.env
+```
 
-### 🔑 ENCRYPTION_KEY (required)
-
-Sensitive settings (e.g. the SecurityScorecard API key) are stored AES-256-GCM encrypted at rest. The backend **refuses to start** without a valid `ENCRYPTION_KEY` — a 32-byte value encoded as 64 hex characters.
-
-Generate one with:
+### 🔑 คีย์เข้ารหัสข้อมูลระบบ (ENCRYPTION_KEY)
+ระบบนี้ให้ความปลอดภัยข้อมูลขั้นสูง ข้อมูลสำคัญ เช่น API Key ของ SecurityScorecard และรหัสลับ 2FA ของผู้ใช้งาน จะถูก**เข้ารหัสที่จัดเก็บ (Encryption-at-Rest) ด้วยอัลกอริทึม AES-256-GCM**
+*Backend จะปฏิเสธการเริ่มทำงานหากไม่มีคีย์นี้* โดยคุณต้องสร้างคีย์ความยาว 32 ไบต์ (64 ตัวอักษรฐานสิบหก) ด้วยคำสั่ง:
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
-
-Put the result in `backend/.env` and in `docker-compose.yml` under the `backend` environment block:
-
+นำค่าผลลัพธ์ที่ได้ไปใส่ไว้ใน `backend/.env` และในไฟล์ `docker-compose.yml` ภายใต้สภาพแวดล้อมของ `backend`:
 ```env
-ENCRYPTION_KEY=<64-hex-char string>
+ENCRYPTION_KEY=ผลลัพธ์_64_ตัวอักษรที่ได้
 ```
 
 ---
 
-## 🗄️ Database Migrations (Local Development)
+## 💻 คู่มือสำหรับผู้พัฒนา (Developer Guide)
 
-If running outside Docker:
+หากต้องการนำระบบนี้ไปเขียนโค้ดและพัฒนาส่วนขยายเพิ่มเติมในเครื่องคอมพิวเตอร์ของคุณ (Local Development) โดยไม่รันผ่าน Docker ทั้งหมด:
 
+### 1. การเตรียมระบบฐานข้อมูล (Database)
+ตรวจสอบว่าคุณมีฐานข้อมูล PostgreSQL และแก้ไขค่า `DATABASE_URL` ใน `backend/.env` จากนั้นรันคำสั่งจัดการฐานข้อมูล:
 ```bash
 cd backend
-npx prisma migrate deploy   # apply existing migrations
-npx prisma generate         # regenerate the Prisma client
+npm install
+npx prisma migrate deploy   # ตรวจสอบและลงประวัติการสร้างตารางล่าสุด
+npx prisma generate         # อัปเดต Prisma Client สำหรับใช้ในโค้ด Node.js
+```
+
+### 2. การรันเซิร์ฟเวอร์หลังบ้าน (Backend API)
+```bash
+cd backend
+npm run dev
+# หลังบ้านจะเปิดให้บริการที่ http://localhost:4000
+```
+
+### 3. การรันเว็บหน้าบ้าน (Frontend UI)
+```bash
+cd frontend
+npm install
+npm run dev
+# หน้าบ้านจะเปิดให้บริการที่ http://localhost:3000
 ```
 
 ---
 
-## 🛡️ Two-Factor Authentication (2FA)
-
-The system enforces a secure, industry-standard **TOTP (Time-based One-Time Password)** multi-factor authentication mechanism for all authenticated routes.
-
-### 1. User Interface
-- Users can manage (enable/disable) their 2FA settings directly under **"การตั้งค่าบัญชี" (Account Settings)** in the top-right profile dropdown menu.
-- During registration, a secure QR code is generated for scanning with mobile authenticator apps (e.g. Google Authenticator, Microsoft Authenticator, Authy).
-- Once enabled, subsequent logins will prompt for a 6-digit verification code.
-
-### 2. Cryptographic Security
-- All 2FA secret keys are stored **AES-256-CBC encrypted** in the database to prevent compromises in case of a database leak.
-- Verification uses standard `otplib` checks configured to align strictly with standard 30-second cycles.
-
-### 🛠️ CLI Admin Utility
-
-An administrator command-line tool is available inside the backend container to troubleshoot and manage user 2FA statuses directly.
-
-To access the utility, run:
+## 🔐 ระบบรักษาความปลอดภัยและการยืนยันตัวตนสองชั้น (2FA - TOTP)
+ระบบได้รับการติดตั้ง **TOTP (Time-based One-Time Password)** ตามมาตรฐานสากล:
+* สิทธิ์ผู้ใช้ทั่วไปสามารถกดยืนยันเปิด/ปิดระบบ 2FA ได้ผ่านหน้าจอ **"การตั้งค่าบัญชี" (Account Settings)**
+* สำหรับผู้ดูแลระบบ (Admin) มีคำสั่งจัดการสิทธิ์และกู้คืนสถานะ 2FA ของผู้ใช้ผ่านทางเทอร์มินัล (กรณีทำแอป Authenticator หาย):
 
 ```bash
-# Reset (disable) 2FA for a user (useful if a user loses their authenticator app)
+# 1. การรีเซ็ต (ปิดการบังคับใช้) 2FA ของผู้ใช้ตามอีเมล
 sudo docker compose exec backend node dist/check-user.js reset
 
-# Scan for time-drift offsets (investigate why a code is rejected)
-sudo docker compose exec backend node dist/check-user.js scan <6-digit-otp-code-from-user>
+# 2. การสแกนเช็คเวลาเหลื่อมล้ำ (Time-drift) เพื่อตรวจสอบรหัสของระบบผู้ใช้
+sudo docker compose exec backend node dist/check-user.js scan <รหัส_6_หลัก>
 ```
+
+---
+
+## 🛠️ สคริปต์สำหรับผู้ดูแลระบบและการจัดการฐานข้อมูลที่สำคัญ
+ภายในระบบมีสคริปต์สำหรับล้างค่าสะกดคำผิดและเชื่อมโยงระบบที่ผู้พัฒนาทำไว้ให้ สามารถรันผ่านคอนเทนเนอร์หลังบ้านดังนี้:
+
+* **การซิงค์ชื่อหน่วยงานสะกดผิดย้อนหลัง:**
+  แก้ไขข้อมูลชื่อคณะ/หน่วยงานที่สะกดผิดพลาดในรายการปัญหาเดิมทั้งหมดให้เป็นชื่อที่ถูกต้องตรงกัน
+  ```bash
+  sudo docker compose exec backend node dist/sync-issue-names.js
+  ```
+* **การเปลี่ยนสินทรัพย์ Unknown เข้าสู่อธิการบดี:**
+  เคลียร์และแมปรายการสินทรัพย์ที่ไม่มีชื่อคณะระบุ ให้เข้าสังกัด "สำนักงานอธิการบดี" เพื่อให้ระบบคะแนนสมดุล
+  ```bash
+  sudo docker compose exec backend node dist/map-unknown.js
+  ```
+* **สคริปต์การรวมข้อมูลคณะแบบเฉพาะกิจ:**
+  * ควบรวมคณะเภสัชศาสตร์: `node dist/merge-pharmacy.js`
+  * ควบรวมสำนักงานสภาและสถาบันภาษา: `node dist/merge-corrupted.js`
