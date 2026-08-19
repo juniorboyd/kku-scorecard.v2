@@ -30,7 +30,7 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:postgres7842@postgres:5432/kku_scorecard?schema=public"
       PYTHON_EXECUTABLE: /usr/bin/python3
-      AUTH_MODE: SSO
+      AUTH_MODE: DEV
       ADMIN_EMAILS: chetsada.k@kkumail.com
       # 32-byte hex key for encrypting sensitive settings at rest. Required to boot.
       # Generate: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -51,7 +51,7 @@ services:
     networks:
       - app_network
     restart: unless-stopped
-    command: sh -c "npx prisma migrate deploy && node dist/index.js"
+    command: sh -c "npx prisma db push && node dist/index.js"
 
   frontend:
     build:

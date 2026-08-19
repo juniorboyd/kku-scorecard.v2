@@ -21,7 +21,7 @@ function triggerCsvDownload(data: ArrayBuffer, filename: string) {
 }
 import { useSnapshot } from "@/lib/snapshotContext";
 
-const ORG_PAGE_SIZE = 5;
+const ORG_PAGE_SIZE = 10;
 const ASSET_PAGE_SIZE = 20;
 
 type AssetFilters = { organizations: string[]; types: string[]; statuses: string[] };
