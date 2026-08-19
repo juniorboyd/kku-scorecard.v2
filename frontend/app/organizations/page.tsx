@@ -421,13 +421,19 @@ export default function OrganizationsPage() {
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.domains}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.issues}</td>
                     <td className="px-4 py-3 flex items-center justify-between group/row">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                        org.securityScore >= 90 ? "bg-green-100 text-green-800" :
-                        org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
-                        "bg-red-100 text-red-800"
-                      }`}>
-                        {org.securityScore}
-                      </span>
+                      {org._count.domains === 0 ? (
+                        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-400">
+                          Unassigned
+                        </span>
+                      ) : (
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                          org.securityScore >= 90 ? "bg-green-100 text-green-800" :
+                          org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
+                          "bg-red-100 text-red-800"
+                        }`}>
+                          {org.securityScore}
+                        </span>
+                      )}
                       <button
                         onClick={() => openHistory(org)}
                         className="p-1 ml-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 rounded transition-colors"
