@@ -62,8 +62,8 @@ export default function OrganizationsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const [orgSortBy, setOrgSortBy] = useState("name");
-  const [orgSortOrder, setOrgSortOrder] = useState<"asc" | "desc">("asc");
+  const [orgSortBy, setOrgSortBy] = useState("score");
+  const [orgSortOrder, setOrgSortOrder] = useState<"asc" | "desc">("desc");
 
   // Modals
   const [addOrgOpen, setAddOrgOpen] = useState(false);
