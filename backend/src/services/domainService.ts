@@ -51,7 +51,8 @@ export async function getOrganizationList(options?: {
   }
 
   const itemsWithScores = allItems.map((item) => {
-    const score = scoreMap.get(item.name.toLowerCase()) ?? 100;
+    const hasDomains = item._count ? item._count.domains > 0 : false;
+    const score = hasDomains ? (scoreMap.get(item.name.toLowerCase()) ?? 100) : -1;
     return {
       ...item,
       securityScore: score,
@@ -60,6 +61,11 @@ export async function getOrganizationList(options?: {
 
   if (sortBy === "score") {
     itemsWithScores.sort((a, b) => {
+      const aIsUnassigned = a._count ? a._count.domains === 0 : true;
+      const bIsUnassigned = b._count ? b._count.domains === 0 : true;
+      if (aIsUnassigned && !bIsUnassigned) return 1;
+      if (!aIsUnassigned && bIsUnassigned) return -1;
+      if (aIsUnassigned && bIsUnassigned) return 0;
       return dir === "asc"
         ? a.securityScore - b.securityScore
         : b.securityScore - a.securityScore;
