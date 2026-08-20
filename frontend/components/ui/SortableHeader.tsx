@@ -17,7 +17,7 @@ export default function SortableHeader({
   const active = currentSort === field;
   return (
     <th
-      className={`px-4 py-3 text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider cursor-pointer select-none whitespace-nowrap hover:bg-gray-100 dark:hover:bg-slate-800 ${align === "right" ? "text-right" : "text-left"} ${className}`}
+      className={`py-3.5 px-4 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider cursor-pointer select-none whitespace-nowrap hover:bg-slate-200/50 dark:hover:bg-slate-700/50 border-b border-slate-200 dark:border-slate-800 transition-colors ${align === "right" ? "text-right" : "text-left"} ${className}`}
       onClick={() => onSort(field)}
     >
       {label}
