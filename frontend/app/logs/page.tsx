@@ -65,9 +65,9 @@ export default function LogsPage() {
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">No.</th>
+            <thead className="bg-slate-50/50 dark:bg-slate-800/30">
+              <tr>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">No.</th>
                 <SortableHeader label="User"     field="user"      currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Role"     field="role"      currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Action"   field="action"    currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
@@ -75,7 +75,7 @@ export default function LogsPage() {
                 <SortableHeader label="Datetime" field="createdAt" currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 8 }).map((_, i) => (
                   <tr key={i}><td colSpan={6} className="px-4 py-3"><div className="h-4 bg-gray-100 rounded animate-pulse" /></td></tr>
@@ -84,15 +84,15 @@ export default function LogsPage() {
                 <tr><td colSpan={6} className="text-center py-12 text-gray-400">No logs found</td></tr>
               ) : (
                 items.map((log: any, i: number) => (
-                  <tr key={log.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-400 text-xs">{(page - 1) * PAGE_SIZE + i + 1}</td>
-                    <td className="px-4 py-3 text-gray-700 text-xs">
+                  <tr key={log.id} className="hover:bg-indigo-50/40 dark:hover:bg-indigo-900/10 transition-colors duration-150">
+                    <td className="px-4 py-3 text-slate-400 text-xs">{(page - 1) * PAGE_SIZE + i + 1}</td>
+                    <td className="px-4 py-3 text-slate-700 text-xs">
                       {log.user ? `${log.user.firstName ?? ""} ${log.user.lastName ?? ""}`.trim() || log.user.email : "System"}
                     </td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">{log.user?.role ?? "—"}</td>
-                    <td className="px-4 py-3 text-gray-700 font-mono text-xs">{log.action}</td>
+                    <td className="px-4 py-3 text-slate-500 text-xs">{log.user?.role ?? "—"}</td>
+                    <td className="px-4 py-3 text-slate-700 font-mono text-xs">{log.action}</td>
                     <td className="px-4 py-3"><StatusBadge status={log.status} /></td>
-                    <td className="px-4 py-3 text-gray-500 text-xs">
+                    <td className="px-4 py-3 text-slate-500 text-xs">
                       {new Date(log.createdAt).toLocaleString("en-GB")}
                     </td>
                   </tr>

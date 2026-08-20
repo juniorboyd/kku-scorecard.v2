@@ -264,9 +264,9 @@ export default function ImportsPage() {
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">No.</th>
+            <thead className="bg-slate-50/50 dark:bg-slate-800/30">
+              <tr>
+                <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">No.</th>
                 <SortableHeader label="User"          field="user"         currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="File Name"     field="fileName"     currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Records"       field="totalIssues"  currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} align="right" />
@@ -274,10 +274,10 @@ export default function ImportsPage() {
                 <SortableHeader label="Snapshot Date" field="snapshotDate" currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Uploaded At"   field="uploadedAt"   currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Status"        field="status"       currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                <th className="text-right py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 6 }).map((_, i) => (
                   <tr key={i}><td colSpan={9} className="px-4 py-3"><div className="h-4 bg-gray-100 rounded animate-pulse" /></td></tr>
@@ -288,8 +288,8 @@ export default function ImportsPage() {
                 items.map((imp: any, i: number) => {
                   const inProgress = IN_PROGRESS.includes(imp.status);
                   return (
-                  <tr key={imp.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-gray-400 text-xs">{(page - 1) * PAGE_SIZE + i + 1}</td>
+                  <tr key={imp.id} className="hover:bg-indigo-50/40 dark:hover:bg-indigo-900/10 transition-colors duration-150">
+                    <td className="px-4 py-3 text-slate-400 text-xs">{(page - 1) * PAGE_SIZE + i + 1}</td>
                     <td className="px-4 py-3 text-gray-600 text-xs">
                       {imp.uploadedBy ? `${imp.uploadedBy.firstName ?? ""} ${imp.uploadedBy.lastName ?? ""}`.trim() || imp.uploadedBy.email : "System"}
                     </td>

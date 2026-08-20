@@ -182,18 +182,18 @@ export default function AdminUsersPage() {
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-slate-50/50 dark:bg-slate-800/30">
+              <tr>
                 <SortableHeader label="Email"    field="email"     currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Name"     field="name"      currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Role</th>
+                <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Role</th>
                 <SortableHeader label="Status"   field="status"    currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Faculty</th>
+                <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Faculty</th>
                 <SortableHeader label="Added At" field="createdAt" currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 6 }).map((_, i) => (
                   <tr key={i}><td colSpan={7} className="px-4 py-3"><div className="h-4 bg-gray-100 rounded animate-pulse" /></td></tr>

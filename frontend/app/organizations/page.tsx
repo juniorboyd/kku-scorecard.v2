@@ -424,16 +424,16 @@ export default function OrganizationsPage() {
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-700">
+            <thead className="bg-slate-50/50 dark:bg-slate-800/30">
+              <tr>
                 <SortableHeader label="Organization" field="name"    currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 <SortableHeader label="Domains"      field="domains" currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 <SortableHeader label="Issues"       field="issues"  currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
                 <SortableHeader label="Score"        field="score"   currentSort={orgSortBy} currentOrder={orgSortOrder} onSort={handleOrgSort} />
-                {canEdit && <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Actions</th>}
+                {canEdit && <th className="text-right py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Actions</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 6 }).map((_, i) => (
                   <tr key={i}><td colSpan={orgColSpan} className="px-4 py-3"><div className="h-4 bg-gray-100 dark:bg-slate-800 rounded animate-pulse" /></td></tr>
@@ -452,13 +452,13 @@ export default function OrganizationsPage() {
                       grade: org.securityScore >= 90 ? "A" : org.securityScore >= 80 ? "B" : org.securityScore >= 70 ? "C" : org.securityScore >= 60 ? "D" : "F",
                       issues: []
                     })}
-                    className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                    className="hover:bg-indigo-50/40 dark:hover:bg-indigo-900/10 transition-colors duration-150 cursor-pointer"
                   >
-                    <td className="px-4 py-3 font-medium text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                    <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 transition-colors">
                       {org.name}
                     </td>
-                    <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.domains}</td>
-                    <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.issues}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.domains}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.issues}</td>
                     <td className="px-4 py-3 flex items-center justify-between group/row">
                       {org._count.domains === 0 ? (
                         <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-400">

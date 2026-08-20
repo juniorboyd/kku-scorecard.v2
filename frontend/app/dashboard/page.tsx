@@ -265,15 +265,15 @@ export default function DashboardPage() {
               {/* Scrollable known-orgs table */}
               <div className="overflow-y-auto" style={{ maxHeight: "480px" }}>
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-white">
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left pb-2 text-xs font-semibold text-gray-500 uppercase w-6">#</th>
-                      <th className="text-left pb-2 text-xs font-semibold text-gray-500 uppercase">Organization</th>
-                      <th className="text-right pb-2 text-xs font-semibold text-gray-500 uppercase w-16">Score</th>
-                      <th className="text-center pb-2 text-xs font-semibold text-gray-500 uppercase w-12">Grade</th>
+                  <thead className="sticky top-0 bg-slate-50/50 dark:bg-slate-800/30 z-10">
+                    <tr>
+                      <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 w-6">#</th>
+                      <th className="text-left py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">Organization</th>
+                      <th className="text-right py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 w-16">Score</th>
+                      <th className="text-center py-3.5 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider border-b border-slate-200 dark:border-slate-800 w-12">Grade</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50">
+                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
                     {orgScoresLoading ? (
                       Array.from({ length: 10 }).map((_, i) => (
                         <tr key={i}>
@@ -292,11 +292,11 @@ export default function DashboardPage() {
                         // Try to find the faculty in mock data to pass its full context
                         const mockFaculty = SECURITY_MOCK_DATA.faculties.find(f => f.name === row.organization || f.nameEn === row.organization);
                         return (
-                          <tr key={i} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedFaculty(mockFaculty || { name: row.organization, score: row.securityScore, grade: g.label, issues: [], abbr: 'UN', nameEn: '' })}>
-                            <td className="py-2 pr-2 text-xs text-gray-400">{i + 1}</td>
-                            <td className="py-2 pr-3">
-                              <p className="text-xs font-medium text-gray-800 truncate max-w-[220px]">{row.organization}</p>
-                              <div className="mt-1 w-full bg-gray-100 rounded-full h-1">
+                          <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-150 cursor-pointer" onClick={() => setSelectedFaculty(mockFaculty || { name: row.organization, score: row.securityScore, grade: g.label, issues: [], abbr: 'UN', nameEn: '' })}>
+                            <td className="py-3 px-4 text-[11px] font-medium text-slate-400">{i + 1}</td>
+                            <td className="py-3 px-4">
+                              <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 truncate max-w-[220px]">{row.organization}</p>
+                              <div className="mt-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1">
                                 <div className={`h-1 rounded-full ${g.bar}`} style={{ width: `${row.securityScore}%` }} />
                               </div>
                             </td>

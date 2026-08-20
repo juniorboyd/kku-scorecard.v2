@@ -365,8 +365,8 @@ export default function IssuesPage() {
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-slate-50/50 dark:bg-slate-800/30">
+              <tr>
                 <SortableHeader label="Organization" field="organization" currentSort={sortBy} currentOrder={sortDir} onSort={handleSort} />
                 <SortableHeader label="Factor"       field="factor"       currentSort={sortBy} currentOrder={sortDir} onSort={handleSort} />
                 <SortableHeader label="Issue Type"   field="issueType"    currentSort={sortBy} currentOrder={sortDir} onSort={handleSort} />
@@ -378,7 +378,7 @@ export default function IssuesPage() {
                 <SortableHeader label="Time"         field="createdAt"    currentSort={sortBy} currentOrder={sortDir} onSort={handleSort} align="right" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
               {loading ? (
                 Array.from({ length: 8 }).map((_, i) => (
                   <tr key={i}>
@@ -391,9 +391,9 @@ export default function IssuesPage() {
                 <tr><td colSpan={9} className="text-center py-12 text-gray-400">No issues found</td></tr>
               ) : (
                 issues.map((issue: any) => (
-                  <tr key={issue.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => setSelectedIssue(issue)}>
-                    <td className="px-4 py-3 text-gray-700 max-w-[180px] truncate text-xs">{issue.organizationName || "—"}</td>
-                    <td className="px-4 py-3 text-gray-600 max-w-[140px] truncate text-xs">{issue.factorName}</td>
+                  <tr key={issue.id} className="hover:bg-indigo-50/40 dark:hover:bg-indigo-900/10 transition-colors duration-150 cursor-pointer" onClick={() => setSelectedIssue(issue)}>
+                    <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-200 max-w-[180px] truncate text-xs">{issue.organizationName || "—"}</td>
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-400 max-w-[140px] truncate text-xs">{issue.factorName}</td>
                     <td className="px-4 py-3 text-gray-700 max-w-[200px] truncate text-xs">{issue.issueTypeTitle}</td>
                     <td className="px-4 py-3"><SeverityBadge severity={issue.severity} /></td>
                     <td className="px-4 py-3 max-w-[160px] truncate text-xs">
