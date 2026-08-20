@@ -97,11 +97,6 @@ export default function FacultyDetailModal({
     }
   }, [faculty.id]);
 
-  const gradientId =
-    faculty.score >= 80 ? "gauge-green" :
-    faculty.score >= 60 ? "gauge-orange" :
-    "gauge-red";
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
       <div className="absolute -inset-4 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm" />
@@ -119,17 +114,10 @@ export default function FacultyDetailModal({
             <div className="relative flex flex-col items-center justify-center w-[160px] h-[95px] -mt-1 select-none">
               <svg width="140" height="85" viewBox="0 0 160 95" className="overflow-visible">
                 <defs>
-                  <linearGradient id="gauge-green" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#34D399" />
-                    <stop offset="100%" stopColor="#059669" />
-                  </linearGradient>
-                  <linearGradient id="gauge-orange" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#F59E0B" />
-                    <stop offset="100%" stopColor="#EA580C" />
-                  </linearGradient>
-                  <linearGradient id="gauge-red" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="gauge-rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#EF4444" />
-                    <stop offset="100%" stopColor="#991B1B" />
+                    <stop offset="50%" stopColor="#F59E0B" />
+                    <stop offset="100%" stopColor="#10B981" />
                   </linearGradient>
                 </defs>
                 <path
@@ -142,7 +130,7 @@ export default function FacultyDetailModal({
                 <path
                   d="M 20 85 A 60 60 0 0 1 140 85"
                   fill="none"
-                  stroke={`url(#${gradientId})`}
+                  stroke="url(#gauge-rainbow)"
                   strokeWidth="12"
                   strokeLinecap="round"
                   strokeDasharray="188.5"

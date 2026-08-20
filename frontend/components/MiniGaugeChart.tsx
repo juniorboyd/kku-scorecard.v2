@@ -11,27 +11,17 @@ export default function MiniGaugeChart({ score, grade }: { score: number, grade?
     return () => clearTimeout(timer);
   }, [score]);
 
-  const gradientId =
-    score >= 80 ? "mini-gauge-green" :
-    score >= 60 ? "mini-gauge-orange" :
-    "mini-gauge-red";
+
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="relative flex flex-col items-center justify-center w-[120px] h-[70px] select-none">
         <svg width="105" height="65" viewBox="0 0 160 95" className="overflow-visible">
           <defs>
-            <linearGradient id="mini-gauge-green" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#34D399" />
-              <stop offset="100%" stopColor="#059669" />
-            </linearGradient>
-            <linearGradient id="mini-gauge-orange" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#F59E0B" />
-              <stop offset="100%" stopColor="#EA580C" />
-            </linearGradient>
-            <linearGradient id="mini-gauge-red" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id="mini-gauge-rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#EF4444" />
-              <stop offset="100%" stopColor="#991B1B" />
+              <stop offset="50%" stopColor="#F59E0B" />
+              <stop offset="100%" stopColor="#10B981" />
             </linearGradient>
           </defs>
           <path
@@ -44,7 +34,7 @@ export default function MiniGaugeChart({ score, grade }: { score: number, grade?
           <path
             d="M 20 85 A 60 60 0 0 1 140 85"
             fill="none"
-            stroke={`url(#${gradientId})`}
+            stroke="url(#mini-gauge-rainbow)"
             strokeWidth="12"
             strokeLinecap="round"
             strokeDasharray="188.5"
