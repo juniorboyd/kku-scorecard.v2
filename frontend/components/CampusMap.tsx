@@ -1,8 +1,9 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SECURITY_MOCK_DATA } from "@/lib/mock-data";
+import MiniGaugeChart from "@/components/MiniGaugeChart";
 
 // Fix for default Leaflet icon paths in Next.js
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -21,6 +22,9 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
+  
+  const [hoveredFaculty, setHoveredFaculty] = useState<any>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
@@ -103,6 +107,20 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
             });
           }
         });
+        
+        marker.on("mouseover", () => {
+          setHoveredFaculty({
+            ...faculty,
+            id: backendOrg ? backendOrg.id : faculty.id,
+            name: backendOrg ? backendOrg.organization : faculty.name,
+            score,
+            grade
+          });
+        });
+
+        marker.on("mouseout", () => {
+          setHoveredFaculty(null);
+        });
 
         marker.addTo(markersGroup);
       });
@@ -110,8 +128,27 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
   }, [orgScores, onMarkerClick]);
 
   return (
-    <div className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-slate-800 z-0">
-      <div ref={containerRef} className="w-full h-full" />
-    </div>
+    <>
+      <div 
+        className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-slate-800 z-0"
+        onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
+      >
+        <div ref={containerRef} className="w-full h-full" />
+      </div>
+      
+      {/* Floating Fixed Tooltip for Score */}
+      {hoveredFaculty && (
+        <div 
+          className="fixed z-[9999] pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[190px] animate-in fade-in zoom-in-95 duration-200"
+          style={{ left: mousePos.x + 15, top: mousePos.y + 15 }}
+        >
+          <MiniGaugeChart 
+            score={hoveredFaculty.score} 
+            grade={hoveredFaculty.grade} 
+            name={hoveredFaculty.name}
+          />
+        </div>
+      )}
+    </>
   );
 }
