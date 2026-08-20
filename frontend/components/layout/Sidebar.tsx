@@ -17,6 +17,10 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/assets",        label: "IP Address / Domain",          icon: Server },
   { href: "/api-request",   label: "ร้องขอ API",          icon: Activity },
   { href: "/guide",         label: "คู่มือ & สูตรคำนวณ",    icon: ScrollText },
+  { href: "/network-map",   label: "แผนผังเครือข่าย",          icon: Network },
+  { href: "/imports",       label: "นำเข้าข้อมูล",         icon: Upload,     roles: ["ADMIN", "ANALYST"] },
+  { href: "/logs",          label: "บันทึกระบบ (Logs)",     icon: ScrollText, roles: ["ADMIN", "ANALYST"] },
+  { href: "/admin/users",   label: "จัดการผู้ใช้งาน", icon: Users,      roles: ["ADMIN"] },
 ];
 
 export default function Sidebar() {
