@@ -31,8 +31,19 @@ services:
       DATABASE_URL: "postgresql://postgres:postgres7842@postgres:5432/kku_scorecard?schema=public"
       PYTHON_EXECUTABLE: /usr/bin/python3
       AUTH_MODE: SSO
+      SSO_APP_ID: 019f5e75-113a-7c95-ae18-04b99b7f653b
+      SSO_CLIENT_ID: 019f5e75-113a-7c95-ae18-04b99b7f653b
+      SSO_CLIENT_SECRET: NrpTzowwLTDaVJdoBmL9BL78j2s2OxlszoSJVMVfeznBViyN9utvcdCD56MZw9q7
       ADMIN_EMAILS: watchara.sup@kkumail.com
       NODE_ENV: production
+      FRONTEND_URL: https://odt-scorecard.kku.ac.th
+      APP_BASE_URL: https://odt-scorecard.kku.ac.th
+      SSO_REDIRECT_URL: https://odt-scorecard.kku.ac.th/callback
+      SSO_LOGIN_URL: https://sso-web.kku.ac.th/login
+      SSO_LOGOUT_URL: https://sso-web.kku.ac.th/logout
+      SSO_TOKEN_API: https://sso-api.kku.ac.th/auth.token
+      SSO_PROFILE_API: https://sso-api.kku.ac.th/user.profile
+      SSO_STATUS_API: https://sso-api.kku.ac.th/auth.status
 
     volumes:
       - ./python:/app/python:ro
