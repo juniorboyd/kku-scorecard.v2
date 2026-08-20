@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function MiniGaugeChart({ score, grade }: { score: number, grade?: string }) {
+export default function MiniGaugeChart({ score, grade, name }: { score: number, grade?: string, name?: string }) {
   const [animatedScore, setAnimatedScore] = useState(0);
 
   useEffect(() => {
@@ -15,6 +15,11 @@ export default function MiniGaugeChart({ score, grade }: { score: number, grade?
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
+      {name && (
+        <div className="text-xs font-bold text-slate-700 dark:text-slate-200 mb-2 truncate max-w-full text-center px-1 border-b border-slate-100 dark:border-slate-800 pb-1.5 w-full">
+          {name}
+        </div>
+      )}
       <div className="relative flex flex-col items-center justify-center w-[120px] h-[70px] select-none">
         <svg width="105" height="65" viewBox="0 0 160 95" className="overflow-visible">
           <defs>

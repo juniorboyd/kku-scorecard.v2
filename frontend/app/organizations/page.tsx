@@ -698,12 +698,13 @@ export default function OrganizationsPage() {
       {/* Floating Fixed Tooltip for Score */}
       {hoveredScoreOrg && hoveredScoreOrg._count?.domains > 0 && (
         <div 
-          className="fixed z-[9999] pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[160px] animate-in fade-in zoom-in-95 duration-200"
+          className="fixed z-[9999] pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[190px] animate-in fade-in zoom-in-95 duration-200"
           style={{ left: mousePos.x + 15, top: mousePos.y + 15 }}
         >
           <MiniGaugeChart 
             score={hoveredScoreOrg.securityScore} 
             grade={hoveredScoreOrg.securityScore >= 90 ? "A" : hoveredScoreOrg.securityScore >= 80 ? "B" : hoveredScoreOrg.securityScore >= 70 ? "C" : hoveredScoreOrg.securityScore >= 60 ? "D" : "F"} 
+            name={hoveredScoreOrg.name}
           />
         </div>
       )}
