@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Plus, Trash2, Edit2, Upload, Search, Building2, AlertTriangle, Filter, X, Download, ChevronDown, TrendingUp } from "lucide-react";
+import MiniGaugeChart from "@/components/MiniGaugeChart";
 import KpiCard from "@/components/ui/KpiCard";
 import Modal from "@/components/ui/Modal";
 import Pagination from "@/components/ui/Pagination";
@@ -63,6 +64,7 @@ export default function OrganizationsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [hoveredScoreOrg, setHoveredScoreOrg] = useState<number | null>(null);
   const [orgSortBy, setOrgSortBy] = useState("score");
   const [orgSortOrder, setOrgSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedFaculty, setSelectedFaculty] = useState<any>(null);
@@ -459,31 +461,47 @@ export default function OrganizationsPage() {
                     </td>
                     <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.domains}</td>
                     <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.issues}</td>
-                    <td className="px-4 py-3 flex items-center justify-between group/row">
-                      {org._count.domains === 0 ? (
-                        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-400">
-                          Unassigned
-                        </span>
-                      ) : (
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                          org.securityScore >= 90 ? "bg-green-100 text-green-800" :
-                          org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
-                          "bg-red-100 text-red-800"
-                        }`}>
-                          {org.securityScore}
-                        </span>
-                      )}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openHistory(org);
-                        }}
-                        className="p-1 ml-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 rounded transition-colors"
-                        title="View Score History"
+                      <td 
+                        className="px-4 py-3 flex items-center justify-between group/row relative"
+                        onMouseEnter={() => setHoveredScoreOrg(org.id)}
+                        onMouseLeave={() => setHoveredScoreOrg(null)}
                       >
-                        <TrendingUp className="w-4 h-4" />
-                      </button>
-                    </td>
+                        {org._count.domains === 0 ? (
+                          <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-400">
+                            Unassigned
+                          </span>
+                        ) : (
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
+                            org.securityScore >= 90 ? "bg-green-100 text-green-800" :
+                            org.securityScore >= 80 ? "bg-yellow-100 text-yellow-800" :
+                            "bg-red-100 text-red-800"
+                          }`}>
+                            {org.securityScore}
+                          </span>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openHistory(org);
+                          }}
+                          className="p-1 ml-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 rounded transition-colors"
+                          title="View Score History"
+                        >
+                          <TrendingUp className="w-4 h-4" />
+                        </button>
+                        
+                        {/* Hover Tooltip for Score */}
+                        {hoveredScoreOrg === org.id && org._count.domains > 0 && (
+                          <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 z-[60] bg-white dark:bg-slate-900 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-800 p-4 w-40 animate-in fade-in zoom-in-95 duration-200 pointer-events-none">
+                            <MiniGaugeChart 
+                              score={org.securityScore} 
+                              grade={org.securityScore >= 90 ? "A" : org.securityScore >= 80 ? "B" : org.securityScore >= 70 ? "C" : org.securityScore >= 60 ? "D" : "F"} 
+                            />
+                            {/* Tooltip Arrow */}
+                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-900 border-b border-r border-slate-200 dark:border-slate-800 rotate-45"></div>
+                          </div>
+                        )}
+                      </td>
                     {canEdit && (
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
