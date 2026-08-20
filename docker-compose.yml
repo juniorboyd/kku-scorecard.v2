@@ -39,11 +39,11 @@ services:
       FRONTEND_URL: https://odt-scorecard.kku.ac.th
       APP_BASE_URL: https://odt-scorecard.kku.ac.th
       SSO_REDIRECT_URL: https://odt-scorecard.kku.ac.th/callback
-      SSO_LOGIN_URL: https://sso-web.kku.ac.th/login
-      SSO_LOGOUT_URL: https://sso-web.kku.ac.th/logout
-      SSO_TOKEN_API: https://sso-api.kku.ac.th/auth.token
-      SSO_PROFILE_API: https://sso-api.kku.ac.th/user.profile
-      SSO_STATUS_API: https://sso-api.kku.ac.th/auth.status
+      SSO_LOGIN_URL: https://sso-uat-web.kku.ac.th/login
+      SSO_LOGOUT_URL: https://sso-uat-web.kku.ac.th/logout
+      SSO_TOKEN_API: https://sso-uat-api.kku.ac.th/auth.token
+      SSO_PROFILE_API: https://sso-uat-api.kku.ac.th/user.profile
+      SSO_STATUS_API: https://sso-uat-api.kku.ac.th/auth.status
 
     volumes:
       - ./python:/app/python:ro
