@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import {
   getOrganizationList, getOrganizationsWithDomains, createOrganization,
-  deleteOrganization, createDomainMapping, updateDomainMapping, deleteDomainMapping, importMappingFile,
+  updateOrganization, deleteOrganization, createDomainMapping, updateDomainMapping, deleteDomainMapping, deleteDomainMappingByHost, importMappingFile,
   assignAndSyncIssues,
 } from "../services/domainService.ts";
 import { writeAuditLog } from "../services/logService.ts";
@@ -37,6 +37,19 @@ export async function addOrganization(req: Request, res: Response) {
     const org = await createOrganization(name);
     await writeAuditLog(req.user?.id, `CREATE_ORG: ${name}`);
     res.json({ success: true, data: org });
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message });
+  }
+}
+
+export async function editOrganization(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ error: "Name is required" });
+    const record = await updateOrganization(id, name);
+    await writeAuditLog(req.user?.id, `UPDATE_ORG: id=${id} name=${name}`);
+    res.json({ success: true, data: record });
   } catch (err) {
     res.status(500).json({ error: (err as Error).message });
   }
@@ -81,6 +94,18 @@ export async function removeDomain(req: Request, res: Response) {
     const id = Number(req.params.id);
     await deleteDomainMapping(id);
     await writeAuditLog(req.user?.id, `DELETE_DOMAIN: id=${id}`);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message });
+  }
+}
+
+export async function removeDomainByHost(req: Request, res: Response) {
+  try {
+    const { domain } = req.body;
+    if (!domain) return res.status(400).json({ error: "domain is required" });
+    await deleteDomainMappingByHost(domain);
+    await writeAuditLog(req.user?.id, `DELETE_DOMAIN_BY_HOST: domain=${domain}`);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: (err as Error).message });

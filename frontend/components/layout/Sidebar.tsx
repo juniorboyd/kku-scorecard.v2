@@ -16,6 +16,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/issues",        label: "รายการปัญหาที่พบ",          icon: AlertTriangle },
   { href: "/assets",        label: "IP Address / Domain",          icon: Server },
   { href: "/api-request",   label: "ร้องขอ API",          icon: Activity },
+  { href: "/guide",         label: "คู่มือ & สูตรคำนวณ",    icon: ScrollText },
 ];
 
 export default function Sidebar() {

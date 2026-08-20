@@ -4,6 +4,7 @@ import { X, Server, AlertTriangle, ShieldCheck, Loader2, TrendingUp } from "luci
 import { useSnapshot } from "@/lib/snapshotContext";
 import { issuesApi, domainsApi, orgsApi } from "@/lib/api";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import IssueDetailModal from "@/components/IssueDetailModal";
 
 type Issue = { name: string; status: "pass" | "fail" | "warning"; detail: string };
 type FacultyData = {
@@ -23,6 +24,7 @@ export default function FacultyDetailModal({
   faculty: FacultyData;
   onClose: () => void;
 }) {
+  const [selectedIssue, setSelectedIssue] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState<"issues" | "assets" | "history">("issues");
   const { selectedSnapshotId } = useSnapshot();
 
@@ -95,28 +97,65 @@ export default function FacultyDetailModal({
     }
   }, [faculty.id]);
 
+  const gradientId =
+    faculty.score >= 80 ? "gauge-green" :
+    faculty.score >= 60 ? "gauge-orange" :
+    "gauge-red";
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-slate-100 dark:border-slate-800">
 
         {/* Header */}
         <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
           <div>
             <h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">{faculty.name}</h2>
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{faculty.nameEn}</p>
+            {faculty.nameEn && faculty.nameEn !== faculty.name && (
+              <p className="text-sm font-semibold text-slate-400 dark:text-slate-500 mt-0.5">{faculty.nameEn}</p>
+            )}
           </div>
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-4">
-              <span className={`px-3 py-1 rounded-lg text-sm font-bold ${faculty.grade === "A" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" :
-                  faculty.grade === "B" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" :
-                    faculty.grade === "C" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" :
-                      faculty.grade === "D" ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400" :
-                        "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                }`}>GRADE {faculty.grade}</span>
-
-              <div className="text-right border-l border-slate-200 dark:border-slate-700 pl-4">
-                <div className="text-2xl font-black text-slate-800 dark:text-slate-100">{faculty.score.toFixed(1)}</div>
-                <div className="text-xs font-bold text-slate-400">SCORE</div>
+            <div className="relative flex flex-col items-center justify-center w-[160px] h-[95px] -mt-1 select-none">
+              <svg width="140" height="85" viewBox="0 0 160 95" className="overflow-visible">
+                <defs>
+                  <linearGradient id="gauge-green" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#34D399" />
+                    <stop offset="100%" stopColor="#059669" />
+                  </linearGradient>
+                  <linearGradient id="gauge-orange" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#F59E0B" />
+                    <stop offset="100%" stopColor="#EA580C" />
+                  </linearGradient>
+                  <linearGradient id="gauge-red" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#EF4444" />
+                    <stop offset="100%" stopColor="#991B1B" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M 20 85 A 60 60 0 0 1 140 85"
+                  fill="none"
+                  stroke="#E2E8F0"
+                  strokeWidth="12"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 20 85 A 60 60 0 0 1 140 85"
+                  fill="none"
+                  stroke={`url(#${gradientId})`}
+                  strokeWidth="12"
+                  strokeLinecap="round"
+                  strokeDasharray="188.5"
+                  strokeDashoffset={188.5 - (188.5 * (Math.max(0, Math.min(100, faculty.score)) / 100))}
+                  className="transition-all duration-1000 ease-out"
+                />
+              </svg>
+              <div className="absolute top-[48px] flex flex-col items-center">
+                <span className="text-2xl font-black text-slate-800 dark:text-slate-100 leading-none">
+                  {faculty.score.toFixed(1)}
+                </span>
+                <span className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">
+                  GRADE {faculty.grade}
+                </span>
               </div>
             </div>
             <button onClick={onClose} className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors ml-2">
@@ -130,36 +169,39 @@ export default function FacultyDetailModal({
           {/* Main Panel: Details */}
           <div className="flex-1 flex flex-col overflow-hidden">
             {/* Tabs */}
-            <div className="flex border-b border-slate-100 dark:border-slate-800 px-6 pt-4 gap-6 bg-white dark:bg-slate-900">
+            <div className="flex border-b border-slate-100 dark:border-slate-800 px-6 py-4 gap-2 bg-slate-50/50 dark:bg-slate-900/50">
               <button
                 onClick={() => setActiveTab("issues")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "issues" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                  }`}
+                className={`flex items-center gap-2 px-4 py-2.5 text-sm font-extrabold rounded-xl transition-all duration-200 ${
+                  activeTab === "issues"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                    : "text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-850"
+                }`}
               >
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" />
-                  รายการปัญหาที่พบ
-                </div>
+                <AlertTriangle className="w-4 h-4" />
+                รายการปัญหาที่พบ
               </button>
               <button
                 onClick={() => setActiveTab("assets")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "assets" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                  }`}
+                className={`flex items-center gap-2 px-4 py-2.5 text-sm font-extrabold rounded-xl transition-all duration-200 ${
+                  activeTab === "assets"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                    : "text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-850"
+                }`}
               >
-                <div className="flex items-center gap-2">
-                  <Server className="w-4 h-4" />
-                  สินทรัพย์
-                </div>
+                <Server className="w-4 h-4" />
+                สินทรัพย์
               </button>
               <button
                 onClick={() => setActiveTab("history")}
-                className={`pb-3 text-sm font-bold transition-colors border-b-2 ${activeTab === "history" ? "border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400" : "border-transparent text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                  }`}
+                className={`flex items-center gap-2 px-4 py-2.5 text-sm font-extrabold rounded-xl transition-all duration-200 ${
+                  activeTab === "history"
+                    ? "bg-blue-600 text-white shadow-lg shadow-blue-500/20"
+                    : "text-slate-400 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-850"
+                }`}
               >
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4" />
-                  ประวัติคะแนน
-                </div>
+                <TrendingUp className="w-4 h-4" />
+                ประวัติคะแนน
               </button>
             </div>
 
@@ -178,7 +220,11 @@ export default function FacultyDetailModal({
                   ) : issues.length > 0 ? issues.map((issue: any, idx: number) => {
                     const sev = (issue.severity ?? "").toUpperCase();
                     return (
-                      <div key={idx} className="flex gap-4 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 hover:shadow-md transition-shadow">
+                      <div
+                        key={idx}
+                        onClick={() => setSelectedIssue(issue)}
+                        className="flex gap-4 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 hover:shadow-md transition-shadow cursor-pointer hover:border-blue-300 dark:hover:border-blue-700"
+                      >
                         <div className="mt-0.5 shrink-0">
                           {sev === "LOW" || sev === "INFO" ? (
                             <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400"><ShieldCheck className="w-4 h-4" /></div>
@@ -299,6 +345,12 @@ export default function FacultyDetailModal({
           </div>
         </div>
       </div>
+      {selectedIssue && (
+        <IssueDetailModal
+          issue={selectedIssue}
+          onClose={() => setSelectedIssue(null)}
+        />
+      )}
     </div>
   );
 }

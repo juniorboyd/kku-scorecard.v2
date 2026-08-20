@@ -11,6 +11,7 @@ import { orgsApi, domainsApi } from "@/lib/api";
 import { useCanEdit } from "@/lib/me";
 import { useToast } from "@/lib/toast";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import FacultyDetailModal from "@/components/FacultyDetailModal";
 
 function triggerCsvDownload(data: ArrayBuffer, filename: string) {
   const blob = new Blob([data], { type: "text/csv;charset=utf-8" });
@@ -64,9 +65,13 @@ export default function OrganizationsPage() {
   const [loading, setLoading] = useState(true);
   const [orgSortBy, setOrgSortBy] = useState("score");
   const [orgSortOrder, setOrgSortOrder] = useState<"asc" | "desc">("desc");
+  const [selectedFaculty, setSelectedFaculty] = useState<any>(null);
 
   // Modals
   const [addOrgOpen, setAddOrgOpen] = useState(false);
+  const [editOrgOpen, setEditOrgOpen] = useState(false);
+  const [editingOrg, setEditingOrg] = useState<any>(null);
+  const [editOrgName, setEditOrgName] = useState("");
   const [addDomainOpen, setAddDomainOpen] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
   const [editDomainOpen, setEditDomainOpen] = useState(false);
@@ -213,6 +218,27 @@ export default function OrganizationsPage() {
       toast.error(e.response?.data?.error ?? e.message);
       throw e; // let the combobox know creation failed (won't auto-select)
     }
+  }
+
+  function openEditOrg(org: any) {
+    setEditingOrg(org);
+    setEditOrgName(org.name);
+    setEditOrgOpen(true);
+  }
+
+  async function saveEditOrg() {
+    if (!editingOrg) return;
+    setSaving(true);
+    try {
+      await orgsApi.edit(editingOrg.id, editOrgName);
+      toast.success("Organization renamed successfully");
+      setEditOrgOpen(false); setEditingOrg(null); loadOrgs();
+      const oldName = editingOrg.name;
+      const newName = editOrgName.trim();
+      setAllOrgs((prev) => prev.map((o) => (o === oldName ? newName : o)).sort((a, b) => a.localeCompare(b, "th")));
+    } catch (e: any) {
+      toast.error(e.response?.data?.error ?? e.message);
+    } finally { setSaving(false); }
   }
 
   async function createDomain() {
@@ -416,8 +442,21 @@ export default function OrganizationsPage() {
                 <tr><td colSpan={orgColSpan} className="text-center py-12 text-gray-400 dark:text-slate-500">No organizations found</td></tr>
               ) : (
                 orgItems.map((org: any) => (
-                  <tr key={org.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
-                    <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100">{org.name}</td>
+                  <tr
+                    key={org.id}
+                    onClick={() => setSelectedFaculty({
+                      id: org.id,
+                      name: org.name,
+                      nameEn: org.nameEn || org.name,
+                      score: org.securityScore,
+                      grade: org.securityScore >= 90 ? "A" : org.securityScore >= 80 ? "B" : org.securityScore >= 70 ? "C" : org.securityScore >= 60 ? "D" : "F",
+                      issues: []
+                    })}
+                    className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+                  >
+                    <td className="px-4 py-3 font-medium text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                      {org.name}
+                    </td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.domains}</td>
                     <td className="px-4 py-3 text-gray-600 dark:text-slate-300">{org._count.issues}</td>
                     <td className="px-4 py-3 flex items-center justify-between group/row">
@@ -435,7 +474,10 @@ export default function OrganizationsPage() {
                         </span>
                       )}
                       <button
-                        onClick={() => openHistory(org)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openHistory(org);
+                        }}
                         className="p-1 ml-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-slate-700 rounded transition-colors"
                         title="View Score History"
                       >
@@ -444,10 +486,28 @@ export default function OrganizationsPage() {
                     </td>
                     {canEdit && (
                       <td className="px-4 py-3 text-right">
-                        <button onClick={() => deleteOrg(org.id)}
-                          className="p-1.5 text-red-500 hover:bg-red-50 rounded" title="Delete">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openEditOrg(org);
+                            }}
+                            className="p-1.5 text-blue-500 hover:bg-blue-50 rounded inline-flex items-center justify-center"
+                            title="Edit"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteOrg(org.id);
+                            }}
+                            className="p-1.5 text-red-500 hover:bg-red-50 rounded inline-flex items-center justify-center"
+                            title="Delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </td>
                     )}
                   </tr>
@@ -458,250 +518,6 @@ export default function OrganizationsPage() {
         </div>
         <div className="px-4 border-t border-gray-100">
           <Pagination page={page} pageSize={ORG_PAGE_SIZE} total={orgTotal} onChange={setPage} />
-        </div>
-      </div>
-
-      {/* ═══════════════════════════════════════════════════════════
-          Asset Explorer
-      ══════════════════════════════════════════════════════════════ */}
-      <div className="space-y-3 pt-2">
-        <h2 className="text-base font-semibold text-gray-800 px-0.5">Asset Explorer</h2>
-
-        {/* Search + Filter bar */}
-        <div className="card p-4 flex flex-wrap gap-3 items-center">
-          <div className="relative flex-1 min-w-[220px]">
-            <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-            <input
-              className="input pl-9 w-full"
-              placeholder="Search by organization or asset/domain..."
-              value={assetSearch}
-              onChange={(e) => { setAssetSearch(e.target.value); setAssetPage(1); }}
-            />
-          </div>
-
-          {/* Export */}
-          <div className="relative" ref={exportRef}>
-            <button className="btn-secondary flex items-center gap-1.5" onClick={() => setExportOpen((o) => !o)}>
-              <Download className="w-4 h-4" />
-              Export
-              <ChevronDown className="w-3.5 h-3.5" />
-            </button>
-            {exportOpen && (
-              <div className="absolute right-0 top-full mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-xl z-50 py-1">
-                <button onClick={() => handleExport("full")} className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                  Export Full Table
-                </button>
-                <button onClick={() => handleExport("mapping")} className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
-                  Export URL + Org Mapping
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Filter button + popover */}
-          <div className="relative" ref={filterRef}>
-            <button
-              className="btn-secondary flex items-center gap-1.5"
-              onClick={() => {
-                setPendingFilters({ ...activeFilters });
-                setFilterOpen((o) => !o);
-              }}
-            >
-              <Filter className="w-4 h-4" />
-              {totalFilterCount > 0 ? `Filter (${totalFilterCount})` : "Filter"}
-            </button>
-
-            {filterOpen && (
-              <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl shadow-xl z-50">
-                <div className="p-4 space-y-5 max-h-[420px] overflow-y-auto">
-
-                  {/* Organization group */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wide mb-2">Organization</p>
-                    <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
-                      {allOrgs.length === 0 && (
-                        <p className="text-xs text-gray-400">Loading…</p>
-                      )}
-                      {allOrgs.map((org) => (
-                        <label key={org} className="flex items-center gap-2 cursor-pointer group">
-                          <input
-                            type="checkbox"
-                            checked={pendingFilters.organizations.includes(org)}
-                            onChange={() => toggleFilter("organizations", org)}
-                            className="rounded border-gray-300 text-blue-600"
-                          />
-                          <span className="text-sm text-gray-700 truncate group-hover:text-gray-900">{org}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Type group */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Type</p>
-                    <div className="space-y-1.5">
-                      {ASSET_TYPE_OPTIONS.map(({ value, label }) => (
-                        <label key={value} className="flex items-center gap-2 cursor-pointer group">
-                          <input
-                            type="checkbox"
-                            checked={pendingFilters.types.includes(value)}
-                            onChange={() => toggleFilter("types", value)}
-                            className="rounded border-gray-300 text-blue-600"
-                          />
-                          <span className="text-sm text-gray-700 group-hover:text-gray-900">{label}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Status group */}
-                  <div>
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Status</p>
-                    <div className="space-y-1.5">
-                      {["Vulnerable", "Healthy"].map((s) => (
-                        <label key={s} className="flex items-center gap-2 cursor-pointer group">
-                          <input
-                            type="checkbox"
-                            checked={pendingFilters.statuses.includes(s)}
-                            onChange={() => toggleFilter("statuses", s)}
-                            className="rounded border-gray-300 text-blue-600"
-                          />
-                          <span className="text-sm text-gray-700 group-hover:text-gray-900">{s}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Panel footer */}
-                <div className="border-t border-gray-100 px-4 py-3 flex items-center justify-between">
-                  <button
-                    className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
-                    onClick={clearAllFilters}
-                  >
-                    Clear All
-                  </button>
-                  <button className="btn-primary text-sm py-1.5 px-4" onClick={applyFilters}>
-                    Apply
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Active filter tags */}
-        {totalFilterCount > 0 && (
-          <div className="flex flex-wrap gap-2 px-0.5">
-            {activeFilters.organizations.map((org) => (
-              <span key={`org-${org}`}
-                className="inline-flex items-center gap-1 pl-2.5 pr-1.5 py-1 bg-blue-50 text-blue-700 text-xs rounded-full font-medium">
-                Org: {org}
-                <button onClick={() => removeTag("organizations", org)}
-                  className="p-0.5 hover:bg-blue-100 rounded-full transition-colors">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {activeFilters.types.map((t) => (
-              <span key={`type-${t}`}
-                className="inline-flex items-center gap-1 pl-2.5 pr-1.5 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded-full font-medium">
-                Type: {ASSET_TYPE_DISPLAY[t]?.label ?? t}
-                <button onClick={() => removeTag("types", t)}
-                  className="p-0.5 hover:bg-purple-100 dark:hover:bg-purple-900/50 rounded-full transition-colors">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {activeFilters.statuses.map((s) => (
-              <span key={`status-${s}`}
-                className="inline-flex items-center gap-1 pl-2.5 pr-1.5 py-1 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-300 text-xs rounded-full font-medium">
-                Status: {s}
-                <button onClick={() => removeTag("statuses", s)}
-                  className="p-0.5 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-full transition-colors">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Asset table */}
-        <div className="card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-gray-50 dark:bg-slate-800/50 border-b border-gray-200 dark:border-slate-700">
-                  <SortableHeader label="Asset"        field="domain"       currentSort={assetSortBy} currentOrder={assetSortOrder} onSort={handleAssetSort} />
-                  <SortableHeader label="Type"         field="type"         currentSort={assetSortBy} currentOrder={assetSortOrder} onSort={handleAssetSort} />
-                  <SortableHeader label="Organization" field="organization" currentSort={assetSortBy} currentOrder={assetSortOrder} onSort={handleAssetSort} />
-                  <SortableHeader label="Status"       field="status"       currentSort={assetSortBy} currentOrder={assetSortOrder} onSort={handleAssetSort} />
-                  <SortableHeader label="Issues"       field="issueCount"   currentSort={assetSortBy} currentOrder={assetSortOrder} onSort={handleAssetSort} align="right" />
-                  {canEdit && <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Actions</th>}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
-                {assetLoading ? (
-                  Array.from({ length: 6 }).map((_, i) => (
-                    <tr key={i}><td colSpan={assetColSpan} className="px-4 py-3">
-                      <div className="h-4 bg-gray-100 dark:bg-slate-800 rounded animate-pulse" /></td></tr>
-                  ))
-                ) : assetItems.length === 0 ? (
-                  <tr><td colSpan={assetColSpan} className="text-center py-12 text-gray-400 dark:text-slate-500">No assets found</td></tr>
-                ) : (
-                  assetItems.map((asset: any) => (
-                    <tr key={asset.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
-                      <td className="px-4 py-3 font-medium text-gray-900 dark:text-slate-100 max-w-xs truncate">{asset.domain}</td>
-                      <td className="px-4 py-3">
-                        {(() => {
-                          const d = ASSET_TYPE_DISPLAY[asset.type];
-                          return (
-                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${d?.style ?? "text-gray-600 bg-gray-100"}`}>
-                              {d?.label ?? asset.type}
-                            </span>
-                          );
-                        })()}
-                      </td>
-                      <td className="px-4 py-3 text-gray-600 max-w-[180px] truncate">{asset.organization || "—"}</td>
-                      <td className="px-4 py-3">
-                        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[asset.status] ?? "text-gray-600 bg-gray-100"}`}>
-                          {asset.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right font-semibold">
-                        {asset.issueCount > 0
-                          ? <span className="text-red-600">{asset.issueCount}</span>
-                          : <span className="text-gray-400">0</span>}
-                      </td>
-                      {canEdit && (
-                        <td className="px-4 py-3 text-right">
-                          <div className="flex items-center justify-end gap-1">
-                            <button
-                              onClick={() => openEditDomain(asset)}
-                              className="p-1.5 text-gray-500 hover:bg-gray-100 rounded transition-colors"
-                              title="Edit"
-                            >
-                              <Edit2 className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => deleteDomainItem(asset.id)}
-                              className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors"
-                              title="Delete"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-          <div className="px-4 border-t border-gray-100">
-            <Pagination page={assetPage} pageSize={ASSET_PAGE_SIZE} total={assetTotal} onChange={setAssetPage} />
-          </div>
         </div>
       </div>
 
@@ -719,6 +535,23 @@ export default function OrganizationsPage() {
             <button className="btn-secondary" onClick={() => setAddOrgOpen(false)}>Cancel</button>
             <button className="btn-primary" onClick={createOrg} disabled={saving || !newOrgName.trim()}>
               {saving ? "Saving..." : "Create"}
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Edit Org */}
+      <Modal open={editOrgOpen} title="Edit Organization Name" onClose={() => { setEditOrgOpen(false); setEditingOrg(null); }}>
+        <div className="space-y-4">
+          <div>
+            <label className="text-sm text-gray-600 mb-1 block">Organization Name</label>
+            <input className="input" placeholder="e.g. Faculty of Science" value={editOrgName}
+              onChange={(e) => setEditOrgName(e.target.value)} />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button className="btn-secondary" onClick={() => { setEditOrgOpen(false); setEditingOrg(null); }}>Cancel</button>
+            <button className="btn-primary" onClick={saveEditOrg} disabled={saving || !editOrgName.trim()}>
+              {saving ? "Saving..." : "Save"}
             </button>
           </div>
         </div>
@@ -844,6 +677,12 @@ export default function OrganizationsPage() {
           </div>
         </div>
       </Modal>
+      {selectedFaculty && (
+        <FacultyDetailModal
+          faculty={selectedFaculty}
+          onClose={() => setSelectedFaculty(null)}
+        />
+      )}
     </div>
   );
 }

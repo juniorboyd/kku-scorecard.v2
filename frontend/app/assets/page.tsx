@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, Globe, Server, Network, Filter, X, UserPlus, Download, Plus, ChevronDown } from "lucide-react";
+import { Search, Globe, Server, Network, Filter, X, UserPlus, Edit2, Trash2, Download, Plus, ChevronDown } from "lucide-react";
 import KpiCard from "@/components/ui/KpiCard";
 import Pagination from "@/components/ui/Pagination";
 import SortableHeader from "@/components/ui/SortableHeader";
@@ -227,15 +227,27 @@ export default function AssetsPage() {
   }
 
   // ── Assign panel ─────────────────────────────────────────────────
-  function openAssign(asset: { host: string; type: string }) {
+  function openAssign(asset: { host: string; type: string; organization?: string | null }) {
     setAssignAsset(asset);
     setAssignDomain(asset.host);
-    setAssignOrgSearch("");
-    setAssignSelectedOrg(null);
+    const matchedOrg = allOrgs.find((o) => o.name === asset.organization) || null;
+    setAssignSelectedOrg(matchedOrg);
+    setAssignOrgSearch(matchedOrg ? matchedOrg.name : "");
     setAssignOrgDropOpen(false);
     setAssignOpen(true);
   }
   function closeAssign() { setAssignOpen(false); setAssignAsset(null); }
+
+  async function handleDelete(domain: string) {
+    if (!confirm(`Are you sure you want to delete/unassign "${domain}"?`)) return;
+    try {
+      await assetsApi.deleteByHost(domain);
+      toast.success(`Asset "${domain}" deleted/unassigned successfully`);
+      load();
+    } catch (e: any) {
+      toast.error(e.response?.data?.error ?? e.message);
+    }
+  }
 
   async function handleCreateNewOrg() {
     const name = assignOrgSearch.trim();
@@ -463,7 +475,7 @@ export default function AssetsPage() {
                 <SortableHeader label="Type"           field="type"         currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Organization"   field="organization" currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} />
                 <SortableHeader label="Issues"         field="issueCount"   currentSort={sortBy} currentOrder={sortOrder} onSort={handleSort} align="right" />
-                <th className="w-10" />
+                <th className="w-24 text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -498,14 +510,33 @@ export default function AssetsPage() {
                       <span className="text-red-600">{asset.issueCount}</span>
                     </td>
                     <td className="px-4 py-2 text-right">
-                      {canEdit && !asset.organization && (
-                        <button
-                          onClick={() => openAssign({ host: asset.host, type: asset.type })}
-                          className="p-1.5 text-blue-500 hover:bg-blue-50 rounded transition-colors"
-                          title="Assign Organization"
-                        >
-                          <UserPlus className="w-4 h-4" />
-                        </button>
+                      {canEdit && (
+                        <div className="flex items-center justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+                          {!asset.organization ? (
+                            <button
+                              onClick={() => openAssign({ host: asset.host, type: asset.type, organization: asset.organization })}
+                              className="p-1.5 text-blue-500 hover:bg-blue-50 rounded transition-colors inline-flex items-center justify-center"
+                              title="Assign Organization"
+                            >
+                              <UserPlus className="w-4 h-4" />
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => openAssign({ host: asset.host, type: asset.type, organization: asset.organization })}
+                              className="p-1.5 text-blue-500 hover:bg-blue-50 rounded transition-colors inline-flex items-center justify-center"
+                              title="Change Organization"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDelete(asset.host)}
+                            className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors inline-flex items-center justify-center"
+                            title="Delete Mapping"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       )}
                     </td>
                   </tr>

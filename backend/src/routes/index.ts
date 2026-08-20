@@ -6,7 +6,7 @@ import { authMiddleware, requireRole } from "../middleware/auth.ts";
 
 // Controllers
 import { uploadScoreFile, fetchNow, uploadMapping, processFile, reprocess, reprocessImportHandler, replaceImportHandler, deleteImportHandler, getImports, getImportStatus, cleanupCorruptedOrgs, downloadImportFile } from "../controllers/importController.ts";
-import { listOrganizations, listOrganizationsWithDomains, addOrganization, removeOrganization, addDomain, editDomain, removeDomain, assignAssetHandler, getFacultyHistoryHandler } from "../controllers/organizationController.ts";
+import { listOrganizations, listOrganizationsWithDomains, addOrganization, editOrganization, removeOrganization, addDomain, editDomain, removeDomain, removeDomainByHost, assignAssetHandler, getFacultyHistoryHandler } from "../controllers/organizationController.ts";
 import { getDashboard, getIssues, exportIssuesHandler, getIssueFiltersHandler, getAssetsHandler, getDomainListHandler, getOrgScoresHandler, getOrgStatsHandler, getSnapshotDates, exportAssetsHandler, exportDomainsHandler } from "../controllers/dashboardController.ts";
 import { getLogs } from "../controllers/logController.ts";
 import { getScorecardKey, updateScorecardKey } from "../controllers/settingsController.ts";
@@ -56,6 +56,7 @@ router.get("/organizations/stats", authMiddleware, getOrgStatsHandler);
 router.get("/organizations/with-domains", authMiddleware, listOrganizationsWithDomains);
 router.get("/organizations/export", authMiddleware, exportDomainsHandler);
 router.post("/organizations", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), addOrganization);
+router.patch("/organizations/:id", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), editOrganization);
 router.post("/organizations/assets", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), assignAssetHandler);
 router.delete("/organizations/:id", authMiddleware, requireRole("ADMIN"), removeOrganization);
 router.get("/organizations/:id/history", authMiddleware, getFacultyHistoryHandler);
@@ -64,6 +65,7 @@ router.get("/organizations/:id/history", authMiddleware, getFacultyHistoryHandle
 router.get("/domains", authMiddleware, getDomainListHandler);
 router.post("/domains", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), addDomain);
 router.patch("/domains/:id", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), editDomain);
+router.delete("/domains/by-host", authMiddleware, requireRole("ADMIN", "ANALYST"), express.json(), removeDomainByHost);
 router.delete("/domains/:id", authMiddleware, requireRole("ADMIN", "ANALYST"), removeDomain);
 
 // Logs

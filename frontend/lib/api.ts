@@ -117,6 +117,7 @@ export const assetsApi = {
     if (params.snapshotId) p.snapshotId = params.snapshotId;
     return api.get("/api/assets/export", { params: p, responseType: "arraybuffer" });
   },
+  deleteByHost: (domain: string) => api.delete("/api/domains/by-host", { data: { domain } }).then((r) => r.data),
 };
 
 // Domains — source: Domain table (master registry). Status per domain vs current snapshot.
@@ -173,6 +174,7 @@ export const orgsApi = {
   listWithDomains: () => api.get("/api/organizations/with-domains").then((r) => r.data),
   getHistory: (id: number) => api.get(`/api/organizations/${id}/history`).then((r) => r.data),
   create: (name: string) => api.post("/api/organizations", { name }).then((r) => r.data),
+  edit: (id: number, name: string) => api.patch(`/api/organizations/${id}`, { name }).then((r) => r.data),
   delete: (id: number) => api.delete(`/api/organizations/${id}`).then((r) => r.data),
   addDomain: (body: { name: string; domain: string }) => api.post("/api/domains", body).then((r) => r.data),
   editDomain: (id: number, body: { domain?: string; organizationName?: string }) =>

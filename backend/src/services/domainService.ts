@@ -118,6 +118,22 @@ export async function deleteOrganization(id: number) {
   return prisma.organization.delete({ where: { id } });
 }
 
+export async function updateOrganization(id: number, name: string) {
+  const normalized = normalizeOrganizationName(name);
+  if (!normalized.trim()) throw new Error("Organization name is required");
+  const existing = await prisma.organization.findFirst({
+    where: {
+      name: { equals: normalized, mode: "insensitive" },
+      id: { not: id }
+    },
+  });
+  if (existing) throw new Error("Organization with this name already exists");
+  return prisma.organization.update({
+    where: { id },
+    data: { name: normalized }
+  });
+}
+
 export async function upsertOrganizations(names: string[]) {
   const unique = Array.from(new Set(names.map((n) => normalizeOrganizationName(String(n ?? ""))).filter((n) => n.length > 0)));
   for (const name of unique) {
@@ -176,6 +192,25 @@ export async function updateDomainMapping(id: number, data: { domain?: string; o
 
 export async function deleteDomainMapping(id: number) {
   return prisma.domain.delete({ where: { id } });
+}
+
+export async function deleteDomainMappingByHost(domain: string) {
+  const cleaned = domain.trim().toLowerCase();
+  try {
+    await prisma.domain.deleteMany({
+      where: { domain: cleaned }
+    });
+  } catch (e) {}
+
+  await prisma.issue.updateMany({
+    where: { OR: [{ host: cleaned }, { matchedDomain: cleaned }] },
+    data: {
+      organizationId: null,
+      organizationName: null,
+      organizationNameNormalized: null,
+      matchedDomain: null,
+    }
+  });
 }
 
 export async function writeMasterDomainCsv(outputPath: string): Promise<string> {

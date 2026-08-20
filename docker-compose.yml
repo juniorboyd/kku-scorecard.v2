@@ -51,7 +51,7 @@ services:
     networks:
       - app_network
     restart: unless-stopped
-    command: sh -c "npx prisma db push && node dist/index.js"
+    command: sh -c "npx prisma db push --accept-data-loss && node dist/index.js"
 
   frontend:
     build:
