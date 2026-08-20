@@ -64,7 +64,8 @@ export default function OrganizationsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const [hoveredScoreOrg, setHoveredScoreOrg] = useState<number | null>(null);
+  const [hoveredScoreOrg, setHoveredScoreOrg] = useState<any>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [orgSortBy, setOrgSortBy] = useState("score");
   const [orgSortOrder, setOrgSortOrder] = useState<"asc" | "desc">("desc");
   const [selectedFaculty, setSelectedFaculty] = useState<any>(null);
@@ -462,8 +463,12 @@ export default function OrganizationsPage() {
                     <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.domains}</td>
                     <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{org._count.issues}</td>
                       <td 
-                        className="px-4 py-3 flex items-center justify-between group/row relative"
-                        onMouseEnter={() => setHoveredScoreOrg(org.id)}
+                        className="px-4 py-3 flex items-center justify-between group/row"
+                        onMouseEnter={(e) => {
+                          setHoveredScoreOrg(org);
+                          setMousePos({ x: e.clientX, y: e.clientY });
+                        }}
+                        onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
                         onMouseLeave={() => setHoveredScoreOrg(null)}
                       >
                         {org._count.domains === 0 ? (
@@ -489,18 +494,6 @@ export default function OrganizationsPage() {
                         >
                           <TrendingUp className="w-4 h-4" />
                         </button>
-                        
-                        {/* Hover Tooltip for Score */}
-                        {hoveredScoreOrg === org.id && org._count.domains > 0 && (
-                          <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 z-[60] bg-white dark:bg-slate-900 shadow-xl rounded-2xl border border-slate-200 dark:border-slate-800 p-4 w-40 animate-in fade-in zoom-in-95 duration-200 pointer-events-none">
-                            <MiniGaugeChart 
-                              score={org.securityScore} 
-                              grade={org.securityScore >= 90 ? "A" : org.securityScore >= 80 ? "B" : org.securityScore >= 70 ? "C" : org.securityScore >= 60 ? "D" : "F"} 
-                            />
-                            {/* Tooltip Arrow */}
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-900 border-b border-r border-slate-200 dark:border-slate-800 rotate-45"></div>
-                          </div>
-                        )}
                       </td>
                     {canEdit && (
                       <td className="px-4 py-3 text-right">
@@ -700,6 +693,19 @@ export default function OrganizationsPage() {
           faculty={selectedFaculty}
           onClose={() => setSelectedFaculty(null)}
         />
+      )}
+
+      {/* Floating Fixed Tooltip for Score */}
+      {hoveredScoreOrg && hoveredScoreOrg._count?.domains > 0 && (
+        <div 
+          className="fixed z-[9999] pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[160px] animate-in fade-in zoom-in-95 duration-200"
+          style={{ left: mousePos.x + 15, top: mousePos.y + 15 }}
+        >
+          <MiniGaugeChart 
+            score={hoveredScoreOrg.securityScore} 
+            grade={hoveredScoreOrg.securityScore >= 90 ? "A" : hoveredScoreOrg.securityScore >= 80 ? "B" : hoveredScoreOrg.securityScore >= 70 ? "C" : hoveredScoreOrg.securityScore >= 60 ? "D" : "F"} 
+          />
+        </div>
       )}
     </div>
   );
