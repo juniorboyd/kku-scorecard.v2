@@ -34,17 +34,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     if (isPublic) return;
     authApi.me()
       .then((r) => { setMe(r.user ?? null); setStatus("authed"); })
-      .catch(async () => {
-        try {
-          await authApi.login();
-          const r = await authApi.me();
-          setMe(r.user ?? null);
-          setStatus("authed");
-        } catch(e: any) {
-          console.error("Auth failed:", e);
-          setErrorMsg(e.message || String(e));
-          setStatus("error");
-        }
+      .catch(() => {
+        router.push("/login");
       });
   }, [isPublic, router]);
 

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 export default function LandingPage() {
   const router = useRouter();
 
-  // Redirect everyone to dashboard immediately
   useEffect(() => {
     router.replace("/dashboard");
   }, [router]);
