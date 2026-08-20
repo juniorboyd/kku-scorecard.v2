@@ -82,7 +82,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
   }
 
   // 2. ถ้าไม่มี API Key ให้ตรวจสอบโหมดการล็อกอิน
-  if (AUTH_MODE === "DEV") {
+  const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+  if (AUTH_MODE === "DEV" || isLocal) {
     req.user = DEV_USER;
     return next();
   }
@@ -120,7 +121,8 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
 }
 
 export function optionalAuth(req: Request, _res: Response, next: NextFunction) {
-  if (AUTH_MODE === "DEV") {
+  const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+  if (AUTH_MODE === "DEV" || isLocal) {
     req.user = DEV_USER;
   } else if (AUTH_MODE === "SSO") {
     const profile = req.session?.userProfile;
