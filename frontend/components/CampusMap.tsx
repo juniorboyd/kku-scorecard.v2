@@ -36,11 +36,10 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         attributionControl: false,
       }).setView([16.4743, 102.8230], 14.5);
 
-      // Add CartoDB Voyager basemap
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: "abcd",
-        maxZoom: 20,
+      // Add OpenStreetMap basemap
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
       }).addTo(map);
 
       // Add zoom control
@@ -59,13 +58,14 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
       SECURITY_MOCK_DATA.faculties.forEach((faculty) => {
         if (!faculty.coords) return;
         
-        // Find matching score from backend if available, otherwise use mock
         const cleanName = (name: string) => name.replace(/\s*มข\.?\s*/g, "").trim().toLowerCase();
+        const cleanDisplayName = (name: string) => name.replace(/\s*มข\.?\s*/g, "").trim();
         const backendOrg = orgScores.find(o => 
           cleanName(o.organization) === cleanName(faculty.name) || 
           cleanName(o.organization) === cleanName(faculty.nameEn)
         );
         const score = backendOrg ? backendOrg.securityScore : faculty.score;
+        const resolvedName = backendOrg ? backendOrg.organization : cleanDisplayName(faculty.name);
         
         const borderClass = 
           score >= 90 ? "border-emerald-500 ring-emerald-500/20" :
@@ -101,7 +101,7 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
             onMarkerClick({
               ...faculty,
               id: backendOrg ? backendOrg.id : faculty.id,
-              name: backendOrg ? backendOrg.organization : faculty.name,
+              name: resolvedName,
               score,
               grade
             });
@@ -112,7 +112,7 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
           setHoveredFaculty({
             ...faculty,
             id: backendOrg ? backendOrg.id : faculty.id,
-            name: backendOrg ? backendOrg.organization : faculty.name,
+            name: resolvedName,
             score,
             grade
           });

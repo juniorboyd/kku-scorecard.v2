@@ -538,14 +538,26 @@ export async function getOrgScores(options?: { snapshotDate?: string; importId?:
   const latestImportId = await getLatestImportId(options);
   if (!latestImportId) return [];
 
-  const allIssues = await prisma.issue.findMany({
-    where: { importId: latestImportId },
-    select: { scoreImpact: true, organizationName: true, organizationId: true },
-  });
+  const [allIssues, allOrgs] = await Promise.all([
+    prisma.issue.findMany({
+      where: { importId: latestImportId },
+      select: { scoreImpact: true, organizationName: true, organizationId: true },
+    }),
+    prisma.organization.findMany({
+      where: { domains: { some: {} } },
+      select: { id: true, name: true },
+    })
+  ]);
 
   // ORG_DEDUCTION = Σ scoreImpact for all issues belonging to that org.
   // "no data" is normalised to "unknown" so the frontend needs only one sentinel key.
   const orgDeductionMap = new Map<string, { id: number | null, deduction: number }>();
+  
+  // Pre-fill with all organizations that have domains (so they get 100 score if no issues)
+  for (const org of allOrgs) {
+    orgDeductionMap.set(org.name, { id: org.id, deduction: 0 });
+  }
+
   for (const issue of allIssues) {
     const raw = issue.organizationName;
     if (!raw) continue;
@@ -589,4 +601,96 @@ export async function getFacultyScoreHistory(organizationId: number) {
     },
   });
   return stats;
+}
+
+export async function compareSnapshots(idA: number, idB: number) {
+  const [importA, importB] = await Promise.all([
+    prisma.import.findUnique({ where: { id: idA } }),
+    prisma.import.findUnique({ where: { id: idB } }),
+  ]);
+
+  if (!importA || !importB) {
+    throw new Error("One or both snapshots not found");
+  }
+
+  const getStat = async (imp: any) => {
+    if (!imp.snapshotDate) return null;
+    const start = new Date(imp.snapshotDate); start.setHours(0, 0, 0, 0);
+    const end = new Date(imp.snapshotDate); end.setHours(23, 59, 59, 999);
+    return prisma.dailyStat.findFirst({
+      where: { date: { gte: start, lte: end } },
+    });
+  };
+
+  const [statA, statB] = await Promise.all([getStat(importA), getStat(importB)]);
+
+  const scoreA = statA?.averageScore ?? 100;
+  const scoreB = statB?.averageScore ?? 100;
+
+  const snapshotADetails = {
+    id: importA.id,
+    date: importA.snapshotDate || importA.importDate,
+    totalIssues: statA?.totalIssues ?? importA.totalIssues ?? 0,
+    highCount: statA?.highCount ?? 0,
+    mediumCount: statA?.mediumCount ?? 0,
+    lowCount: statA?.lowCount ?? 0,
+    infoCount: statA?.infoCount ?? 0,
+    score: scoreA,
+  };
+
+  const snapshotBDetails = {
+    id: importB.id,
+    date: importB.snapshotDate || importB.importDate,
+    totalIssues: statB?.totalIssues ?? importB.totalIssues ?? 0,
+    highCount: statB?.highCount ?? 0,
+    mediumCount: statB?.mediumCount ?? 0,
+    lowCount: statB?.lowCount ?? 0,
+    infoCount: statB?.infoCount ?? 0,
+    score: scoreB,
+  };
+
+  const deltas = {
+    score: Number((scoreB - scoreA).toFixed(1)),
+    totalIssues: snapshotBDetails.totalIssues - snapshotADetails.totalIssues,
+    highCount: snapshotBDetails.highCount - snapshotADetails.highCount,
+    mediumCount: snapshotBDetails.mediumCount - snapshotADetails.mediumCount,
+    lowCount: snapshotBDetails.lowCount - snapshotADetails.lowCount,
+    infoCount: snapshotBDetails.infoCount - snapshotADetails.infoCount,
+  };
+
+  const [orgScoresA, orgScoresB, allOrgs] = await Promise.all([
+    getOrgScores({ importId: idA }),
+    getOrgScores({ importId: idB }),
+    prisma.organization.findMany({
+      where: {
+        domains: {
+          some: {},
+        },
+      },
+      select: { name: true, id: true },
+    }),
+  ]);
+
+  const scoresAMap = new Map(orgScoresA.map((o) => [o.organization.toLowerCase(), o.securityScore]));
+  const scoresBMap = new Map(orgScoresB.map((o) => [o.organization.toLowerCase(), o.securityScore]));
+
+  const orgComparisons = allOrgs.map((org) => {
+    const nameLower = org.name.toLowerCase();
+    const sA = scoresAMap.has(nameLower) ? scoresAMap.get(nameLower)! : 100;
+    const sB = scoresBMap.has(nameLower) ? scoresBMap.get(nameLower)! : 100;
+    return {
+      organizationId: org.id,
+      name: org.name,
+      scoreA: sA,
+      scoreB: sB,
+      delta: Number((sB - sA).toFixed(1)),
+    };
+  }).sort((a, b) => a.delta - b.delta);
+
+  return {
+    snapshotA: snapshotADetails,
+    snapshotB: snapshotBDetails,
+    deltas,
+    orgComparisons,
+  };
 }

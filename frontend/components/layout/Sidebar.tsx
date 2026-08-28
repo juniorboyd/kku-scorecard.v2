@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, AlertTriangle, Server, Building2,
-  Upload, ScrollText, LogOut, ShieldCheck, Users, Globe, RefreshCw, Network, Key, Activity
+  Upload, ScrollText, LogOut, ShieldCheck, Users, Globe, RefreshCw, Network, Key, Activity, ArrowLeftRight
 } from "lucide-react";
 import { authApi } from "@/lib/api";
 import { useMe } from "@/lib/me";
@@ -13,6 +13,7 @@ type NavItem = { href: string; label: string; icon: typeof LayoutDashboard; role
 const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard",     label: "ภาพรวมความปลอดภัย",       icon: LayoutDashboard },
   { href: "/organizations", label: "คะแนนแยกตามคณะ",   icon: Building2 },
+  { href: "/comparison",    label: "เปรียบเทียบแนวโน้ม",      icon: ArrowLeftRight },
   { href: "/issues",        label: "รายการปัญหาที่พบ",          icon: AlertTriangle },
   { href: "/assets",        label: "IP Address / Domain",          icon: Server },
   { href: "/api-request",   label: "ร้องขอ API",          icon: Activity },

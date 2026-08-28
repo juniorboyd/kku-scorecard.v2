@@ -7,7 +7,7 @@ import { authMiddleware, requireRole } from "../middleware/auth.ts";
 // Controllers
 import { uploadScoreFile, fetchNow, uploadMapping, processFile, reprocess, reprocessImportHandler, replaceImportHandler, deleteImportHandler, getImports, getImportStatus, cleanupCorruptedOrgs, downloadImportFile } from "../controllers/importController.ts";
 import { listOrganizations, listOrganizationsWithDomains, addOrganization, editOrganization, removeOrganization, addDomain, editDomain, removeDomain, removeDomainByHost, assignAssetHandler, getFacultyHistoryHandler } from "../controllers/organizationController.ts";
-import { getDashboard, getIssues, exportIssuesHandler, getIssueFiltersHandler, getAssetsHandler, getDomainListHandler, getOrgScoresHandler, getOrgStatsHandler, getSnapshotDates, exportAssetsHandler, exportDomainsHandler } from "../controllers/dashboardController.ts";
+import { getDashboard, getIssues, exportIssuesHandler, getIssueFiltersHandler, getAssetsHandler, getDomainListHandler, getOrgScoresHandler, getOrgStatsHandler, getSnapshotDates, exportAssetsHandler, exportDomainsHandler, getCompareOverview } from "../controllers/dashboardController.ts";
 import { getLogs } from "../controllers/logController.ts";
 import { getScorecardKey, updateScorecardKey } from "../controllers/settingsController.ts";
 import adminRoutes from "./admin.routes.ts";
@@ -27,6 +27,7 @@ const upload = multer({ storage, limits: { fileSize: 50 * 1024 * 1024 } });
 router.get("/dashboard", authMiddleware, getDashboard);
 router.get("/dashboard/snapshots", authMiddleware, getSnapshotDates);
 router.get("/dashboard/org-scores", authMiddleware, getOrgScoresHandler);
+router.get("/dashboard/compare", authMiddleware, getCompareOverview);
 router.get("/snapshots", authMiddleware, getSnapshotDates);
 router.get("/issues", authMiddleware, getIssues);
 router.get("/issues/export", authMiddleware, exportIssuesHandler);

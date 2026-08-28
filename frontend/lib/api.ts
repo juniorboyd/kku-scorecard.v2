@@ -35,6 +35,8 @@ export const dashboardApi = {
   getSnapshots: () => api.get("/api/dashboard/snapshots").then((r) => r.data),
   getOrgScores: (snapshotId?: number) =>
     api.get("/api/dashboard/org-scores", { params: snapshotId ? { snapshotId } : {} }).then((r) => r.data),
+  compareSnapshots: (idA: number, idB: number) =>
+    api.get("/api/dashboard/compare", { params: { idA, idB } }).then((r) => r.data),
 };
 
 // Issues

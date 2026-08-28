@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { getDashboardOverview, getIssueExplorer, getIssueFilterOptions, getAssets, getDomainList, getOrgScores, getOrgStats, getAvailableSnapshotDates, buildCsv } from "../services/dashboardService.ts";
+import { getDashboardOverview, getIssueExplorer, getIssueFilterOptions, getAssets, getDomainList, getOrgScores, getOrgStats, getAvailableSnapshotDates, buildCsv, compareSnapshots } from "../services/dashboardService.ts";
 
 export async function getDashboard(req: Request, res: Response) {
   try {
@@ -246,6 +246,20 @@ export async function getOrgStatsHandler(req: Request, res: Response) {
   try {
     const snapshotId = req.query.snapshotId ? Number(req.query.snapshotId) : undefined;
     const data = await getOrgStats({ importId: snapshotId });
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ error: (err as Error).message });
+  }
+}
+
+export async function getCompareOverview(req: Request, res: Response) {
+  try {
+    const idA = req.query.idA ? Number(req.query.idA) : undefined;
+    const idB = req.query.idB ? Number(req.query.idB) : undefined;
+    if (!idA || !idB) {
+      return res.status(400).json({ error: "Missing snapshot IDs (idA and idB are required)" });
+    }
+    const data = await compareSnapshots(idA, idB);
     res.json({ success: true, data });
   } catch (err) {
     res.status(500).json({ error: (err as Error).message });
