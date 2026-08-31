@@ -16,15 +16,25 @@ L.Icon.Default.mergeOptions({
 interface CampusMapProps {
   orgScores: any[];
   onMarkerClick?: (faculty: any) => void;
+  selectedFaculty?: any;
 }
 
-export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) {
+export default function CampusMap({ orgScores, onMarkerClick, selectedFaculty }: CampusMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
   
   const [hoveredFaculty, setHoveredFaculty] = useState<any>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const selectedFacultyRef = useRef<any>(null);
+
+  useEffect(() => {
+    selectedFacultyRef.current = selectedFaculty;
+    if (selectedFaculty) {
+      setHoveredFaculty(null);
+    }
+  }, [selectedFaculty]);
 
   useEffect(() => {
     if (typeof window === "undefined" || !containerRef.current) return;
@@ -47,6 +57,20 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
       
       markersRef.current = L.layerGroup().addTo(map);
       mapRef.current = map;
+
+      // Force clear hover states when mouse leaves map bounds or on zoom/pan start
+      map.on("mouseout", () => {
+        setHoveredFaculty(null);
+      });
+      map.on("movestart", () => {
+        setHoveredFaculty(null);
+      });
+      map.on("zoomstart", () => {
+        setHoveredFaculty(null);
+      });
+      map.on("click", () => {
+        setHoveredFaculty(null);
+      });
     }
 
     const map = mapRef.current;
@@ -97,6 +121,7 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         const grade = getGradeLabel(score);
 
         marker.on("click", () => {
+          setHoveredFaculty(null);
           if (onMarkerClick) {
             onMarkerClick({
               ...faculty,
@@ -109,6 +134,7 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
         });
         
         marker.on("mouseover", () => {
+          if (selectedFacultyRef.current) return;
           setHoveredFaculty({
             ...faculty,
             id: backendOrg ? backendOrg.id : faculty.id,
@@ -127,19 +153,26 @@ export default function CampusMap({ orgScores, onMarkerClick }: CampusMapProps) 
     }
   }, [orgScores, onMarkerClick]);
 
+  useEffect(() => {
+    if (selectedFaculty) {
+      setHoveredFaculty(null);
+    }
+  }, [selectedFaculty]);
+
   return (
     <>
       <div 
         className="relative w-full h-[500px] rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-slate-800 z-0"
         onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
+        onMouseLeave={() => setHoveredFaculty(null)}
       >
         <div ref={containerRef} className="w-full h-full" />
       </div>
       
       {/* Floating Fixed Tooltip for Score */}
-      {hoveredFaculty && (
+      {!selectedFaculty && hoveredFaculty && typeof document !== "undefined" && !document.querySelector(".backdrop-blur-sm") && (
         <div 
-          className="fixed z-[9999] pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[190px] animate-in fade-in zoom-in-95 duration-200"
+          className="fixed z-30 pointer-events-none bg-white dark:bg-slate-900 shadow-2xl rounded-3xl border border-slate-200 dark:border-slate-800 p-4 w-[190px] animate-in fade-in zoom-in-95 duration-200"
           style={{ left: mousePos.x + 15, top: mousePos.y + 15 }}
         >
           <MiniGaugeChart 

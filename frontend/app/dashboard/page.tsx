@@ -153,7 +153,11 @@ export default function DashboardPage() {
           <h3 className="font-bold text-slate-800 dark:text-slate-100">Khon Kaen University Campus Map</h3>
           <span className="text-xs text-gray-500 font-medium">Risk Distribution across faculties</span>
         </div>
-        <CampusMap orgScores={orgScores} onMarkerClick={(f) => setSelectedFaculty(f)} />
+        <CampusMap 
+          orgScores={orgScores} 
+          onMarkerClick={(f) => setSelectedFaculty(f)} 
+          selectedFaculty={selectedFaculty} 
+        />
       </div>
 
       {/* Charts Row 1 */}
