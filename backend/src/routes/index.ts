@@ -10,6 +10,7 @@ import { listOrganizations, listOrganizationsWithDomains, addOrganization, editO
 import { getDashboard, getIssues, exportIssuesHandler, getIssueFiltersHandler, getAssetsHandler, getDomainListHandler, getOrgScoresHandler, getOrgStatsHandler, getSnapshotDates, exportAssetsHandler, exportDomainsHandler, getCompareOverview } from "../controllers/dashboardController.ts";
 import { getLogs } from "../controllers/logController.ts";
 import { getScorecardKey, updateScorecardKey } from "../controllers/settingsController.ts";
+import { scanTargetHandler } from "../controllers/scannerController.ts";
 import adminRoutes from "./admin.routes.ts";
 
 const router = express.Router();
@@ -71,6 +72,10 @@ router.delete("/domains/:id", authMiddleware, requireRole("ADMIN", "ANALYST"), r
 
 // Logs
 router.get("/logs", authMiddleware, requireRole("ADMIN", "ANALYST"), getLogs);
+
+// Live Scanner
+router.get("/scan/target", authMiddleware, scanTargetHandler);
+router.post("/scan/target", authMiddleware, express.json(), scanTargetHandler);
 
 // Settings
 router.get("/settings/scorecard-key", authMiddleware, requireRole("ADMIN"), getScorecardKey);

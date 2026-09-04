@@ -63,3 +63,10 @@ postgres_data/
 # Upload files (SSC CSV data — may contain sensitive findings)
 backend/data/uploads/
 backend/data/raw/*.sql
+*.sql
+*.doc
+*.docx
+*.drawio
+*.jpg
+*.tar.gz
+

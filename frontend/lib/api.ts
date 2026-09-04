@@ -250,3 +250,9 @@ export const networkApi = {
   getTopology: () => api.get("/api/network/topology").then((r) => r.data),
 };
 
+// Live Scanner
+export const scannerApi = {
+  scanTarget: (target: string) => api.get("/api/scan/target", { params: { target } }).then((r) => r.data),
+};
+
+

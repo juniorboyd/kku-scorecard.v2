@@ -231,25 +231,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Org Risk Score Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-
-        {/* Left — Formula Card */}
-        <div className="card p-5 border-l-4 border-brand-800">
-          <h3 className="mb-1 text-brand-800">สูตรคำนวณคะแนน</h3>
-          <p className="text-xs text-gray-500 mb-4">Score Calculation Formula</p>
-          <div className="space-y-3">
-            {FORMULAS.map((f, i) => (
-              <div key={i} className="space-y-0.5">
-                <div className="flex flex-wrap items-baseline gap-x-2 font-mono text-xs">
-                  <span className="text-brand-800 font-semibold whitespace-nowrap">{f.lhs}</span>
-                  <span className="text-gray-400">=</span>
-                  <span className="text-gray-800 whitespace-nowrap">{f.rhs}</span>
-                </div>
-                <p className="text-xs text-gray-500 pl-2 border-l-2 border-gray-200">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className="grid grid-cols-1 gap-4 items-start">
 
         {/* Right — Org Score Table */}
         {(() => {

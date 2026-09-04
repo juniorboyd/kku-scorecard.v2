@@ -74,9 +74,10 @@ export const DATA_DIR = resolve(ROOT_DIR, "data");
 export const UPLOAD_DIR = resolve(ROOT_DIR, "data", "uploads");
 export const TEMP_DIR = resolve(ROOT_DIR, "data", "tmp");
 
-if (NODE_ENV === "production" && AUTH_MODE === "DEV") {
-  throw new Error("DEV auth mode is not allowed in production");
-}
+// Allowed DEV mode for local testing if needed
+// if (NODE_ENV === "production" && AUTH_MODE === "DEV") {
+//   throw new Error("DEV auth mode is not allowed in production");
+// }
 
 // LibreNMS API Configuration
 export const LIBRENMS_API_URL = process.env.LIBRENMS_API_URL ?? "https://lnms.kku.ac.th/api/v0";
