@@ -30,7 +30,7 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:postgres7842@postgres:5432/kku_scorecard?schema=public"
       PYTHON_EXECUTABLE: /usr/bin/python3
-      AUTH_MODE: DEV
+      AUTH_MODE: SSO
       SSO_APP_ID: 019f5e75-113a-7c95-ae18-04b99b7f653b
       SSO_CLIENT_ID: 019f5e75-113a-7c95-ae18-04b99b7f653b
       SSO_CLIENT_SECRET: NrpTzowwLTDaVJdoBmL9BL78j2s2OxlszoSJVMVfeznBViyN9utvcdCD56MZw9q7
